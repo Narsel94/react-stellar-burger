@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  position: relative;
+  /* width: 100%; */
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(28, 28, 33, 1);
+  width: 1280px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.headerList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+  width:100%;
+  margin: 0;
+  padding: 0;
+}
+
+.linkGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.listItemLogo {
+  position: absolute;
+  margin:0 calc((min(1280px, 100vw) - 290px) /2);
+}
+
+@media screen and (max-width: 700px) {
+  .headerList {
+    flex-direction: row;
+  }
+} 
