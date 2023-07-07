@@ -26,7 +26,10 @@ const BurgerIngredient = ({
       image_mobile: PropTypes.string,
       image_large: PropTypes.string,
       __v: PropTypes.number
-    })
+    }),
+    setIsModalOpen: PropTypes.func, 
+    setInfo: PropTypes.func, 
+    setChildren: PropTypes.func
   }
 
   //заполняем данными картинки

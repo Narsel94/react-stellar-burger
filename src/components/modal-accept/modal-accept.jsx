@@ -1,10 +1,12 @@
 import React from "react";
+import PropTypes from 'prop-types'; 
 import styles from "./modal-accept.module.css";
 import image from '../../images/graphics.svg';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
 export default function AcceptModal() {
+  
 
   return (
     <div className={`${styles.popup} pt-30 pb-30`}>

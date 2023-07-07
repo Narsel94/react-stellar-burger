@@ -9,53 +9,16 @@ import {
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import AcceptModal from "../modal-accept/modal-accept";
 
-const BurgerElementConstructor = ({ element }) => {
-
-  BurgerElementConstructor.propTypes ={
-    element: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number
-    })
-  }
-
-  if (element.type === "bun") {
-    return (
-      <ConstructorElement
-        text={element.name}
-        prise={element.price}
-        thumbnail={element.image_mobile}
-        type="top"
-        isLocked={true}
-      />
-    );
-  } else {
-    return (
-      <ConstructorElement
-        text={element.name}
-        prise={element.price}
-        thumbnail={element.image_mobile}
-      />
-    );
-  }
-};
-
 const BurgerConstructor = ({ data, setIsModalOpen, setChildren }) => {
   const mainElements = data.filter(
     (element) => element.type === "main" || element.type === "sauce"
   );
 
   BurgerConstructor.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
+    setIsModalOpen: PropTypes.func, 
+    setInfo: PropTypes.func, 
+    setChildren: PropTypes.func 
   }
 
   const onClick = () => {
@@ -78,7 +41,8 @@ const BurgerConstructor = ({ data, setIsModalOpen, setChildren }) => {
         {mainElements.map((item) => (
           <div className={`${styles.mainItem} pr-4 pl-4`} key={item._id}>
             <DragIcon type="primary" />
-            <BurgerElementConstructor element={item} />
+            <ConstructorElement text={item.name} prise={item.price}
+        thumbnail={item.image_mobile}/>
           </div>
         ))}
       </div>

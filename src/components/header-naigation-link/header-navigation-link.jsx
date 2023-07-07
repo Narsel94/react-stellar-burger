@@ -6,6 +6,7 @@ function NavigationLink(props) {
   NavigationLink.propTypes = {
     text: PropTypes.string,
     href: PropTypes.string,
+    children: PropTypes.element
   };
 
   const [isActive, setActive] = React.useState(null);

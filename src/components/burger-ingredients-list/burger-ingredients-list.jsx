@@ -9,8 +9,10 @@ export default function IngredientsList({ type, data, setIsModalOpen, setInfo, s
   
   IngredientsList.propTypes = {
     type: PropTypes.string, 
-    data: PropTypes.array,
-
+    data: PropTypes.arrayOf(PropTypes.object),
+    setIsModalOpen: PropTypes.func, 
+    setInfo: PropTypes.func, 
+    setChildren: PropTypes.func, 
   }
 
   return (

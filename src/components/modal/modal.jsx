@@ -1,16 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientModal from "../modal-ingredient/modal-ingredient";
-import AcceptModal from "../modal-accept/modal-accept";
+import PropTypes from 'prop-types'; 
 
 
 export const modalRoot = document.getElementById("react-modal");
 
-export function Modal({ setIsModalOpen, info, setAccept, isAccept, children }) {
-  
-  // const [isAccept, setAccept] = React.useState(false);
+export function Modal({ setIsModalOpen, children }) {
+
+  Modal.propTypes ={
+    children: PropTypes.element.isRequired,
+    setIsModalOpen: PropTypes.func
+  }
   
   const onClick = () => {
     setIsModalOpen(false);

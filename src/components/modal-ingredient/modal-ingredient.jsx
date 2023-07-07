@@ -1,9 +1,27 @@
 import React from "react";
+import PropTypes from 'prop-types'; 
 import styles from './modal-ingredient.module.css';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function IngredientModal({info, setIsModalOpen}){
-  //const image = <img src={info.image_large} alt={info.name} />;
+ 
+  IngredientModal.propTypes = {
+    info: PropTypes.shape({
+      _id: PropTypes.string,
+      name: PropTypes.string,
+      type: PropTypes.string,
+      proteins: PropTypes.number,
+      fat: PropTypes.number,
+      carbohydrates: PropTypes.number,
+      calories: PropTypes.number,
+      price: PropTypes.number,
+      image: PropTypes.string,
+      image_mobile: PropTypes.string,
+      image_large: PropTypes.string,
+      __v: PropTypes.number
+    }).isRequired,
+    setIsModalOpen: PropTypes.func
+  }
 
   function onClick() {
     setIsModalOpen(false)

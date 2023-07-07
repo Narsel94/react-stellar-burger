@@ -9,9 +9,14 @@ export default function BurgerIngredients({
   setInfo,
   setChildren,
 }) {
-  BurgerIngredients.proTypes = {
-    data: PropTypes.array,
-  };
+
+  BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setIsModalOpen: PropTypes.func, 
+    setInfo: PropTypes.func, 
+    setChildren: PropTypes.func, 
+  }
+  
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.ingredientsSection} mt-10`} id="buns">
