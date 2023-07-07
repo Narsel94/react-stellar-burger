@@ -5,50 +5,12 @@
   scroll-behavior: smooth;
 }
 
-.ingredientsSection {
-  display: flex;
-  flex-direction: column;
-}
-
 .wrapper {
   scroll-behavior: smooth;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  
   max-height: 732px;
-}
-
-.card {
-  max-width: 272px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 208px;
-  cursor: pointer;
-  position: relative;
-}
- 
-.counter {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-.text {
-  text-align: center;
-}
-
-.priceBlock {
-  display: flex;
-  flex-direction: row;
-  
-}
-
-.image {
-  outline: 1px solod orange;
-  padding: 2px;
-  
 }
 
 .wrapper::-webkit-scrollbar{
@@ -59,10 +21,8 @@
   background-color: rgba(133, 133, 173, 1);
   width: 8px;
   border-radius: 3px;
-
 }
 
 .wrapper::-webkit-scrollbar-track{
   background-color: rgba(47, 47, 55, 1);
-
 }

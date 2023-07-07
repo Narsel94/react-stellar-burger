@@ -8,17 +8,15 @@
   align-items: center;
   justify-content: center;
   line-height: 18px;
-
 }
 
 .linkActive{
   color: white;
 }
 
-.linkInctive {
-  color: rgba(133, 133, 173, 1);
+.linkActive svg {
+  fill: white;
 }
-
 
 .link:hover {
   box-shadow: 0px 2px 2px 1px rgb(85, 85, 207);

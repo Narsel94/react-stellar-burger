@@ -1,37 +1,34 @@
 import React from "react";
-import styles from './header-navigation-link.module.css';
+import styles from "./header-navigation-link.module.css";
+import PropTypes from "prop-types";
 
 function NavigationLink(props) {
-  const [isActive, setActiv] = React.useState(false);
+  NavigationLink.propTypes = {
+    text: PropTypes.string,
+    href: PropTypes.string,
+  };
 
-  const onFocusLink = (e) => {
-    //console.log(e.target);
-    // e.target.classList.remove('text_color_inactive');
-    // e.target.classList.add('text_color_primary');
-    setActiv({
-      isActive: !isActive,
-    })
-    console.log(`focus ${isActive}`)
-  }
+  const [isActive, setActive] = React.useState(null);
 
-  React.useEffect(()=> {
-
-  }, [isActive])
+  const onFocusLink = () => {
+    setActive(styles.linkActive);
+  };
 
   const onLeaveLink = () => {
-    setActiv({
-      isActive: !isActive,
-    })
-    console.log(`leave ${isActive}`)
-  }
-
-  // text_color_inactive ${styles.link}`}>
+    setActive(null);
+  };
 
   return (
-    <a  onFocus={onFocusLink} onBlur={onLeaveLink} className={`${styles.link} text text_type_main-default ${isActive ? "text_color_primary" : "text_color_inactive"}`}>
-      {props.children} 
+    <a
+      href={props.href}
+      onClick={onFocusLink}
+      onBlur={onLeaveLink}
+      className={`${styles.link} ${isActive} text text_type_main-default text_color_inactive`}
+    >
+      {props.children}
+      <span className="ml-2">{props.text}</span>
     </a>
-  )
-};
+  );
+}
 
-export default NavigationLink
+export default NavigationLink;

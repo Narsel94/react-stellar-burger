@@ -6,7 +6,6 @@ import { getIngredientData } from "../api/api";
 import Preloader from "../loader/loader";
 import { Modal } from "../modal/modal";
 import { Overlay } from "../overlay/overlay";
-import IngredientModal from "../modal-ingredient/modal-ingredient";
 
 function App() {
   const [state, setState] = React.useState({
@@ -44,8 +43,12 @@ function App() {
         {isModalOpen && (
           <>
             <Overlay setIsModalOpen={setIsModalOpen} />
-            <Modal setIsModalOpen={setIsModalOpen} info={info} setChildren={setChildren} children={modalChildren}>
-            </Modal>
+            <Modal
+              setIsModalOpen={setIsModalOpen}
+              info={info}
+              setChildren={setChildren}
+              children={modalChildren}
+            ></Modal>
           </>
         )}
       </div>
