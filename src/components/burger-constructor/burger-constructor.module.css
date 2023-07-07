@@ -1,0 +1,73 @@
+.bill {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.bill p {
+  margin-right: 40px;
+}
+
+.bill svg {
+  width: 36px;
+  height: 36px;
+}
+
+.constructor {
+  display: flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+.topLock {
+  padding-left: 40px;
+}
+
+.bottonLock {
+  padding-left: 40px;
+}
+
+.mainItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mainElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+.mainElement::-webkit-scrollbar{
+  width: 8px;
+}
+
+.mainElement::-webkit-scrollbar-thumb{
+  background-color: rgba(133, 133, 173, 1);
+  width: 8px;
+  border-radius: 3px;
+
+}
+
+.mainElement::-webkit-scrollbar-track{
+  background-color: rgba(47, 47, 55, 1);
+
+}
+
+.billBlock {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+}
+
+.billBlock svg {
+  width: 36px;
+  height: 36px;
+}

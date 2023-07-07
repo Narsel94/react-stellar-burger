@@ -1,8 +1,6 @@
 .section {
-  width: calc(50% - 20px);
-  max-height: 650px;
-  scroll-behavior:smooth;
-  overflow: auto;
+  max-width: calc(50% - 20px);
+  max-height: 912px;
 }
 
 .section::-webkit-scrollbar{
