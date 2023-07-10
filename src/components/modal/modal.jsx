@@ -1,18 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
-import PropTypes from 'prop-types'; 
-
+import PropTypes from "prop-types";
 
 export const modalRoot = document.getElementById("react-modal");
 
 export function Modal({ setIsModalOpen, children }) {
-
-  Modal.propTypes ={
-    children: PropTypes.element.isRequired,
-    setIsModalOpen: PropTypes.func
-  }
-  
   const onClick = () => {
     setIsModalOpen(false);
   };
@@ -29,10 +22,12 @@ export function Modal({ setIsModalOpen, children }) {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={styles.modal} onClick={onClick}>
-      {children}
-    </div>,
+    <div className={styles.modal}>{children}</div>,
     modalRoot
-  )
-
+  );
 }
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  setIsModalOpen: PropTypes.func,
+};
