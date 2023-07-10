@@ -3,12 +3,6 @@ import styles from "./header-navigation-link.module.css";
 import PropTypes from "prop-types";
 
 function NavigationLink(props) {
-  NavigationLink.propTypes = {
-    text: PropTypes.string,
-    href: PropTypes.string,
-    children: PropTypes.element
-  };
-
   const [isActive, setActive] = React.useState(null);
 
   const onFocusLink = () => {
@@ -31,5 +25,11 @@ function NavigationLink(props) {
     </a>
   );
 }
+
+NavigationLink.propTypes = {
+  text: PropTypes.string,
+  href: PropTypes.string,
+  children: PropTypes.element,
+};
 
 export default NavigationLink;

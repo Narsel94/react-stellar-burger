@@ -6,18 +6,7 @@ import TabBar from "../tab-bar/tab-bar";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 
-
 export default function Main({ data, setIsModalOpen, setInfo, setChildren }) {
-
-  Main.propTypes ={
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // data: PropTypes.arrayOf(PropTypes.object),
-    setIsModalOpen: PropTypes.func, 
-    setInfo: PropTypes.func, 
-    setChildren: PropTypes.func, 
-    
-  }
-
   return (
     <main className={styles.main}>
       <Section>
@@ -42,3 +31,10 @@ export default function Main({ data, setIsModalOpen, setInfo, setChildren }) {
     </main>
   );
 }
+
+Main.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setIsModalOpen: PropTypes.func,
+  setInfo: PropTypes.func,
+  setChildren: PropTypes.func,
+};

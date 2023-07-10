@@ -9,14 +9,6 @@ export default function BurgerIngredients({
   setInfo,
   setChildren,
 }) {
-
-  BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    setIsModalOpen: PropTypes.func, 
-    setInfo: PropTypes.func, 
-    setChildren: PropTypes.func, 
-  }
-  
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.ingredientsSection} mt-10`} id="buns">
@@ -38,7 +30,6 @@ export default function BurgerIngredients({
           setIsModalOpen={setIsModalOpen}
           setInfo={setInfo}
           setChildren={setChildren}
-
         />
       </div>
       <div className={`${styles.ingredientsSection} mt-10`} id="main">
@@ -49,9 +40,28 @@ export default function BurgerIngredients({
           setIsModalOpen={setIsModalOpen}
           setInfo={setInfo}
           setChildren={setChildren}
-
         />
       </div>
     </div>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
+  })).isRequired,
+  setIsModalOpen: PropTypes.func,
+  setInfo: PropTypes.func,
+  setChildren: PropTypes.func,
+};

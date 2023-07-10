@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from './tab-bar.module.css'
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const TabBar = () => {
@@ -7,7 +7,7 @@ const TabBar = () => {
 
   const [current, setCurrent] = React.useState('one')
   return (
-    <div style={{ display: 'flex' }}>
+    <div className={styles.tabBar}>
       <Tab value="one" active={current === 'one'} onClick={setCurrent}>
         One
       </Tab>

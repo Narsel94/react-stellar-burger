@@ -11,27 +11,6 @@ const BurgerIngredient = ({
   setInfo,
   setChildren,
 }) => {
-
-  BurgerIngredient.propTypes ={
-    ingredient: PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number
-    }),
-    setIsModalOpen: PropTypes.func, 
-    setInfo: PropTypes.func, 
-    setChildren: PropTypes.func
-  }
-
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;
 
@@ -60,6 +39,26 @@ const BurgerIngredient = ({
       </p>
     </div>
   );
+};
+
+BurgerIngredient.propTypes = {
+  ingredient: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
+  }).isRequired,
+  setIsModalOpen: PropTypes.func,
+  setInfo: PropTypes.func,
+  setChildren: PropTypes.func,
 };
 
 export default BurgerIngredient;
