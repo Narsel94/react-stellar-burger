@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import PropTypes from "prop-types";
+import { Overlay } from "../overlay/overlay";
 
 export const modalRoot = document.getElementById("react-modal");
 
@@ -21,8 +22,12 @@ export function Modal({ setIsModalOpen, children }) {
     return () => document.removeEventListener("keydown", onEsc);
   }, []);
 
-  return ReactDOM.createPortal(
-    <div className={styles.modal}>{children}</div>,
+  return ReactDOM.createPortal((
+    <>
+    <div className={styles.modal}>{children}</div>
+    <Overlay setIsModalOpen={setIsModalOpen}/>
+    </>
+    ),
     modalRoot
   );
 }

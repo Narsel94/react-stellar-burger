@@ -42,7 +42,6 @@ function App() {
         ></Main>
         {isModalOpen && (
           <>
-            <Overlay setIsModalOpen={setIsModalOpen} />
             <Modal
               setIsModalOpen={setIsModalOpen}
               info={info}
