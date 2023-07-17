@@ -33,8 +33,5 @@ export default function Main({ data, setIsModalOpen, setInfo, setChildren }) {
 }
 
 Main.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setIsModalOpen: PropTypes.func,
-  setInfo: PropTypes.func,
-  setChildren: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object)
 };

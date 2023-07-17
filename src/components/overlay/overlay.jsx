@@ -1,18 +1,19 @@
 import React from "react";
-import PropTypes from 'prop-types'; 
 import ReactDOM from "react-dom";
 import styles from "./overlay.module.css";
+import { closeModal } from "../../services/actions/modal";
+import { useDispatch } from "react-redux";
+
 
 const modalRoot = document.getElementById("react-modal");
 
-export function Overlay({setIsModalOpen}) {
+export function Overlay() {
 
-Overlay.propTypes = {
-  setIsModalOpen: PropTypes.func
-}
+  const dispatch = useDispatch();
+
 
 const onClick = () => {
-  setIsModalOpen(false)
+  dispatch(closeModal())
 }
 
 

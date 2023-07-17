@@ -4,22 +4,21 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientModal from "../modal-ingredient/modal-ingredient";
 import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { changeOnIngredientModal } from "../../services/actions/modal";
+import { useDispatch } from "react-redux";
+import { openIngredientDetails } from "../../services/actions/ingredients";
 
 const BurgerIngredient = ({
   ingredient,
-  setIsModalOpen,
-  setInfo,
-  setChildren,
+  setIsModalOpen
 }) => {
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;
+  const dispatch = useDispatch();
 
   const onClick = () => {
-    setIsModalOpen(true);
-    setInfo(ingredient);
-    setChildren(
-      <IngredientModal info={ingredient} setIsModalOpen={setIsModalOpen} />
-    );
+    dispatch(changeOnIngredientModal(true));
+    dispatch(openIngredientDetails(ingredient))
   };
 
   return (
@@ -56,9 +55,6 @@ BurgerIngredient.propTypes = {
     image_large: PropTypes.string,
     __v: PropTypes.number,
   }).isRequired,
-  setIsModalOpen: PropTypes.func,
-  setInfo: PropTypes.func,
-  setChildren: PropTypes.func,
 };
 
 export default BurgerIngredient;

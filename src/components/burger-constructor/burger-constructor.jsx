@@ -7,16 +7,18 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import AcceptModal from "../modal-accept/modal-accept";
+import { changeOnOrderModal } from "../../services/actions/modal";
+import { useDispatch } from "react-redux";
 
-const BurgerConstructor = ({ data, setIsModalOpen, setChildren }) => {
+const BurgerConstructor = ({ data }) => {
   const mainElements = React.useMemo((() => data.filter(
     (element) => element.type === "main" || element.type === "sauce"
   )), [data]);
 
+  const dispatch = useDispatch();
+
   const onClick = () => {
-    setIsModalOpen(true);
-    setChildren(<AcceptModal setIsModalOpen={setIsModalOpen} />);
+    dispatch(changeOnOrderModal())
   };
 
   return (
@@ -70,24 +72,21 @@ const BurgerConstructor = ({ data, setIsModalOpen, setChildren }) => {
   );
 };
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  })).isRequired,
-  setIsModalOpen: PropTypes.func,
-  setInfo: PropTypes.func,
-  setChildren: PropTypes.func,
-};
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.arrayOf(PropTypes.shape({
+//     _id: PropTypes.string,
+//     name: PropTypes.string,
+//     type: PropTypes.string,
+//     proteins: PropTypes.number,
+//     fat: PropTypes.number,
+//     carbohydrates: PropTypes.number,
+//     calories: PropTypes.number,
+//     price: PropTypes.number,
+//     image: PropTypes.string,
+//     image_mobile: PropTypes.string,
+//     image_large: PropTypes.string,
+//     __v: PropTypes.number,
+//   })).isRequired,
+// };
 
 export default BurgerConstructor;

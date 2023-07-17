@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import IngredientsList from "../burger-ingredients-list/burger-ingredients-list";
+import { useDispatch, useSelector } from 'react-redux';
+import { getData } from "../../services/actions/ingredients";
+
 
 export default function BurgerIngredients({
   data,
@@ -9,6 +12,18 @@ export default function BurgerIngredients({
   setInfo,
   setChildren,
 }) {
+
+  const dispatch = useDispatch();
+
+  const {ingredients} = useSelector(state => state)
+  
+  React.useEffect(
+    () => {
+      dispatch(getData());
+    }, 
+    [dispatch]
+  ) 
+
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.ingredientsSection} mt-10`} id="buns">
@@ -16,7 +31,7 @@ export default function BurgerIngredients({
 
         <IngredientsList
           type="bun"
-          data={data}
+          data={ingredients}
           setIsModalOpen={setIsModalOpen}
           setInfo={setInfo}
           setChildren={setChildren}
@@ -26,42 +41,38 @@ export default function BurgerIngredients({
         <h2 className="text text_type_main-medium mb-6">Соусы</h2>
         <IngredientsList
           type="sauce"
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredients}
+
         />
       </div>
       <div className={`${styles.ingredientsSection} mt-10`} id="main">
         <h2 className="text text_type_main-medium mb-6">Начинки</h2>
         <IngredientsList
           type="main"
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredients}
+   
         />
       </div>
     </div>
   );
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  })).isRequired,
-  setIsModalOpen: PropTypes.func,
-  setInfo: PropTypes.func,
-  setChildren: PropTypes.func,
-};
+// BurgerIngredients.propTypes = {
+//   data: PropTypes.arrayOf(PropTypes.shape({
+//     _id: PropTypes.string,
+//     name: PropTypes.string,
+//     type: PropTypes.string,
+//     proteins: PropTypes.number,
+//     fat: PropTypes.number,
+//     carbohydrates: PropTypes.number,
+//     calories: PropTypes.number,
+//     price: PropTypes.number,
+//     image: PropTypes.string,
+//     image_mobile: PropTypes.string,
+//     image_large: PropTypes.string,
+//     __v: PropTypes.number,
+//   })).isRequired,
+//   setIsModalOpen: PropTypes.func,
+//   setInfo: PropTypes.func,
+//   setChildren: PropTypes.func,
+// };

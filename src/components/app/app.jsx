@@ -5,22 +5,28 @@ import Main from "../main/main";
 import { getIngredientData } from "../api/api";
 import Preloader from "../loader/loader";
 import { Modal } from "../modal/modal";
-import { Overlay } from "../overlay/overlay";
+import { useSelector, useDispatch} from "react-redux";
+import { getData,getTextData } from "../../services/actions/ingredients";
 
 function App() {
   const [state, setState] = React.useState({
     ingredientData: null,
-    isLoading: true,
+    isLoading: false,
   });
 
-  const [modalChildren, setChildren] = React.useState(null);
+  const ingredientData = useSelector(state => state.indredients)
+
+  const dispatch= useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [info, setInfo] = useState(null);
 
+  const {isOrderModalOpen, isIngredientModalOpen} = useSelector(state => state.modal)
+  
+
   React.useEffect(() => {
     setState({ ...state, isLoading: true });
-    getIngredientData()
+    dispatch(getIngredientData())
       .then((res) => {
         const data = res.data;
         setState({ ingredientData: data, isLoading: false });
@@ -35,21 +41,17 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <Main
-          data={state.ingredientData}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredientData}
+    
         ></Main>
-        {isModalOpen && (
+        {isOrderModalOpen || isIngredientModalOpen  && (
           <>
             <Modal
-              setIsModalOpen={setIsModalOpen}
-              info={info}
-              setChildren={setChildren}
-              children={modalChildren}
+
             ></Modal>
           </>
         )}
+        
       </div>
     );
   }

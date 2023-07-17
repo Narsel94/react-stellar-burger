@@ -3,10 +3,14 @@ import PropTypes from "prop-types";
 import styles from "./modal-accept.module.css";
 import image from "../../images/graphics.svg";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { closeModal } from "../../services/actions/modal";
+import { useDispatch } from "react-redux";
 
-export default function AcceptModal({ setIsModalOpen }) {
+export default function AcceptModal() {
+  const dispatch = useDispatch();
+
   function onClick() {
-    setIsModalOpen(false);
+    dispatch(closeModal())
   }
 
   return (
@@ -28,7 +32,4 @@ export default function AcceptModal({ setIsModalOpen }) {
   );
 }
 
-AcceptModal.propTypes ={
-  setIsModalOpen: PropTypes.func
-}
 

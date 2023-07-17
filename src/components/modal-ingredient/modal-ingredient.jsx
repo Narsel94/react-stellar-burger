@@ -2,11 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./modal-ingredient.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useSelector } from "react-redux";
+import { closeModal } from "../../services/actions/modal";
+import { useDispatch } from "react-redux";
 
-export default function IngredientModal({ info, setIsModalOpen }) {
+
+
+export default function IngredientModal() {
+  const dispatch = useDispatch();
+
   function onClick() {
-    setIsModalOpen(false);
+    dispatch(closeModal())
   }
+
+  const info = useSelector(state => state.ingredients.currentIngredient)
 
   return (
     <div className={`${styles.popup} pt-10 pr-10 pl-10 pb-15`}>
@@ -58,20 +67,3 @@ export default function IngredientModal({ info, setIsModalOpen }) {
   );
 }
 
-IngredientModal.propTypes = {
-  info: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }).isRequired,
-  setIsModalOpen: PropTypes.func,
-};

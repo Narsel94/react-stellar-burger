@@ -19,3 +19,7 @@ export function getIngredientData() {
     headers: config.headers,
   });
 }
+
+export function testRequest(){
+  fetch(config)
+}
