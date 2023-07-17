@@ -5,28 +5,25 @@ import Main from "../main/main";
 import { getIngredientData } from "../api/api";
 import Preloader from "../loader/loader";
 import { Modal } from "../modal/modal";
-import { useSelector, useDispatch} from "react-redux";
-import { getData,getTextData } from "../../services/actions/ingredients";
+import { useSelector } from "react-redux";
 
 function App() {
   const [state, setState] = React.useState({
     ingredientData: null,
-    isLoading: false,
+    isLoading: true,
   });
 
-  const ingredientData = useSelector(state => state.indredients)
+  const ingredientData = useSelector((state) => state.indredients);
+  const isOrderModalOpen = useSelector((state) => state.modal.isOrderModalOpen);
+  const isIngredientModalOpen = useSelector(
+    (state) => state.modal.isIngredientModalOpen
+  );
 
-  const dispatch= useDispatch();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [info, setInfo] = useState(null);
-
-  const {isOrderModalOpen, isIngredientModalOpen} = useSelector(state => state.modal)
-  
+  const isLoading = useSelector((state) => state.ingredients.igredientsRequest)
 
   React.useEffect(() => {
     setState({ ...state, isLoading: true });
-    dispatch(getIngredientData())
+    getIngredientData()
       .then((res) => {
         const data = res.data;
         setState({ ingredientData: data, isLoading: false });
@@ -40,18 +37,8 @@ function App() {
     return (
       <div className={styles.app}>
         <AppHeader />
-        <Main
-          data={ingredientData}
-    
-        ></Main>
-        {isOrderModalOpen || isIngredientModalOpen  && (
-          <>
-            <Modal
-
-            ></Modal>
-          </>
-        )}
-        
+        <Main data={state.ingredientData}></Main>
+        {(isOrderModalOpen || isIngredientModalOpen) && <Modal />}
       </div>
     );
   }

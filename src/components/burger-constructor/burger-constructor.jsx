@@ -8,12 +8,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { changeOnOrderModal } from "../../services/actions/modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const BurgerConstructor = ({ data }) => {
   const mainElements = React.useMemo((() => data.filter(
     (element) => element.type === "main" || element.type === "sauce"
   )), [data]);
+
+  const {bun, ingredients} = useSelector(state => state.constructor) 
 
   const dispatch = useDispatch();
 

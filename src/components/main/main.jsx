@@ -6,7 +6,7 @@ import TabBar from "../tab-bar/tab-bar";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 
-export default function Main({ data, setIsModalOpen, setInfo, setChildren }) {
+export default function Main({ data }) {
   return (
     <main className={styles.main}>
       <Section>
@@ -14,18 +14,12 @@ export default function Main({ data, setIsModalOpen, setInfo, setChildren }) {
           Соберите бургер
         </h1>
         <TabBar />
-        <BurgerIngredients
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
-        />
+        <BurgerIngredients/>
       </Section>
       <Section>
         <BurgerConstructor
           data={data}
-          setChildren={setChildren}
-          setIsModalOpen={setIsModalOpen}
+         
         />
       </Section>
     </main>

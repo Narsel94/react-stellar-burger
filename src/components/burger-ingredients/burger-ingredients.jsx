@@ -6,16 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getData } from "../../services/actions/ingredients";
 
 
-export default function BurgerIngredients({
-  data,
-  setIsModalOpen,
-  setInfo,
-  setChildren,
-}) {
+export default function BurgerIngredients({}) {
 
   const dispatch = useDispatch();
 
-  const {ingredients} = useSelector(state => state)
+  const {ingredients} = useSelector(state => state.ingredients);
+
+
   
   React.useEffect(
     () => {
@@ -32,9 +29,7 @@ export default function BurgerIngredients({
         <IngredientsList
           type="bun"
           data={ingredients}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+
         />
       </div>
       <div className={`${styles.ingredientsSection} mt-10`} id="sauces">

@@ -7,25 +7,28 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { changeOnIngredientModal } from "../../services/actions/modal";
 import { useDispatch } from "react-redux";
 import { openIngredientDetails } from "../../services/actions/ingredients";
+import { addIngredient } from "../../services/actions/constructor";
 
 const BurgerIngredient = ({
   ingredient,
-  setIsModalOpen
 }) => {
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;
   const dispatch = useDispatch();
 
   const onClick = () => {
-    dispatch(changeOnIngredientModal(true));
+    dispatch(changeOnIngredientModal());
     dispatch(openIngredientDetails(ingredient))
-  };
+    // dispatch(addIngredient(ingredient._id)) \
+    };
+
 
   return (
     <div
       className={`${styles.card} text text_type_main-default pl-4 pr-4`}
       key={ingredient.id}
       onClick={onClick}
+      // onDoubleClick={onDoubleClick}
     >
       <Counter count={1} size="default" extraClass={`${styles.counter} m-1`} />
       <div className={styles.image}>{image}</div>
