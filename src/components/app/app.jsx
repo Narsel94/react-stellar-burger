@@ -21,15 +21,15 @@ function App() {
 
   const isLoading = useSelector((state) => state.ingredients.igredientsRequest)
 
-  React.useEffect(() => {
-    setState({ ...state, isLoading: true });
-    getIngredientData()
-      .then((res) => {
-        const data = res.data;
-        setState({ ingredientData: data, isLoading: false });
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // React.useEffect(() => {
+  //   setState({ ...state, isLoading: true });
+  //   getIngredientData()
+  //     .then((res) => {
+  //       const data = res.data;
+  //       setState({ ingredientData: data, isLoading: false });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   if (state.isLoading) {
     return <Preloader />;

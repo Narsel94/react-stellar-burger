@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientModal from "../modal-ingredient/modal-ingredient";
 import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { changeOnIngredientModal } from "../../services/actions/modal";
 import { useDispatch } from "react-redux";
 import { openIngredientDetails } from "../../services/actions/ingredients";
-import { addIngredient } from "../../services/actions/constructor";
 
 const BurgerIngredient = ({
   ingredient,
@@ -19,7 +17,6 @@ const BurgerIngredient = ({
   const onClick = () => {
     dispatch(changeOnIngredientModal());
     dispatch(openIngredientDetails(ingredient))
-    // dispatch(addIngredient(ingredient._id)) \
     };
 
 
