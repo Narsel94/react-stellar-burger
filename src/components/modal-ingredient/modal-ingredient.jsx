@@ -2,20 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./modal-ingredient.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
-import { closeModal } from "../../services/actions/modal";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { closeModal } from "../store/modal-slice";
+import { clearIngredientDetails } from "../store/ingredients-slice";
+
 
 
 
 export default function IngredientModal() {
   const dispatch = useDispatch();
+  const info = useSelector(state => state.ingredients.currentIngredient);
 
   function onClick() {
-    dispatch(closeModal())
+    dispatch(closeModal());
+    dispatch(clearIngredientDetails())
   }
 
-  const info = useSelector(state => state.ingredients.currentIngredient)
 
   return (
     <div className={`${styles.popup} pt-10 pr-10 pl-10 pb-15`}>

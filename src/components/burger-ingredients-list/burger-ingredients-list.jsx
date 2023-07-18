@@ -14,7 +14,6 @@ export default function IngredientsList({type, data}) {
         <BurgerIngredient
           ingredient={item}
           key={item._id}
-          
         />
       ))}
     </div>

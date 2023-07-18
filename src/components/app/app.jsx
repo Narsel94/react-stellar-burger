@@ -1,43 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
-import { getIngredientData } from "../api/api";
 import Preloader from "../loader/loader";
 import { Modal } from "../modal/modal";
-import { useSelector } from "react-redux";
+// import { getIngredientData } from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredientsData } from "../store/ingredients-slice";
+
 
 function App() {
-  const [state, setState] = React.useState({
-    ingredientData: null,
-    isLoading: true,
-  });
+  const {isOrderModalOpen, isIngredientModalOpen} = useSelector(state => state.modal)
+  const {status, error} = useSelector(state => state.ingredients)
+  const dispatch = useDispatch();
 
-  const ingredientData = useSelector((state) => state.indredients);
-  const isOrderModalOpen = useSelector((state) => state.modal.isOrderModalOpen);
-  const isIngredientModalOpen = useSelector(
-    (state) => state.modal.isIngredientModalOpen
-  );
+  useEffect(() =>{
+    dispatch(fetchIngredientsData());
+  }, [dispatch])
 
-  const isLoading = useSelector((state) => state.ingredients.igredientsRequest)
-
-  // React.useEffect(() => {
-  //   setState({ ...state, isLoading: true });
-  //   getIngredientData()
-  //     .then((res) => {
-  //       const data = res.data;
-  //       setState({ ingredientData: data, isLoading: false });
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  if (state.isLoading) {
+  if (status === 'loading') {
     return <Preloader />;
-  } else {
+  } else if (error) { 
+    return (
+      <h1 className="text text_type_main-medium">Что-то пошло не так, error:{error} </h1>
+    )
+  }
+  
+  else {
     return (
       <div className={styles.app}>
         <AppHeader />
-        <Main data={state.ingredientData}></Main>
+        <Main></Main>
         {(isOrderModalOpen || isIngredientModalOpen) && <Modal />}
       </div>
     );

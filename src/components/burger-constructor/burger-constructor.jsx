@@ -7,35 +7,38 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { changeOnOrderModal } from "../../services/actions/modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {openOrderDetailsModal} from '../store/modal-slice'
 
-const BurgerConstructor = ({ data }) => {
-  const mainElements = React.useMemo((() => data.filter(
-    (element) => element.type === "main" || element.type === "sauce"
-  )), [data]);
 
-  const {bun, ingredients} = useSelector(state => state.constructor) 
-
+const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const ingredients = useSelector(state => state.ingredients.ingredients);
+
+
+  // const mainElements = React.useMemo((() => ingredients.filter(
+  //   (element) => element.type === "main" || element.type === "sauce"
+  // )), [ingredients]);
+
+
 
   const onClick = () => {
-    dispatch(changeOnOrderModal())
+    dispatch(openOrderDetailsModal());
   };
 
   return (
     <div className={styles.constructor}>
       <div className={`${styles.topLock} pr-6`}>
-        <ConstructorElement
-          text={data[0].name}
+        {/* <ConstructorElement
+          text={ingredients[0].name}
           type="top"
           isLocked={true}
-          prise={data[0].price}
-          thumbnail={data[0].image_mobile}
-        ></ConstructorElement>
+          prise={ingredients[0].price}
+          thumbnail={ingredients[0].image_mobile}
+        ></ConstructorElement> */}
       </div>
       <div className={styles.mainElement}>
-        {mainElements.map((item) => (
+        {ingredients.map((item) => (
           <div className={`${styles.mainItem} pr-4 pl-4`} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
@@ -47,14 +50,14 @@ const BurgerConstructor = ({ data }) => {
         ))}
       </div>
       <div className={`${styles.bottonLock} mr-6`}>
-        <ConstructorElement
-          text={data[0].name}
+        {/* <ConstructorElement
+          text={ingredients[0].name}
           type="bottom"
           isLocked={true}
-          prise={data[0].price}
-          thumbnail={data[0].image_mobile}
+          prise={ingredients[0].price}
+          thumbnail={ingredients[0].image_mobile}
           extraClass={styles.element}
-        />
+        /> */}
       </div>
       <div>
         <div className={`${styles.bill} mr-4`} key="bill">

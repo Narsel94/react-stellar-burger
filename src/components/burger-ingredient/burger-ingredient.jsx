@@ -3,20 +3,31 @@ import PropTypes from "prop-types";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { changeOnIngredientModal } from "../../services/actions/modal";
-import { useDispatch } from "react-redux";
-import { openIngredientDetails } from "../../services/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
+import { openIngredientDetailsModal } from '../store/modal-slice';
+import { setIngredientDetails } from '../store/ingredients-slice';
+// import { addElements } from "../store/consctructor-slice";
+
 
 const BurgerIngredient = ({
   ingredient,
 }) => {
-  //заполняем данными картинки
-  const image = <img src={ingredient.image} alt={ingredient.name} />;
+
+  let testIng;
+  React.useEffect(()=>{
+    testIng = ingredient
+  },[ingredient] )
+
   const dispatch = useDispatch();
 
+  //заполняем данными картинки
+  const image = <img src={ingredient.image} alt={ingredient.name} />;
+
   const onClick = () => {
-    dispatch(changeOnIngredientModal());
-    dispatch(openIngredientDetails(ingredient))
+      dispatch(openIngredientDetailsModal());
+      dispatch(setIngredientDetails(ingredient));
+      // dispatch(addElements(testIng))
+      
     };
 
 
@@ -25,7 +36,6 @@ const BurgerIngredient = ({
       className={`${styles.card} text text_type_main-default pl-4 pr-4`}
       key={ingredient.id}
       onClick={onClick}
-      // onDoubleClick={onDoubleClick}
     >
       <Counter count={1} size="default" extraClass={`${styles.counter} m-1`} />
       <div className={styles.image}>{image}</div>

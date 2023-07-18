@@ -2,26 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { Overlay } from "../overlay/overlay";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AcceptModal from "../modal-accept/modal-accept";
 import IngredientModal from "../modal-ingredient/modal-ingredient";
-import { closeModal } from "../../services/actions/modal";
-import { useDispatch } from "react-redux";
+import { closeModal } from "../store/modal-slice";
+import { clearIngredientDetails } from "../store/ingredients-slice";
+
 
 export const modalRoot = document.getElementById("react-modal");
 
 export function Modal() {
   const dispatch = useDispatch();
-
-  const isOrderModalOpen = useSelector((state) => state.modal.isOrderModalOpen);
-  const isIngredientModalOpen = useSelector(
-    (state) => state.modal.isIngredientModalOpen
-  );
+  const {isOrderModalOpen, isIngredientModalOpen} = useSelector(state => state.modal)
 
   React.useEffect(() => {
     function onEsc(evt) {
       if (evt.code === "Escape") {
-        dispatch(closeModal());
+        dispatch(closeModal())
+        dispatch(clearIngredientDetails())
       }
     }
     document.addEventListener("keydown", onEsc);

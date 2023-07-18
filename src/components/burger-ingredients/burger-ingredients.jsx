@@ -2,24 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import IngredientsList from "../burger-ingredients-list/burger-ingredients-list";
-import { useDispatch, useSelector } from 'react-redux';
-import { getData } from "../../services/actions/ingredients";
+import { useSelector } from "react-redux";
 
 
-export default function BurgerIngredients({}) {
-
-  const dispatch = useDispatch();
-
-  const {ingredients} = useSelector(state => state.ingredients);
-
-
+export default function BurgerIngredients() {
   
-  React.useEffect(
-    () => {
-      dispatch(getData());
-    }, 
-    [dispatch]
-  ) 
+  const ingredients = useSelector(state => state.ingredients.ingredients);
 
   return (
     <div className={styles.wrapper}>

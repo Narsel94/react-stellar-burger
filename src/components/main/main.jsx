@@ -6,7 +6,7 @@ import TabBar from "../tab-bar/tab-bar";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import PropTypes from "prop-types";
 
-export default function Main({ data }) {
+export default function Main() {
   return (
     <main className={styles.main}>
       <Section>
@@ -17,15 +17,9 @@ export default function Main({ data }) {
         <BurgerIngredients/>
       </Section>
       <Section>
-        <BurgerConstructor
-          data={data}
-         
-        />
+        <BurgerConstructor/>
       </Section>
     </main>
   );
 }
 
-Main.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object)
-};

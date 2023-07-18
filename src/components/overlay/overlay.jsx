@@ -3,17 +3,21 @@ import ReactDOM from "react-dom";
 import styles from "./overlay.module.css";
 import { closeModal } from "../../services/actions/modal";
 import { useDispatch } from "react-redux";
+import { clearIngredientDetails } from "../store/ingredients-slice";
+
 
 
 const modalRoot = document.getElementById("react-modal");
 
+
+
 export function Overlay() {
 
-  const dispatch = useDispatch();
-
+const dispatch = useDispatch();
 
 const onClick = () => {
-  dispatch(closeModal())
+  dispatch(closeModal());
+  dispatch(clearIngredientDetails())
 }
 
 

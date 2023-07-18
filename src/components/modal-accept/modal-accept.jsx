@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import styles from "./modal-accept.module.css";
 import image from "../../images/graphics.svg";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { closeModal } from "../../services/actions/modal";
 import { useDispatch } from "react-redux";
+import {closeModal} from '../store/modal-slice'
+
 
 export default function AcceptModal() {
   const dispatch = useDispatch();
