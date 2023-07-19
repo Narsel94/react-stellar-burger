@@ -4,31 +4,45 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { openIngredientDetailsModal } from '../store/modal-slice';
-import { setIngredientDetails } from '../store/ingredients-slice';
+import { openIngredientDetailsModal } from "../store/modal-slice";
+import {
+  setIngredientDetails,
+  selectIngredients,
+} from "../store/ingredients-slice";
 // import { addElements } from "../store/consctructor-slice";
 
-
-const BurgerIngredient = ({
-  ingredient,
-}) => {
-
-  let testIng;
-  React.useEffect(()=>{
-    testIng = ingredient
-  },[ingredient] )
-
+const BurgerIngredient = ({ ingredient }) => {
   const dispatch = useDispatch();
+  
+  const { bun, filings } = useSelector(
+    (state) => state.ingredients.selectedIngredients
+  );
+
+  const constructorElements = React.useMemo(() => {
+    if (!bun) {
+      return null;
+    }
+    return [bun, bun,  ...filings];
+  });
+
+  const currentCount = React.useMemo(() => {
+    if (!constructorElements) {
+      return 0
+    }
+    return constructorElements.filter((element) => element._id === ingredient._id).length
+  })
 
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;
 
   const onClick = () => {
-      dispatch(openIngredientDetailsModal());
-      dispatch(setIngredientDetails(ingredient));
-      // dispatch(addElements(testIng))
-      
-    };
+    // dispatch(openIngredientDetailsModal());
+    // dispatch(setIngredientDetails(ingredient));
+
+    dispatch(selectIngredients(ingredient));
+    // dispatch(addElements(testIng))
+  };
+
 
 
   return (
@@ -37,7 +51,8 @@ const BurgerIngredient = ({
       key={ingredient.id}
       onClick={onClick}
     >
-      <Counter count={1} size="default" extraClass={`${styles.counter} m-1`} />
+      {currentCount > 0 &&  <Counter count={currentCount} size="default" extraClass={`${styles.counter} m-1`} />}
+ 
       <div className={styles.image}>{image}</div>
       <div className={`${styles.priceBlock} mt-1 mb-1`}>
         <p className="text text_type_digits-default">{ingredient.price}</p>

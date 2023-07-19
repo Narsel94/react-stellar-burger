@@ -6,7 +6,7 @@ export const fetchIngredientsData = createAsyncThunk(
   async function (_, {rejectWithValue}) {
     try {
       const response = await fetch(
-       config.baseUrl
+       `${config.baseUrl}/ingredients`
       );
       if (!response.ok) {
         throw new Error('Server Error')
@@ -19,11 +19,15 @@ export const fetchIngredientsData = createAsyncThunk(
   }
 );
 
+
 const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState: {
     ingredients: [],
-    selectedIngredients: [],
+    selectedIngredients: {
+      bun: null,
+      filings: []
+    },
     currentIngredient: {},
     status: null,
     error: null,
@@ -35,6 +39,19 @@ const ingredientsSlice = createSlice({
     clearIngredientDetails(state) {
       state.currentIngredient = null;
     },
+    selectIngredients(state, action) {
+      if (action.payload.type === 'bun') {
+        state.selectedIngredients.bun = action.payload
+      } else if (!state.selectedIngredients.bun){
+        state.selectedIngredients.filings = state.selectedIngredients.filings
+      }
+      else {
+        state.selectedIngredients.filings = state.selectedIngredients.filings.concat(action.payload) 
+      }
+    }, 
+    deleteIngredient(state, action) {
+      state.selectedIngredients.filings =state.selectedIngredients.filings.splice(state.selectedIngredients.filings.findIndex(element => element._id === action.payload), 1)
+    }
   },
   extraReducers: {
     [fetchIngredientsData.pending]: (state) => {
@@ -52,7 +69,7 @@ const ingredientsSlice = createSlice({
   },
 });
 
-export const { setIngredientDetails, clearIngredientDetails } =
+export const { setIngredientDetails, clearIngredientDetails, selectIngredients, deleteIngredient } =
   ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

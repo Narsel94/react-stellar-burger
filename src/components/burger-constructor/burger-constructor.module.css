@@ -19,6 +19,9 @@
   display: flex;
   flex-direction:column;
   gap: 10px;
+  min-width: 600px;
+  border: 2px dotted rgba(133, 133, 173, 1);
+
 }
 
 .topLock {
@@ -40,9 +43,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 250px;
   max-height: 450px;
   overflow-y: scroll;
 }
+
+
 
 .mainElement::-webkit-scrollbar{
   width: 8px;
