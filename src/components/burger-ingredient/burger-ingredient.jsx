@@ -9,10 +9,23 @@ import {
   setIngredientDetails,
   selectIngredients,
 } from "../store/ingredients-slice";
+import { useDrag } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid';
+
 // import { addElements } from "../store/consctructor-slice";
+
 
 const BurgerIngredient = ({ ingredient }) => {
   const dispatch = useDispatch();
+
+  const {_id, name, price, image_mobile} = ingredient;
+  const [{isDrag}, dragRef] = useDrag({
+    type: "constructor",
+    item: {...ingredient, uuidId: uuidv4()},
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+  })
+  });
   
   const { bun, filings } = useSelector(
     (state) => state.ingredients.selectedIngredients
@@ -36,20 +49,19 @@ const BurgerIngredient = ({ ingredient }) => {
   const image = <img src={ingredient.image} alt={ingredient.name} />;
 
   const onClick = () => {
-    // dispatch(openIngredientDetailsModal());
-    // dispatch(setIngredientDetails(ingredient));
-
-    dispatch(selectIngredients(ingredient));
-    // dispatch(addElements(testIng))
+    dispatch(openIngredientDetailsModal());
+    dispatch(setIngredientDetails(ingredient));
   };
 
-
+ const dragged = isDrag ? styles.dragged : ''
 
   return (
+    
     <div
-      className={`${styles.card} text text_type_main-default pl-4 pr-4`}
+      className={`${styles.card} ${dragged} text text_type_main-default pl-4 pr-4 `}
       key={ingredient.id}
       onClick={onClick}
+      ref={dragRef}
     >
       {currentCount > 0 &&  <Counter count={currentCount} size="default" extraClass={`${styles.counter} m-1`} />}
  

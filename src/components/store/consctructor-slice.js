@@ -3,7 +3,7 @@ import { config } from "../api/api";
 
 export const postOrder = createAsyncThunk(
   "order/postOrder",
-  async function (asd, { rejectWithValue }, getState) {
+  async function (_, { rejectWithValue }, getState) {
     const order1 = getState().burgerConstructor.order;
     // console.log(order)
     try {
@@ -15,7 +15,7 @@ export const postOrder = createAsyncThunk(
             "Content-Type": "aplication/json",
           },
           body: JSON.stringify({
-            ingredients: asd
+            ingredients: order1
           }),
         }
       );
@@ -23,6 +23,9 @@ export const postOrder = createAsyncThunk(
       if (!response.ok) {
         throw new Error("К сожалению все повара заняты... Server error.");
       }
+
+      const data = await response.json();
+      console.log(data)
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -28,6 +28,7 @@ const ingredientsSlice = createSlice({
       bun: null,
       filings: []
     },
+    draggedIngredient: {},
     currentIngredient: {},
     status: null,
     error: null,
@@ -50,7 +51,7 @@ const ingredientsSlice = createSlice({
       }
     }, 
     deleteIngredient(state, action) {
-      state.selectedIngredients.filings =state.selectedIngredients.filings.splice(state.selectedIngredients.filings.findIndex(element => element._id === action.payload), 1)
+      state.selectedIngredients.filings =state.selectedIngredients.filings.filter(item => item.uuidId !== action.payload)
     }
   },
   extraReducers: {

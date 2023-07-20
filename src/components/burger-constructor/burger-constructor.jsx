@@ -9,8 +9,10 @@ import {
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { openOrderDetailsModal } from "../store/modal-slice";
-import { deleteIngredient } from '../store/ingredients-slice';
-import {setOrderElements, postOrder} from '../store/consctructor-slice'
+import { deleteIngredient } from "../store/ingredients-slice";
+import { setOrderElements, postOrder } from "../store/consctructor-slice";
+import { useDrop } from "react-dnd";
+import { selectIngredients } from "../store/ingredients-slice";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -18,7 +20,15 @@ const BurgerConstructor = () => {
     (state) => state.ingredients.selectedIngredients
   );
 
-
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "constructor",
+    drop(data) {
+      dispatch(selectIngredients(data));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
 
   const constructorElements = React.useMemo(() => {
     if (!bun) {
@@ -33,9 +43,9 @@ const BurgerConstructor = () => {
     } else {
       return constructorElements.reduce((prev, curr) => {
         return [...prev, curr._id];
-      }, [])
+      }, []);
     }
-  }, [constructorElements])
+  }, [constructorElements]);
 
   const totalPrice = React.useMemo(() => {
     if (!constructorElements) {
@@ -50,50 +60,55 @@ const BurgerConstructor = () => {
   }, [constructorElements]);
 
   const onClick = () => {
-    // dispatch(openOrderDetailsModal());
-    if (orderDetails) {
-      dispatch(setOrderElements(orderDetails));
-      postOrder(orderDetails)
-    }
+    dispatch(openOrderDetailsModal());
   };
 
-  const onSubmit = (e) => {
-    postOrder()
+
+
+  function del(uuid) {
+    dispatch(deleteIngredient(uuid))
+    console.log(uuid)
   }
- 
 
-  React.useEffect(()=> {
-    function onSubmit()  {
-      postOrder()
-     
-    }
-    document.addEventListener("submit", onSubmit);
 
-  }, [orderDetails])
+
+  // React.useEffect(()=> {
+  //   function onSubmit()  {
+  //     dispatch(postOrder())
+
+  //   }
+  //   document.addEventListener("submit", onSubmit);
+
+  // }, [orderDetails])
+
+  const isHovered = isHover ? styles.onHover : styles.constructor;
 
   if (!bun) {
     return (
-      <div className={styles.constructor}>
+      // <div className={`${styles.constructor} ${{isHovered}}`} ref={dropTarget}>
+      <div className={`${isHovered}`} ref={dropTarget}>
         <div className={styles.mainElement}>
-          <h2 className="text text_type_main-medium mt-5">Пожалуйста, прежде всего добавте булку...</h2>
+          <h2 className="text text_type_main-medium mt-5 ml-2">
+            Пожалуйста, прежде всего добавьте булку...
+          </h2>
         </div>
         <div className={`${styles.bill} mr-4`} key="bill">
-            <CurrencyIcon type="primary"/>
-            <p className="text text_type_main-large">{totalPrice}</p>
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="large"
-              onClick={onClick}
-            >
-              Оформить заказ
-            </Button>
-          </div>
+          <CurrencyIcon type="primary" />
+          <p className="text text_type_main-large">{totalPrice}</p>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="large"
+            onClick={onClick}
+          >
+            Оформить заказ
+          </Button>
+        </div>
       </div>
     );
   } else {
     return (
-      <div className={styles.constructor} >
+      <div className={isHovered} ref={dropTarget}> 
         <div className={`${styles.topLock} pr-6`}>
           <ConstructorElement
             text={bun.name}
@@ -105,13 +120,13 @@ const BurgerConstructor = () => {
         </div>
         <div className={styles.mainElement}>
           {filings.map((item) => (
-            <div className={`${styles.mainItem} pr-4 pl-4`} key={item._id}>
+            <div className={`${styles.mainItem} pr-4 pl-4`} key={item.uuidId} >
               <DragIcon type="primary"/>
               <ConstructorElement
                 text={item.name}
                 prise={item.price}
                 thumbnail={item.image_mobile}
-               
+                handleClose={() => {del(item.uuidId)}} 
               />
             </div>
           ))}
@@ -131,7 +146,7 @@ const BurgerConstructor = () => {
             <CurrencyIcon type="primary" />
             <p className="text text_type_main-large">{totalPrice}</p>
             <Button
-              htmlType="button"
+              htmlType="submit"
               type="primary"
               size="large"
               onClick={onClick}
@@ -143,7 +158,7 @@ const BurgerConstructor = () => {
       </div>
     );
   }
-}
+};
 
 // BurgerConstructor.propTypes = {
 //   data: PropTypes.arrayOf(PropTypes.shape({

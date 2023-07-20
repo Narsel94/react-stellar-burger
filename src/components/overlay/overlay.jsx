@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import styles from "./overlay.module.css";
-import { closeModal } from "../../services/actions/modal";
+import { closeModal } from "../store/modal-slice";
 import { useDispatch } from "react-redux";
 import { clearIngredientDetails } from "../store/ingredients-slice";
 

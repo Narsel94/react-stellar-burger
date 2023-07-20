@@ -15,12 +15,23 @@
   height: 36px;
 }
 
+.onHover {
+  /* border: 2px solid rgb(24, 24, 212); */
+  box-shadow: 0 0 16px rgb(24, 24, 212);
+  display: flex;
+
+  flex-direction:column;
+  gap: 10px;
+  min-width: 600px;
+  /* border: 2px dotted rgba(133, 133, 173, 1); */
+}
+
 .constructor {
   display: flex;
   flex-direction:column;
   gap: 10px;
   min-width: 600px;
-  border: 2px dotted rgba(133, 133, 173, 1);
+  /* border: 2px dotted rgba(133, 133, 173, 1); */
 
 }
 

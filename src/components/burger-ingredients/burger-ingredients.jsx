@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 export default function BurgerIngredients() {
   
   const ingredients = useSelector(state => state.ingredients.ingredients);
-
   return (
     <div className={styles.wrapper}>
       <div className={`${styles.ingredientsSection} mt-10`} id="buns">
