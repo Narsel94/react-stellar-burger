@@ -5,12 +5,21 @@
   scroll-behavior: smooth;
 }
 
+.section {
+  display: flex;
+  max-height: 732px;
+  flex-direction: column;
+
+}
+
+.tab{
+  display: flex;
+  flex-direction: row;
+}
+
 .wrapper {
   scroll-behavior: smooth;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  max-height: 732px;
 }
 
 .wrapper::-webkit-scrollbar{

@@ -5,3 +5,10 @@
   background-color: #131316;
   color: #f2f2f3;
 }
+
+.container {
+  position: relative;
+  width: max-content;
+  margin: 45vh auto;
+
+}

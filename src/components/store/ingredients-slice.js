@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { config } from "../api/api";
+import { config } from "../constants/api";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
@@ -50,6 +50,9 @@ const ingredientsSlice = createSlice({
         state.selectedIngredients.filings = state.selectedIngredients.filings.concat(action.payload) 
       }
     }, 
+    updateConstuctorElements(state, action) {
+      state.selectedIngredients.filings = action.payload
+    },
     deleteIngredient(state, action) {
       state.selectedIngredients.filings =state.selectedIngredients.filings.filter(item => item.uuidId !== action.payload)
     }
@@ -70,7 +73,7 @@ const ingredientsSlice = createSlice({
   },
 });
 
-export const { setIngredientDetails, clearIngredientDetails, selectIngredients, deleteIngredient } =
+export const { setIngredientDetails, clearIngredientDetails, selectIngredients, deleteIngredient, updateConstuctorElements } =
   ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

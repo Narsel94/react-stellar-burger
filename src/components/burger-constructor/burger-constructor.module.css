@@ -16,14 +16,11 @@
 }
 
 .onHover {
-  /* border: 2px solid rgb(24, 24, 212); */
   box-shadow: 0 0 16px rgb(24, 24, 212);
   display: flex;
-
   flex-direction:column;
   gap: 10px;
   min-width: 600px;
-  /* border: 2px dotted rgba(133, 133, 173, 1); */
 }
 
 .constructor {
@@ -31,8 +28,6 @@
   flex-direction:column;
   gap: 10px;
   min-width: 600px;
-  /* border: 2px dotted rgba(133, 133, 173, 1); */
-
 }
 
 .topLock {
@@ -43,20 +38,15 @@
   padding-left: 40px;
 }
 
-.mainItem{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .mainElement {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 250px;
+  min-height: 260px;
   max-height: 450px;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 
@@ -87,4 +77,14 @@
 .billBlock svg {
   width: 36px;
   height: 36px;
+}
+
+.disabled {
+  background: rgb(100, 99, 99);
+  cursor: default;
+}
+
+.disabled:hover {
+  box-shadow: none;
+  filter: none;
 }

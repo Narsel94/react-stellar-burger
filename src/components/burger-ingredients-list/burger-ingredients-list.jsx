@@ -1,24 +1,27 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients-list.module.css";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 
-export default function IngredientsList({type, data}) {
+function IngredientsList({type, data, innerRef}) {
   const filteredIngedients = React.useMemo(
     (() => data.filter((ingr) => ingr.type === type)), [data]
   );
 
   return (
-    <div className={`${styles.ingredientsList} ml-4 mr-4`}>
+    <div ref={innerRef} className={`${styles.ingredientsList} list ml-4 mr-4`} id={type}>
       {filteredIngedients.map((item) => (
         <BurgerIngredient
           ingredient={item}
           key={item._id}
+          
         />
       ))}
     </div>
   );
 }
+
+export default IngredientsList;
 
 // IngredientsList.propTypes = {
 //   type: PropTypes.string,
