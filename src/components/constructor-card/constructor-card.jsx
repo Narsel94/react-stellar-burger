@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 
 export const ConstructorCard = ({ item, index, moveIngredient }) => {
   const dispatch = useDispatch();
-  // const ref = useRef<HTMLLIElement>(null);
 
   const [{ isDragging }, dragRef] = useDrag({
     type: "constructorItem",
