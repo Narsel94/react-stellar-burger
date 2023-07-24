@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ingredientsSlice from "./ingredients-slice";
 
 const modalSlice = createSlice({
   name: 'modal', 

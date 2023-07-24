@@ -1,15 +1,15 @@
-import React, { useCallback} from "react";
+import React, { useCallback } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
-import {
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { openOrderDetailsModal } from "../store/modal-slice";
-import { deleteIngredient, selectIngredients, updateConstuctorElements } from "../store/ingredients-slice";
-import { setOrderDetails, postOrder, createPostRequest } from "../store/consctructor-slice";
-import { useDrag, useDrop } from 'react-dnd';
+import {
+  selectIngredients,
+  updateConstuctorElements,
+} from "../store/ingredients-slice";
+import { createPostRequest } from "../store/consctructor-slice";
+import { useDrop } from "react-dnd";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 
 const BurgerConstructor = () => {
@@ -17,7 +17,6 @@ const BurgerConstructor = () => {
   const { bun, filings } = useSelector(
     (state) => state.ingredients.selectedIngredients
   );
-
   const [{ isHover }, dropTarget] = useDrop({
     accept: "constructor",
     drop(data) {
@@ -28,8 +27,6 @@ const BurgerConstructor = () => {
     }),
   });
 
-
-  // точно переделать на createSelector
   const constructorElements = React.useMemo(() => {
     if (!bun) {
       return null;
@@ -37,7 +34,6 @@ const BurgerConstructor = () => {
     return [bun, ...filings];
   });
 
-  // возможно надо переделать на createSelector
   const orderDetails = React.useMemo(() => {
     if (!constructorElements) {
       return null;
@@ -47,8 +43,7 @@ const BurgerConstructor = () => {
       }, []);
     }
   }, [constructorElements]);
-  
-  // переделать на createSelector
+
   const totalPrice = React.useMemo(() => {
     if (!constructorElements) {
       return 0;
@@ -62,29 +57,25 @@ const BurgerConstructor = () => {
   }, [constructorElements]);
 
   const onClick = () => {
-    // dispatch(openOrderDetailsModal());
-    dispatch(createPostRequest(orderDetails))
+    dispatch(createPostRequest(orderDetails));
   };
 
-
-  const moveIngredient = useCallback((dragIndex, hoverIndex) => {
-    const dragItem = filings[dragIndex];
-    const hoverItem = filings[hoverIndex];
-    console.log(dragItem)
-    console.log(hoverItem)
-    const newFilings = [...filings]
-    newFilings[dragIndex] = hoverItem
-    newFilings[hoverIndex] = dragItem
-    dispatch(updateConstuctorElements(newFilings))
-  }, [filings])
-
-
+  const moveIngredient = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragItem = filings[dragIndex];
+      const hoverItem = filings[hoverIndex];
+      const newFilings = [...filings];
+      newFilings[dragIndex] = hoverItem;
+      newFilings[hoverIndex] = dragItem;
+      dispatch(updateConstuctorElements(newFilings));
+    },
+    [filings]
+  );
 
   const isHovered = isHover ? styles.onHover : styles.constructor;
 
   if (!bun) {
     return (
-      // <div className={`${styles.constructor} ${{isHovered}}`} ref={dropTarget}>
       <div className={`${isHovered}`} ref={dropTarget}>
         <div className={styles.mainElement}>
           <h2 className="text text_type_main-medium mt-5 ml-2">
@@ -107,7 +98,7 @@ const BurgerConstructor = () => {
     );
   } else {
     return (
-      <div className={isHovered} ref={dropTarget}> 
+      <div className={isHovered} ref={dropTarget}>
         <div className={`${styles.topLock} pr-6`}>
           <ConstructorElement
             text={bun.name}
@@ -119,7 +110,12 @@ const BurgerConstructor = () => {
         </div>
         <div className={styles.mainElement}>
           {filings.map((item, i) => (
-            <ConstructorCard item={item} key={item.uuidId} index={i} moveIngredient={moveIngredient}/>
+            <ConstructorCard
+              item={item}
+              key={item.uuidId}
+              index={i}
+              moveIngredient={moveIngredient}
+            />
           ))}
         </div>
         <div className={`${styles.bottonLock} mr-6`}>
@@ -150,22 +146,5 @@ const BurgerConstructor = () => {
     );
   }
 };
-
-// BurgerConstructor.propTypes = {
-//   data: PropTypes.arrayOf(PropTypes.shape({
-//     _id: PropTypes.string,
-//     name: PropTypes.string,
-//     type: PropTypes.string,
-//     proteins: PropTypes.number,
-//     fat: PropTypes.number,
-//     carbohydrates: PropTypes.number,
-//     calories: PropTypes.number,
-//     price: PropTypes.number,
-//     image: PropTypes.string,
-//     image_mobile: PropTypes.string,
-//     image_large: PropTypes.string,
-//     __v: PropTypes.number,
-//   })).isRequired,
-// };
 
 export default BurgerConstructor;

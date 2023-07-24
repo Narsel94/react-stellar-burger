@@ -4,3 +4,10 @@
   gap: 24px;
   scroll-behavior: smooth;
 }
+
+.section {
+  display: flex;
+  max-height: 732px;
+  flex-direction: column;
+
+}

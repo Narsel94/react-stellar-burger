@@ -15,12 +15,10 @@ export default function BurgerIngredients() {
   const [mainRef, mainInViev] = useInView({ threshold: 0 });
   const [saucesRef, saucesInView] = useInView({ threshold: 0 });
 
-  
-
   function handleClickTab(tab) {
-    setCurrent(tab)
-    const ingredientList =  document.getElementById(tab);
-    console.log(ingredientList)
+    setCurrent(tab);
+    const ingredientList = document.getElementById(tab);
+    console.log(ingredientList);
     if (ingredientList) ingredientList.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -32,8 +30,7 @@ export default function BurgerIngredients() {
     } else if (mainInViev) {
       setCurrent("main");
     }
-  }, [bunsInViev, saucesInView,mainInViev]);
-
+  }, [bunsInViev, saucesInView, mainInViev]);
 
   return (
     <div className={styles.section}>
@@ -60,25 +57,25 @@ export default function BurgerIngredients() {
           Начинки
         </Tab>
       </div>
-    
       <div className={styles.wrapper}>
-        <div className={`${styles.ingredientsSection} mt-10`} id="buns">
-          <h2 className="text text_type_main-medium mb-6">Булки</h2>
-
-          <IngredientsList type="bun" data={ingredients} innerRef={bunsRef} />
-        </div>
-        <div className={`${styles.ingredientsSection} mt-10`} id="sauces">
-          <h2 className="text text_type_main-medium mb-6">Соусы</h2>
-          <IngredientsList
-            type="sauce"
-            data={ingredients}
-            innerRef={saucesRef}
-          />
-        </div>
-        <div className={`${styles.ingredientsSection} mt-10`} id="main">
-          <h2 className="text text_type_main-medium mb-6">Начинки</h2>
-          <IngredientsList type="main" data={ingredients} innerRef={mainRef}/>
-        </div>
+        <IngredientsList
+          type="bun"
+          data={ingredients}
+          innerRef={bunsRef}
+          name="buns"
+        />
+        <IngredientsList
+          type="sauce"
+          data={ingredients}
+          innerRef={saucesRef}
+          name="sauces"
+        />
+        <IngredientsList
+          type="main"
+          data={ingredients}
+          innerRef={mainRef}
+          name="main"
+        />
       </div>
     </div>
   );

@@ -3,22 +3,19 @@ import { config } from "../constants/api";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
-  async function (_, {rejectWithValue}) {
+  async function (_, { rejectWithValue }) {
     try {
-      const response = await fetch(
-       `${config.baseUrl}/ingredients`
-      );
+      const response = await fetch(`${config.baseUrl}/ingredients`);
       if (!response.ok) {
-        throw new Error('Server Error')
+        throw new Error("Server Error");
       }
       const data = await response.json();
       return data.data;
     } catch (error) {
-      return rejectWithValue(error.message)
+      return rejectWithValue(error.message);
     }
   }
 );
-
 
 const ingredientsSlice = createSlice({
   name: "ingredients",
@@ -26,7 +23,7 @@ const ingredientsSlice = createSlice({
     ingredients: [],
     selectedIngredients: {
       bun: null,
-      filings: []
+      filings: [],
     },
     draggedIngredient: {},
     currentIngredient: {},
@@ -41,39 +38,48 @@ const ingredientsSlice = createSlice({
       state.currentIngredient = null;
     },
     selectIngredients(state, action) {
-      if (action.payload.type === 'bun') {
-        state.selectedIngredients.bun = action.payload
-      } else if (!state.selectedIngredients.bun){
-        state.selectedIngredients.filings = state.selectedIngredients.filings
+      if (action.payload.type === "bun") {
+        state.selectedIngredients.bun = action.payload;
+      } else if (!state.selectedIngredients.bun) {
+        state.selectedIngredients.filings = state.selectedIngredients.filings;
+      } else {
+        state.selectedIngredients.filings =
+          state.selectedIngredients.filings.concat(action.payload);
       }
-      else {
-        state.selectedIngredients.filings = state.selectedIngredients.filings.concat(action.payload) 
-      }
-    }, 
+    },
     updateConstuctorElements(state, action) {
-      state.selectedIngredients.filings = action.payload
+      state.selectedIngredients.filings = action.payload;
     },
     deleteIngredient(state, action) {
-      state.selectedIngredients.filings =state.selectedIngredients.filings.filter(item => item.uuidId !== action.payload)
-    }
+      state.selectedIngredients.filings =
+        state.selectedIngredients.filings.filter(
+          (item) => item.uuidId !== action.payload
+        );
+    },
   },
-  extraReducers: {
-    [fetchIngredientsData.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [fetchIngredientsData.fulfilled]: (state, action) => {
-      state.status = "resolved";
-      state.ingredients = action.payload;
-    },
-    [fetchIngredientsData.rejected]: (state, action) => {
-      state.status = "rejected";
-      state.error = action.payload;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchIngredientsData.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchIngredientsData.fulfilled, (state, action) => {
+        state.status = "resolved";
+        state.ingredients = action.payload;
+      })
+      .addCase(fetchIngredientsData.rejected, (state, action) => {
+        state.status = "rejected";
+        state.error = action.payload;
+      });
   },
 });
 
-export const { setIngredientDetails, clearIngredientDetails, selectIngredients, deleteIngredient, updateConstuctorElements } =
-  ingredientsSlice.actions;
+export const {
+  setIngredientDetails,
+  clearIngredientDetails,
+  selectIngredients,
+  deleteIngredient,
+  updateConstuctorElements,
+} = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;
