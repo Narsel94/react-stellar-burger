@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectIngredients,
   updateConstuctorElements,
-} from "../store/ingredients-slice";
-import { createPostRequest } from "../store/consctructor-slice";
+} from "../../store/ingredients-slice";
+import { createPostRequest } from "../../store/consctructor-slice";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 
@@ -101,7 +101,7 @@ const BurgerConstructor = () => {
       <div className={isHovered} ref={dropTarget}>
         <div className={`${styles.topLock} pr-6`}>
           <ConstructorElement
-            text={bun.name}
+            text={`${bun.name} (верх)`}
             type="top"
             isLocked={true}
             prise={bun.price}
@@ -120,7 +120,7 @@ const BurgerConstructor = () => {
         </div>
         <div className={`${styles.bottonLock} mr-6`}>
           <ConstructorElement
-            text={bun.name}
+            text={`${bun.name} (низ)`}
             type="bottom"
             isLocked={true}
             prise={bun.price}

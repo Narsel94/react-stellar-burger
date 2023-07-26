@@ -1,32 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import styles from "./overlay.module.css";
-import { closeModal } from "../store/modal-slice";
-import { useDispatch } from "react-redux";
-import { clearIngredientDetails } from "../store/ingredients-slice";
 
-
-
-const modalRoot = document.getElementById("react-modal");
-
-
-
-export function Overlay() {
-
-const dispatch = useDispatch();
-
-const onClick = () => {
-  dispatch(closeModal());
-  dispatch(clearIngredientDetails())
-}
-
-
-
-
-return ReactDOM.createPortal(
-  ( 
-    <div className={styles.overlay} onClick={onClick}>
-    </div>
-   ), modalRoot
-  );
+export function Overlay({ onClick }) {
+  return <div className={styles.overlay} onClick={onClick}></div>;
 }

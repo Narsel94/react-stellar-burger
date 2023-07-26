@@ -1,16 +1,14 @@
-import {  useRef } from "react";
+import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
-import {
-  deleteIngredient,
-} from "../store/ingredients-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteIngredient } from "../../store/ingredients-slice";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-card.module.css";
 import PropTypes from "prop-types";
-
+import { ingredientPropType } from "../../utils/prop-types";
 
 export const ConstructorCard = ({ item, index, moveIngredient }) => {
   const dispatch = useDispatch();
@@ -46,8 +44,8 @@ export const ConstructorCard = ({ item, index, moveIngredient }) => {
   const ref = useRef(null);
   const dragDropRef = dragRef(dropRef(ref));
 
-  function deleteConstructorIngredient(uuid) {
-    dispatch(deleteIngredient(uuid));
+  function deleteConstructorIngredient(uuidId) {
+    dispatch(deleteIngredient(uuidId));
   }
 
   const dragged = isDragging ? styles.dragged : "";
@@ -62,7 +60,7 @@ export const ConstructorCard = ({ item, index, moveIngredient }) => {
         price={item.price}
         thumbnail={item.image_mobile}
         handleClose={() => {
-          dispatch(deleteConstructorIngredient(item.uuidId));
+          deleteConstructorIngredient(item.uuidId);
         }}
         extraClass={hovered}
       />
@@ -71,20 +69,7 @@ export const ConstructorCard = ({ item, index, moveIngredient }) => {
 };
 
 ConstructorCard.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  }).isRequired, 
-  index: PropTypes.number, 
-  moveIngredient: PropTypes.func 
-}
+  item: ingredientPropType,
+  index: PropTypes.number,
+  moveIngredient: PropTypes.func,
+};

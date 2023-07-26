@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients-list.module.css";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
-import { ingredientPropType } from "../constants/prop-types";
+import { ingredientPropType } from "../../utils/prop-types";
 
 function IngredientsList({ type, data, innerRef, name }) {
   const filteredIngedients = React.useMemo(

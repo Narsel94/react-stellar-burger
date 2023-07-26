@@ -5,14 +5,13 @@ const modalSlice = createSlice({
   initialState: { 
     isOrderModalOpen: false,
     isIngredientModalOpen: false,
+    isModalOpen: false,
   },
   reducers: {
     openIngredientDetailsModal(state) {
       state.isIngredientModalOpen = true;
-      state.isOrderModalOpen = false;
     },
     openOrderDetailsModal(state) {
-      state.isIngredientModalOpen = false;
       state.isOrderModalOpen = true;
     },
     closeModal(state) {

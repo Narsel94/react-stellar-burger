@@ -18,10 +18,6 @@
   margin-bottom: 12px;
 }
 
-.header svg {
-  cursor: pointer;
-}
-
 .image {
   min-width: 520px;
   min-height: 240px;

@@ -9,10 +9,9 @@
   display: flex;
   max-height: 732px;
   flex-direction: column;
-
 }
 
-.tab{
+.tab {
   display: flex;
   flex-direction: row;
 }
@@ -22,16 +21,22 @@
   overflow-y: auto;
 }
 
-.wrapper::-webkit-scrollbar{
+.wrapper::-webkit-scrollbar {
   width: 8px;
 }
 
-.wrapper::-webkit-scrollbar-thumb{
+.wrapper::-webkit-scrollbar-thumb {
   background-color: rgba(133, 133, 173, 1);
   width: 8px;
   border-radius: 3px;
 }
 
-.wrapper::-webkit-scrollbar-track{
+.wrapper::-webkit-scrollbar-track {
   background-color: rgba(47, 47, 55, 1);
+}
+
+@media screen and (max-width: 1279px) {
+  .section {
+    max-height: 350px;
+  }
 }

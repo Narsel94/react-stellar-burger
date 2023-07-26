@@ -18,14 +18,14 @@
 .onHover {
   box-shadow: 0 0 16px rgb(24, 24, 212);
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   gap: 10px;
   min-width: 600px;
 }
 
 .constructor {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   gap: 10px;
   min-width: 600px;
 }
@@ -38,7 +38,6 @@
   padding-left: 40px;
 }
 
-
 .mainElement {
   display: flex;
   flex-direction: column;
@@ -49,22 +48,18 @@
   overflow-x: hidden;
 }
 
-
-
-.mainElement::-webkit-scrollbar{
+.mainElement::-webkit-scrollbar {
   width: 8px;
 }
 
-.mainElement::-webkit-scrollbar-thumb{
+.mainElement::-webkit-scrollbar-thumb {
   background-color: rgba(133, 133, 173, 1);
   width: 8px;
   border-radius: 3px;
-
 }
 
-.mainElement::-webkit-scrollbar-track{
+.mainElement::-webkit-scrollbar-track {
   background-color: rgba(47, 47, 55, 1);
-
 }
 
 .billBlock {
@@ -87,4 +82,15 @@
 .disabled:hover {
   box-shadow: none;
   filter: none;
+}
+
+@media screen and (max-width: 1279px) {
+  .constructor {
+    max-height: fit-content;
+    padding-bottom: 10px;
+  }
+
+  .mainElement {
+    max-height: 200px;
+  }
 }

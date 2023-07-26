@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postRequest } from "./api";
 import { openOrderDetailsModal } from "./modal-slice";
+import { clearSelectedIngredients } from "./ingredients-slice";
+import { postOrder } from "../api/api";
 
 export const createPostRequest = createAsyncThunk(
   "createPostOrder/postOrder",
   async (order, { dispatch }) => {
     dispatch(openOrderDetailsModal());
-    const response = await postRequest(order);
-    const data = response.json();
+    const data = postOrder(order);
+    dispatch(clearSelectedIngredients());
     return data;
   }
 );

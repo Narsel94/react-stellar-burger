@@ -1,19 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { config } from "../constants/api";
+import { getIngredientsData } from "../api/api";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
   async function (_, { rejectWithValue }) {
-    try {
-      const response = await fetch(`${config.baseUrl}/ingredients`);
-      if (!response.ok) {
-        throw new Error("Server Error");
-      }
-      const data = await response.json();
-      return data.data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+    const data = await getIngredientsData();
+    return data.data;
   }
 );
 
@@ -56,6 +48,9 @@ const ingredientsSlice = createSlice({
           (item) => item.uuidId !== action.payload
         );
     },
+    clearSelectedIngredients(state) {
+      state.selectedIngredients = { bun: null, filings: [] };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -69,7 +64,7 @@ const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredientsData.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.payload;
+        state.error = action.error.message;
       });
   },
 });
@@ -80,6 +75,7 @@ export const {
   selectIngredients,
   deleteIngredient,
   updateConstuctorElements,
+  clearSelectedIngredients,
 } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;
