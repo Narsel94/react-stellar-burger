@@ -15,7 +15,7 @@ function request(url, options) {
 }
 
 export function postOrder(order) {
-  return request(`${config.baseUrl}/orders111`, {
+  return request(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
