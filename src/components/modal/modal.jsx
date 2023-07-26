@@ -6,11 +6,11 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const modalRoot = document.getElementById("react-modal");
 
-export function Modal({ children, onClick }) {
+export function Modal({ children, onClose }) {
   React.useEffect(() => {
     function onEsc(evt) {
       if (evt.code === "Escape") {
-        onClick();
+        onClose();
       }
     }
     document.addEventListener("keydown", onEsc);
@@ -22,9 +22,9 @@ export function Modal({ children, onClick }) {
     <>
       <div className={styles.modal}>
         {children}
-        <CloseIcon type="primary" onClick={onClick} />
+        <CloseIcon type="primary" onClick={onClose} />
       </div>
-      <Overlay onClick={onClick} />
+      <Overlay onClose={onClose} />
     </>,
     modalRoot
   );

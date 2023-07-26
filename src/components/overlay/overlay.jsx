@@ -1,5 +1,5 @@
 import styles from "./overlay.module.css";
 
-export function Overlay({ onClick }) {
-  return <div className={styles.overlay} onClick={onClick}></div>;
+export function Overlay({ onClose }) {
+  return <div className={styles.overlay} onClick={onClose}></div>;
 }

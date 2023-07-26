@@ -3,10 +3,8 @@ import { getIngredientsData } from "../api/api";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
-  async function (_, { rejectWithValue }) {
-    const data = await getIngredientsData();
-    return data.data;
-  }
+  getIngredientsData
+  
 );
 
 const ingredientsSlice = createSlice({

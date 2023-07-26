@@ -26,6 +26,7 @@ export function postOrder(order) {
 
 export function getIngredientsData(){
   return request(`${config.baseUrl}/ingredients`)
+    .then(result => result.data)
 }
 
 

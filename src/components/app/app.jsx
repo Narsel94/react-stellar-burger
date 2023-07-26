@@ -52,14 +52,13 @@ function App() {
       <div className={styles.app}>
         <AppHeader />
         <Main />
-        {/* {(isModalOpen) && <Modal />} */}
         {isIngredientModalOpen && (
-          <Modal onClick={closeIngredientModal}>
+          <Modal onClose={closeIngredientModal}>
             <IngredientDetails />
           </Modal>
         )}
         {isOrderModalOpen && (
-          <Modal onClick={closeOrderModal}>
+          <Modal onClose={closeOrderModal}>
             <OrderDetails />
           </Modal>
         )}

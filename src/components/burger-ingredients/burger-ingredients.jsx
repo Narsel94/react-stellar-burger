@@ -17,7 +17,6 @@ export default function BurgerIngredients() {
   function handleClickTab(tab) {
     setCurrent(tab);
     const ingredientList = document.getElementById(tab);
-    console.log(ingredientList);
     if (ingredientList) ingredientList.scrollIntoView({ behavior: "smooth" });
   }
 
