@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import styles from "./burger-ingredients-list.module.css";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import { ingredientPropType } from "../../utils/prop-types";
+import { Link, useLocation } from "react-router-dom";
 
 function IngredientsList({ type, data, innerRef, name }) {
+  const location = useLocation();
   const filteredIngedients = React.useMemo(
     () => data.filter((ingr) => ingr.type === type),
     [data]
@@ -30,7 +32,11 @@ function IngredientsList({ type, data, innerRef, name }) {
         className={`${styles.ingredientsList} list ml-4 mr-4`}
       >
         {filteredIngedients.map((item) => (
-          <BurgerIngredient ingredient={item} key={item._id} />
+          <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location }} className={`${styles.link}`}>
+            <BurgerIngredient ingredient={item} key={item._id} />
+          </Link>
+
+          
         ))}
       </div>
     </div>

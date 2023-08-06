@@ -6,17 +6,16 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useDispatch, useSelector } from "react-redux";
 import {
   openIngredientDetailsModal,
-  openIngredientModal,
 } from "../../store/modal-slice";
 import { setIngredientDetails } from "../../store/ingredients-slice";
 import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import { ingredientPropType } from "../../utils/prop-types";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+
+
 
 const BurgerIngredient = ({ ingredient }) => {
   const dispatch = useDispatch();
-
   const [{ isDrag }, dragRef] = useDrag({
     type: "constructor",
     item: { ...ingredient, uuidId: uuidv4() },

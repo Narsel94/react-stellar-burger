@@ -1,0 +1,26 @@
+.page {
+  min-width: 480px;
+  min-height: 430px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-top: 15vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tilte {
+  padding: 0;
+}
+
+.linkBlock {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

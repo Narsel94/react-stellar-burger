@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./igredient-details.module.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export default function IngredientDetails() {
-  const info = useSelector((state) => state.ingredients.currentIngredient);
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const dispatch = useDispatch();
 
+  let { id } = useParams();
+
+  const info = ingredients.find((item) => item._id === id);
+
+  if (ingredients.length === 0) return null;
   return (
     <div className={`${styles.popup} pt-10 pr-10 pl-10 pb-15`}>
       <div className={styles.header}>

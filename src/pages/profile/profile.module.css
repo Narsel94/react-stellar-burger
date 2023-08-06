@@ -1,0 +1,46 @@
+.page {
+  margin: 0 auto;
+  display: flex;
+  gap: 60px;
+  margin-top: 15vh;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.navLink {
+  display: flex;
+  text-decoration: none;
+  width: 320px;
+  height: 64px;
+  align-items: center;
+}
+
+.navLinkActive{
+  display: flex;
+  text-decoration: none;
+  width: 320px;
+  height: 64px;
+  align-items: center;
+}
+
+.navLinkActive span {
+  color: white;
+}
+
+.bio{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.button {
+  align-items: start;
+  /* border: 1px solid red; */
+  height: 48px;
+  cursor: pointer;
+  text-align: left;
+}

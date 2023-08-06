@@ -7,7 +7,7 @@ export const createPostRequest = createAsyncThunk(
   "createPostOrder/postOrder",
   async (order, { dispatch }) => {
     dispatch(openOrderDetailsModal());
-    const data = await postOrder(order)
+    const data = await postOrder(order);
     dispatch(clearSelectedIngredients());
     return data;
   }
