@@ -17,7 +17,6 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import ForgotePassword from "../../pages/forgot-password/forgote-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
-import RequireState from "../hoc/requireState";
 
 function App() {
   const { status, error } = useSelector((state) => state.ingredients);
@@ -25,8 +24,6 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();
-
-  // console.log(location);
 
   useEffect(() => {
     dispatch(fetchIngredientsData());
@@ -49,7 +46,7 @@ function App() {
   } else {
     return (
       <div className={styles.app}>
-        <Routes location={background || location }>
+        <Routes location={background || location}>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />}></Route>
             <Route
@@ -63,14 +60,16 @@ function App() {
               <Route path="/profile" element={<ProfileBio />} />
               <Route path="/profile/orders" element={<ProfileOrders />} />
             </Route>
-
             <Route path="ingredients/:id" element={<IngredientDetails />} />
-
-            <Route path="/register" element={<OnlyUnAuth component={<Register />}/>} />
-            <Route path="forgot-password" element={<OnlyUnAuth component={<ForgotePassword />}/>} />
-            {/* <Route path="reset-password" element={<RequireState> <ResetPassword/> </RequireState>} /> */}
-            <Route path="/reset-password" element={ <ResetPassword/>}/>
-
+            <Route
+              path="/register"
+              element={<OnlyUnAuth component={<Register />} />}
+            />
+            <Route
+              path="forgot-password"
+              element={<OnlyUnAuth component={<ForgotePassword />} />}
+            />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
@@ -84,9 +83,8 @@ function App() {
                 </Modal>
               }
             />
-          </Routes>  
+          </Routes>
         )}
-        
       </div>
     );
   }

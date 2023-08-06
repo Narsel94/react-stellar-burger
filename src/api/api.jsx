@@ -16,7 +16,7 @@ function request(url, options) {
 
 //запрос для отправки заказа
 export function postOrder(order) {
-  return request(`${config.baseUrl}/orders`, {
+  return fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export const getUserRequest = () => {
 //запрос на обновление токена
 
 export const refreshTokenRequest = () => {
-  return request("https://norma.nomoreparties.space/api/auth/token", {
+  return request(`${config.baseUrl}/auth//token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -125,7 +125,7 @@ export const loqoutRequest = () => {
 
 //запрос на обновление данных пользователя 
 export const patchUser = (user) => {
-  return request(`${config.baseUrl}/auth/user`, {
+  return fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

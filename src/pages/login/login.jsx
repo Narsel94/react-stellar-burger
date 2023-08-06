@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./login.module.css";
 import {
-  Input,
   PasswordInput,
   EmailInput,
   Button,
@@ -9,7 +8,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../store/user-slice";
-import { refreshTokenRequest, refTok } from "../../api/api";
 
 function Login() {
   const dispatch = useDispatch();
@@ -25,7 +23,7 @@ function Login() {
     setPassword(e.target.value);
   }
 
-  const onClick = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
     const loginData = {
       email: email,
@@ -36,7 +34,7 @@ function Login() {
 
   return (
     <section className={styles.page}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
         <h1 className={`${styles.tilte} text text_type_main-medium mt-4`}>
           Вход
         </h1>
@@ -48,24 +46,19 @@ function Login() {
           value={email}
           name={"email"}
           extraClass="mt-6"
-          // isIcon={true}
-          // onError={() => showError()}
         />
         <PasswordInput
           onChange={onChangePassword}
           value={password}
           name={"password"}
-          // icon="EditIcon"
           extraClass="mt-6"
           error={false}
         />
-
         <Button
           type="primary"
           size="medium"
           htmlType="submit"
           extraClass="mt-6"
-          onClick={onClick}
         >
           Войти
         </Button>

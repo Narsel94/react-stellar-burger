@@ -19,20 +19,18 @@ function Register() {
 
   const onChangeName = (e) => {
     setName(e.target.value);
-    console.log(name);
   };
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
-    console.log(email);
   };
 
   const onChangePassword = (e) => {
     setPassword(e.target.value);
-    console.log(password);
   };
 
-  const onClick = () => {
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
     const formData = {
       email: email,
       password: password,
@@ -44,7 +42,7 @@ function Register() {
   return (
     <div className={styles.register}>
       <h1 className="text text_type_main-medium">Регистрация</h1>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
         <Input
           type="text"
           value={name}
@@ -66,11 +64,10 @@ function Register() {
         />
 
         <Button
-          htmlType="button"
+          htmlType="submit"
           type="primary"
           size="medium"
           extraClass={styles.button}
-          onClick={onClick}
         >
           Зарегестрироваться
         </Button>

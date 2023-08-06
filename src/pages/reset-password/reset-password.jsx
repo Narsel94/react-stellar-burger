@@ -12,7 +12,6 @@ function ResetPassword() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-
   const onPassChange = (evt) => {
     setPassword(evt.target.value);
   };
@@ -21,24 +20,25 @@ function ResetPassword() {
     setCode(evt.target.value);
   };
 
-  const onButtonClick = () => {
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
     const data = {
       password: password,
-      token: code
-    }
-    passwordChangeRquest(data)
-      .then((res) => {
-        if (res.success) {
-          navigate('/login', {replace: true})
-        }
-      })
-  }
+      token: code,
+    };
+    passwordChangeRquest(data).then((res) => {
+      if (res.success) {
+        navigate("/login", { replace: true });
+      }
+    }).catch((err)=>{
+      console.log(err)
+    });
+  };
 
   const location = useLocation();
   const navigate = useNavigate();
-  console.log({location});
 
-  if (!location.state || !location.state.email ) {
+  if (!location.state || !location.state.email) {
     return <Navigate to={"/login"} replace={true} />;
   } else {
     return (
@@ -46,26 +46,26 @@ function ResetPassword() {
         <h1 className="text text_type_main-medium mb-8">
           Восстановление пароля
         </h1>
-
-        <PasswordInput
-          value={password}
-          placeholder="Введите новый пароль"
-          onChange={onPassChange}
-        />
-        <Input
-          value={code}
-          placeholder="Введите код из письма"
-          onChange={onCodeChange}
-        />
-        <Button
-          htmlType="button"
-          type="primary"
-          size="medium"
-          extraClass="mt-6"
-          onClick={onButtonClick}
-        >
-          Сохранить
-        </Button>
+        <form className={styles.form} onSubmit={onSubmitHandler}>
+          <PasswordInput
+            value={password}
+            placeholder="Введите новый пароль"
+            onChange={onPassChange}
+          />
+          <Input
+            value={code}
+            placeholder="Введите код из письма"
+            onChange={onCodeChange}
+          />
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="medium"
+            extraClass="mt-6"
+          >
+            Сохранить
+          </Button>
+        </form>
         <p
           className={`${styles.text} text text_type_main-default text_color_inactive`}
         >

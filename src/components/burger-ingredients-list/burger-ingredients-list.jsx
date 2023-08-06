@@ -32,11 +32,14 @@ function IngredientsList({ type, data, innerRef, name }) {
         className={`${styles.ingredientsList} list ml-4 mr-4`}
       >
         {filteredIngedients.map((item) => (
-          <Link key={item._id} to={`/ingredients/${item._id}`} state={{ background: location }} className={`${styles.link}`}>
+          <Link
+            key={item._id}
+            to={`/ingredients/${item._id}`}
+            state={{ background: location }}
+            className={`${styles.link}`}
+          >
             <BurgerIngredient ingredient={item} key={item._id} />
           </Link>
-
-          
         ))}
       </div>
     </div>
@@ -47,9 +50,7 @@ export default IngredientsList;
 
 IngredientsList.propTypes = {
   type: PropTypes.string,
-  data: PropTypes.arrayOf(
-    ingredientPropType)
-  .isRequired,
+  data: PropTypes.arrayOf(ingredientPropType).isRequired,
   name: PropTypes.string,
   innerRef: PropTypes.func,
 };
