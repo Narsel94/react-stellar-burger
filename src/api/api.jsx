@@ -72,9 +72,9 @@ export const fetchWithRefresh = async (url, options) => {
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
-      localStorage.setItem("accesToken", refreshData.accesToken);
+      localStorage.setItem("accesToken", refreshData.accessToken);
       localStorage.setItem("refreshToken", refreshData.refreshToken);
-      options.headers.authorization = refreshData.accesToken;
+      options.headers.authorization = refreshData.accessToken;
       const res = await fetch(url, options);
       return await responseStatus(res);
     } else {
@@ -82,6 +82,8 @@ export const fetchWithRefresh = async (url, options) => {
     }
   }
 };
+
+
 
 //запрос для получения данных пользователя с обновлением токена
 export const getUserRequest = () => {
@@ -97,15 +99,15 @@ export const getUserRequest = () => {
 //запрос на обновление токена
 
 export const refreshTokenRequest = () => {
-  return fetch(`${config.baseUrl}/auth/token`, {
+  return request("https://norma.nomoreparties.space/api/auth/token", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      token: localStorage.getItem("refreshToken"),
-    }),
-  });
+      "token": localStorage.getItem("refreshToken")
+    })
+  })
 };
 
 
@@ -136,5 +138,35 @@ export const patchUser = (user) => {
     })
   })
 }
+
+//запрос на смену пароля 
+
+export const postEmailForResetPassword = (email) => {
+  return request(`${config.baseUrl}/password-reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email: email
+    })
+  })
+}
+
+//смена пароля 
+export const passwordChangeRquest = (data) => {
+  return request(`${config.baseUrl}/password-reset/reset`,{
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      password: data.password,
+      token: data.token
+    })
+
+  }) 
+}
+
 
 

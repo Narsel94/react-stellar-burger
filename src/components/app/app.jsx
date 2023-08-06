@@ -68,7 +68,8 @@ function App() {
 
             <Route path="/register" element={<OnlyUnAuth component={<Register />}/>} />
             <Route path="forgot-password" element={<OnlyUnAuth component={<ForgotePassword />}/>} />
-            <Route path="reset-password" element={<RequireState> <ResetPassword/> </RequireState>} />
+            {/* <Route path="reset-password" element={<RequireState> <ResetPassword/> </RequireState>} /> */}
+            <Route path="/reset-password" element={ <ResetPassword/>}/>
 
             <Route path="*" element={<NotFound />} />
           </Route>

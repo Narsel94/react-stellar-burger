@@ -11,12 +11,19 @@ import {
 import { createPostRequest } from "../../store/consctructor-slice";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "../constructor-card/constructor-card";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+
   const { bun, filings } = useSelector(
     (state) => state.ingredients.selectedIngredients
   );
+
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.user);
+
   const [{ isHover }, dropTarget] = useDrop({
     accept: "constructor",
     drop(data) {
@@ -132,14 +139,28 @@ const BurgerConstructor = () => {
           <div className={`${styles.bill} mr-4`} key="bill">
             <CurrencyIcon type="primary" />
             <p className="text text_type_main-large">{totalPrice}</p>
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="large"
-              onClick={onClick}
-            >
-              Оформить заказ
-            </Button>
+            {!user && (
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Необходимо авторизоваться
+              </Button>
+            )}
+            {user && (
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                onClick={onClick}
+              >
+                Оформить заказ
+              </Button>
+            )}
           </div>
         </div>
       </div>

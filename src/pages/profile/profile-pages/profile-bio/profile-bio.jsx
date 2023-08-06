@@ -8,7 +8,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { patchUserData } from "../../../../store/user-slice";
-import { patchUser } from "../../../../api/api";
 
 function ProfileBio() {
 
@@ -20,6 +19,9 @@ function ProfileBio() {
   const [formName, setFormName] = useState(name);
   const [formEmail, setFormEmail] = useState(email);
   const [password, setFormPassword] = React.useState("********");
+
+
+
 
 
   function onNameChange(e) {
@@ -50,8 +52,13 @@ function ProfileBio() {
     setFormPassword('********')
   }
 
- //   test22@test.ru
- //   1234qwer
+ //   mail
+
+//  ivan_petrov123@internet.ru
+ //  258147369I
+
+ //login ivan_petrov123@internet.ru
+ //pass 123123
 
   return (
     <section className={styles.page}>

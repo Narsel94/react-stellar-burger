@@ -14,18 +14,17 @@ export const logoutUser = createAsyncThunk(
   }
 ) 
 
-
 export const patchUserData = createAsyncThunk(
   "user/patchUser", 
   async (userData, { dispatch }) => {
-    patchUser(userData)
-      .then((res) => {
-        if (res.success) {
-          dispatch(setUser(res.user));
-        }
-      })
+    const newData = await patchUser(userData);
+      if (newData.success) {
+        dispatch(setUser(newData.user))
+      }
+      return newData
   }
 )
+
 
 export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
