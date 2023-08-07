@@ -11,7 +11,15 @@
 }
 
 .buttons {
+  /* display: none; */
   display: flex;
   gap: 4px;
   flex-direction: row-reverse;
+}
+
+.invisible {
+  /* display: flex;
+  gap: 4px;
+  flex-direction: row-reverse; */
+  display: none;
 }

@@ -14,10 +14,11 @@ function ProfileBio() {
 
   const name = useSelector((state) => state.user.user.name);
   const email = useSelector((state) => state.user.user.email);
+  const password = "********";
 
   const [formName, setFormName] = useState(name);
   const [formEmail, setFormEmail] = useState(email);
-  const [password, setFormPassword] = React.useState("********");
+  const [formPassword, setFormPassword] = React.useState("********");
 
   function onNameChange(e) {
     setFormName(e.target.value);
@@ -36,7 +37,7 @@ function ProfileBio() {
     console.log(e);
     const newUserData = {
       email: formEmail,
-      password: password,
+      password: formPassword,
       name: formName,
     };
     dispatch(patchUserData(newUserData));
@@ -45,16 +46,13 @@ function ProfileBio() {
   function cancelChanging() {
     setFormName(name);
     setFormEmail(email);
-    setFormPassword("********");
+    setFormPassword(password);
   }
 
-  //   mail
-
-  //  ivan_petrov123@internet.ru
-  //  258147369I
-
-  //login ivan_petrov123@internet.ru
-  //pass 123123
+  let isVisible =
+    name !== formName || email !== formEmail || password !== formPassword
+      ? null
+      : styles.invisible;
 
   return (
     <section className={styles.page}>
@@ -75,11 +73,11 @@ function ProfileBio() {
         />
         <PasswordInput
           onChange={onPassChange}
-          value={password}
+          value={formPassword}
           name={"password"}
           extraClass="mb-2"
         />
-        <div className={styles.buttons}>
+        <div className={`${styles.buttons} ${isVisible}`}>
           <Button htmlType="submit" type="primary">
             Coxpанить
           </Button>

@@ -35,7 +35,8 @@ function App() {
         <Preloader />
       </div>
     );
-  } else if (status === "rejected") {
+  }
+    if (status === "rejected") {
     return (
       <div className={styles.container}>
         <h1 className="text text_type_main-medium">
@@ -43,7 +44,7 @@ function App() {
         </h1>
       </div>
     );
-  } else {
+  } 
     return (
       <div className={styles.app}>
         <Routes location={background || location}>
@@ -87,7 +88,7 @@ function App() {
         )}
       </div>
     );
-  }
+  
 }
 
 export default App;

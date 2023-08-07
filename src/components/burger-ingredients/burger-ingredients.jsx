@@ -10,8 +10,8 @@ export default function BurgerIngredients() {
 
   const [current, setCurrent] = React.useState("buns");
 
-  const [bunsRef, bunsInViev] = useInView({ threshold: 0 });
-  const [mainRef, mainInViev] = useInView({ threshold: 0 });
+  const [bunsRef, bunsInView] = useInView({ threshold: 0 });
+  const [mainRef, mainInView] = useInView({ threshold: 0 });
   const [saucesRef, saucesInView] = useInView({ threshold: 0 });
 
   function handleClickTab(tab) {
@@ -21,14 +21,14 @@ export default function BurgerIngredients() {
   }
 
   useEffect(() => {
-    if (bunsInViev) {
+    if (bunsInView) {
       setCurrent("buns");
     } else if (saucesInView) {
       setCurrent("sauces");
-    } else if (mainInViev) {
+    } else if (mainInView) {
       setCurrent("main");
     }
-  }, [bunsInViev, saucesInView, mainInViev]);
+  }, [bunsInView, saucesInView, mainInView]);
 
   return (
     <div className={styles.section}>
