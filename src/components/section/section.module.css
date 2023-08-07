@@ -3,18 +3,23 @@
   max-height: 912px;
 }
 
-.section::-webkit-scrollbar{
+.section::-webkit-scrollbar {
   width: 8px;
 }
 
-.section::-webkit-scrollbar-thumb{
+.section::-webkit-scrollbar-thumb {
   background-color: rgba(133, 133, 173, 1);
   width: 8px;
   border-radius: 3px;
-
 }
 
-.section::-webkit-scrollbar-track{
+.section::-webkit-scrollbar-track {
   background-color: rgba(47, 47, 55, 1);
+}
 
+@media screen and (max-width: 1279px) {
+  .section {
+    max-width: calc(100% - 20px);
+    max-height: fit-content;
+  }
 }

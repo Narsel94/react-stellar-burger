@@ -1,67 +1,80 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import styles from "./burger-ingredients.module.css";
 import IngredientsList from "../burger-ingredients-list/burger-ingredients-list";
+import { useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default function BurgerIngredients({
-  data,
-  setIsModalOpen,
-  setInfo,
-  setChildren,
-}) {
+export default function BurgerIngredients() {
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+
+  const [current, setCurrent] = React.useState("buns");
+
+  const [bunsRef, bunsInViev] = useInView({ threshold: 0 });
+  const [mainRef, mainInViev] = useInView({ threshold: 0 });
+  const [saucesRef, saucesInView] = useInView({ threshold: 0 });
+
+  function handleClickTab(tab) {
+    setCurrent(tab);
+    const ingredientList = document.getElementById(tab);
+    if (ingredientList) ingredientList.scrollIntoView({ behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    if (bunsInViev) {
+      setCurrent("buns");
+    } else if (saucesInView) {
+      setCurrent("sauces");
+    } else if (mainInViev) {
+      setCurrent("main");
+    }
+  }, [bunsInViev, saucesInView, mainInViev]);
+
   return (
-    <div className={styles.wrapper}>
-      <div className={`${styles.ingredientsSection} mt-10`} id="buns">
-        <h2 className="text text_type_main-medium mb-6">Булки</h2>
-
+    <div className={styles.section}>
+      <div className={styles.tab}>
+        <Tab
+          value="buns"
+          active={current === "buns"}
+          onClick={() => handleClickTab("buns")}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value="sauces"
+          active={current === "sauces"}
+          onClick={() => handleClickTab("sauces")}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value="main"
+          active={current === "main"}
+          onClick={() => handleClickTab("main")}
+        >
+          Начинки
+        </Tab>
+      </div>
+      <div className={styles.wrapper}>
         <IngredientsList
           type="bun"
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredients}
+          innerRef={bunsRef}
+          name="buns"
         />
-      </div>
-      <div className={`${styles.ingredientsSection} mt-10`} id="sauces">
-        <h2 className="text text_type_main-medium mb-6">Соусы</h2>
         <IngredientsList
           type="sauce"
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredients}
+          innerRef={saucesRef}
+          name="sauces"
         />
-      </div>
-      <div className={`${styles.ingredientsSection} mt-10`} id="main">
-        <h2 className="text text_type_main-medium mb-6">Начинки</h2>
         <IngredientsList
           type="main"
-          data={data}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
+          data={ingredients}
+          innerRef={mainRef}
+          name="main"
         />
       </div>
     </div>
   );
 }
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    proteins: PropTypes.number,
-    fat: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    calories: PropTypes.number,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    image_mobile: PropTypes.string,
-    image_large: PropTypes.string,
-    __v: PropTypes.number,
-  })).isRequired,
-  setIsModalOpen: PropTypes.func,
-  setInfo: PropTypes.func,
-  setChildren: PropTypes.func,
-};

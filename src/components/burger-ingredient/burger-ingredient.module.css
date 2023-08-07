@@ -8,6 +8,10 @@
   position: relative;
 }
 
+.dragged {
+  box-shadow: 0px 0px 2px 1px rgb(85, 85, 207);
+}
+
 .image {
   outline: 1px solod orange;
   padding: 2px;

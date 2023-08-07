@@ -1,54 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
-import { getIngredientData } from "../api/api";
 import Preloader from "../loader/loader";
 import { Modal } from "../modal/modal";
-import { Overlay } from "../overlay/overlay";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchIngredientsData,
+  clearIngredientDetails,
+} from "../../store/ingredients-slice";
+import { closeModal } from "../../store/modal-slice";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
 
 function App() {
-  const [state, setState] = React.useState({
-    ingredientData: null,
-    isLoading: true,
-  });
+  const { isOrderModalOpen, isIngredientModalOpen } = useSelector(
+    (state) => state.modal
+  );
+  const { status, error } = useSelector((state) => state.ingredients);
+  const dispatch = useDispatch();
 
-  const [modalChildren, setChildren] = React.useState(null);
+  const closeIngredientModal = () => {
+    dispatch(closeModal());
+    dispatch(clearIngredientDetails());
+  };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [info, setInfo] = useState(null);
+  const closeOrderModal = () => {
+    dispatch(closeModal());
+  };
 
-  React.useEffect(() => {
-    setState({ ...state, isLoading: true });
-    getIngredientData()
-      .then((res) => {
-        const data = res.data;
-        setState({ ingredientData: data, isLoading: false });
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  useEffect(() => {
+    dispatch(fetchIngredientsData());
+  }, [dispatch]);
 
-  if (state.isLoading) {
-    return <Preloader />;
+  if (status === "loading") {
+    return (
+      <div className={styles.container}>
+        <Preloader />
+      </div>
+    );
+  } else if (status === "rejected") {
+    return (
+      <div className={styles.container}>
+        <h1 className="text text_type_main-medium">
+          Что-то пошло не так, error:{error}{" "}
+        </h1>
+      </div>
+    );
   } else {
     return (
       <div className={styles.app}>
         <AppHeader />
-        <Main
-          data={state.ingredientData}
-          setIsModalOpen={setIsModalOpen}
-          setInfo={setInfo}
-          setChildren={setChildren}
-        ></Main>
-        {isModalOpen && (
-          <>
-            <Modal
-              setIsModalOpen={setIsModalOpen}
-              info={info}
-              setChildren={setChildren}
-              children={modalChildren}
-            ></Modal>
-          </>
+        <Main />
+        {isIngredientModalOpen && (
+          <Modal onClose={closeIngredientModal}>
+            <IngredientDetails />
+          </Modal>
+        )}
+        {isOrderModalOpen && (
+          <Modal onClose={closeOrderModal}>
+            <OrderDetails />
+          </Modal>
         )}
       </div>
     );

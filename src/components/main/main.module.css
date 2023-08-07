@@ -7,3 +7,11 @@
   gap: 40px;
   padding-bottom: 20px;
 }
+
+@media screen and (max-width: 1279px) {
+  .main {
+    flex-direction: column;
+    gap: 30px;
+    height: auto;
+  }
+}
