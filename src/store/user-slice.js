@@ -48,7 +48,6 @@ export const loginUser = createAsyncThunk(
         if (res.success) {
           localStorage.setItem("accesToken", res.accessToken);
           localStorage.setItem("refreshToken", res.refreshToken);
-          console.log("login");
           dispatch(setUser(res.user));
         } else {
           return Promise.reject(`Ошибка дынных с сервера`);
