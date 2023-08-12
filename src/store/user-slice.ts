@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { registrationRequest, getUserRequest, loginRequest, loqoutRequest, patchUser } from "../api/api";
+import { TUserState } from "../utils/types";
+
 
 export const logoutUser = createAsyncThunk(
   "user/logout", 
@@ -74,10 +76,10 @@ export const getUser = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
+  return (dispatch:any) => {
     if (localStorage.getItem("accesToken")) {
       dispatch(getUser())
-        .catch((error) => {
+        .catch((error:Error) => {
           localStorage.removeItem("accesToken");
           localStorage.removeItem("refreshToken");
           dispatch(setUser(null));
@@ -90,12 +92,14 @@ export const checkUserAuth = () => {
   };
 };
 
-const userSlice = createSlice({
-  name: "user",
-  initialState: {
+const initialState:TUserState = {
     user: null,
     isAuthChecked: false,
-  },
+}
+
+const userSlice = createSlice({
+  name: "user",
+  initialState,
   reducers: {
     setUser(state, actions) {
       state.user = actions.payload;

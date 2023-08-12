@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constructor.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
 import {
   selectIngredients,
   updateConstuctorElements,
@@ -12,22 +11,24 @@ import { createPostRequest } from "../../store/consctructor-slice";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../utils/hooks";
+import { TIngredientWithUuidId } from "../../utils/types";
 
-const BurgerConstructor = () => {
-  const dispatch = useDispatch();
+const BurgerConstructor: FC = () => {
+  const dispatch = useAppDispatch();
 
-  const { bun, filings } = useSelector(
+  const { bun, filings } = useAppSelector(
     (state) => state.ingredients.selectedIngredients
   );
 
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "constructor",
     drop(data) {
-      dispatch(selectIngredients(data));
+      dispatch(selectIngredients(data as TIngredientWithUuidId));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -39,36 +40,28 @@ const BurgerConstructor = () => {
       return null;
     }
     return [bun, ...filings];
-  });
+  }, [bun, filings]);
 
-  const orderDetails = React.useMemo(() => {
-    if (!constructorElements) {
-      return null;
-    } else {
-      return constructorElements.reduce((prev, curr) => {
-        return [...prev, curr._id];
-      }, []);
-    }
-  }, [constructorElements]);
-
-  const totalPrice = React.useMemo(() => {
-    if (!constructorElements) {
-      return 0;
-    } else {
-      return constructorElements.reduce(
+  const totalPrice = useMemo(() => {
+    if (constructorElements) {
+      return constructorElements?.reduce(
         (sum, element) =>
-          sum + (element.type === "bun" ? element.price * 2 : element.price),
+          sum + element.price * (element.type === "bun" ? 2 : 1),
         0
       );
     }
+    return 0;
   }, [constructorElements]);
 
   const onClick = () => {
-    dispatch(createPostRequest(orderDetails));
+    const orderDetailsT = constructorElements?.map((item) => item._id);
+    if (orderDetailsT) {
+        dispatch(createPostRequest(orderDetailsT));
+    }
   };
 
   const moveIngredient = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragItem = filings[dragIndex];
       const hoverItem = filings[hoverIndex];
       const newFilings = [...filings];
@@ -79,7 +72,7 @@ const BurgerConstructor = () => {
     [filings]
   );
 
-  const isHovered = isHover ? styles.onHover : styles.constructor;
+  const isHovered = isHover ? styles.onHover : styles.constructorBlock;
 
   if (!bun) {
     return (
@@ -111,7 +104,7 @@ const BurgerConstructor = () => {
             text={`${bun.name} (верх)`}
             type="top"
             isLocked={true}
-            prise={bun.price}
+            price={bun.price}
             thumbnail={bun.image_mobile}
           ></ConstructorElement>
         </div>
@@ -130,7 +123,7 @@ const BurgerConstructor = () => {
             text={`${bun.name} (низ)`}
             type="bottom"
             isLocked={true}
-            prise={bun.price}
+            price={bun.price}
             thumbnail={bun.image_mobile}
             extraClass={styles.element}
           />

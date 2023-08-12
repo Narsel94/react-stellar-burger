@@ -1,21 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  openIngredientDetailsModal,
-} from "../../store/modal-slice";
-import { setIngredientDetails } from "../../store/ingredients-slice";
 import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
-import { ingredientPropType } from "../../utils/prop-types";
+import { useAppSelector, useAppDispatch } from "../../utils/hooks";
+import { TBurgerIngredientProps } from "../../utils/types";
 
-
-
-const BurgerIngredient = ({ ingredient }) => {
-  const dispatch = useDispatch();
+const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
+  const dispatch = useAppDispatch();
   const [{ isDrag }, dragRef] = useDrag({
     type: "constructor",
     item: { ...ingredient, uuidId: uuidv4() },
@@ -24,7 +17,7 @@ const BurgerIngredient = ({ ingredient }) => {
     }),
   });
 
-  const { bun, filings } = useSelector(
+  const { bun, filings } = useAppSelector(
     (state) => state.ingredients.selectedIngredients
   );
 
@@ -33,7 +26,7 @@ const BurgerIngredient = ({ ingredient }) => {
       return null;
     }
     return [bun, bun, ...filings];
-  });
+  }, [bun, filings]);
 
   const currentCount = React.useMemo(() => {
     if (!constructorElements) {
@@ -42,23 +35,17 @@ const BurgerIngredient = ({ ingredient }) => {
     return constructorElements.filter(
       (element) => element._id === ingredient._id
     ).length;
-  });
+  }, [constructorElements]);
 
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;
-
-  const onClick = () => {
-    dispatch(openIngredientDetailsModal());
-    dispatch(setIngredientDetails(ingredient));
-  };
 
   const dragged = isDrag ? styles.dragged : "";
 
   return (
     <div
       className={`${styles.card} ${dragged} text text_type_main-default pl-4 pr-4 `}
-      key={ingredient.id}
-      onClick={onClick}
+      key={ingredient._id}
       ref={dragRef}
     >
       {currentCount > 0 && (
@@ -81,8 +68,4 @@ const BurgerIngredient = ({ ingredient }) => {
   );
 };
 
-BurgerIngredient.propTypes = {
-  ingredient: ingredientPropType.isRequired,
-};
-
-export default BurgerIngredient;
+export default BurgerIngredientT;

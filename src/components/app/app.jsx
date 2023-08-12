@@ -14,7 +14,7 @@ import ProfileOrders from "../../pages/profile/profile-pages/profile-orders";
 import ProfileBio from "../../pages/profile/profile-pages/profile-bio/profile-bio";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { Modal } from "../modal/modal";
+import Modal  from "../modal/modal";
 import ForgotePassword from "../../pages/forgot-password/forgote-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 

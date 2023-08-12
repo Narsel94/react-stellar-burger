@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
-import { Overlay } from "../overlay/overlay";
+import  Overlay  from "../overlay/overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { TModalProps } from "../../utils/types";
 
-export const modalRoot = document.getElementById("react-modal");
 
-export function Modal({ children, onClose }) {
+ const Modal:FC<TModalProps> = ({ children, onClose }) => {
+
+ const modalRoot: HTMLElement = document.getElementById("react-modal") as HTMLElement;
+   
   React.useEffect(() => {
-    function onEsc(evt) {
+    function onEsc(evt:KeyboardEvent) {
       if (evt.code === "Escape") {
         onClose();
       }
@@ -17,7 +20,9 @@ export function Modal({ children, onClose }) {
 
     return () => document.removeEventListener("keydown", onEsc);
   }, []);
-
+ 
+    
+  
   return ReactDOM.createPortal(
     <>
       <div className={styles.modal}>
@@ -29,3 +34,5 @@ export function Modal({ children, onClose }) {
     modalRoot
   );
 }
+
+export default Modal

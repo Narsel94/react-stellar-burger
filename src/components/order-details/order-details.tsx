@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import image from "../../images/graphics.svg";
-import { useSelector } from "react-redux";
 import Preloader from "../loader/loader";
+import { useAppSelector } from "../../utils/hooks";
 
 export default function OrderDetails() {
-  const { order, status, error } = useSelector(
+  const { order, status, error } = useAppSelector(
     (state) => state.burgerConstructor
   );
 

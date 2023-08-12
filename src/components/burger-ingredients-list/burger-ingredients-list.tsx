@@ -1,11 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC} from "react";
 import styles from "./burger-ingredients-list.module.css";
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
-import { ingredientPropType } from "../../utils/prop-types";
 import { Link, useLocation } from "react-router-dom";
+import { TIngredientsListProps } from "../../utils/types"; 
 
-function IngredientsList({ type, data, innerRef, name }) {
+const IngredientsList:FC<TIngredientsListProps> = ({ type, data, innerRef, name }) => {
   const location = useLocation();
   const filteredIngedients = React.useMemo(
     () => data.filter((ingr) => ingr.type === type),
@@ -38,7 +37,7 @@ function IngredientsList({ type, data, innerRef, name }) {
             state={{ background: location }}
             className={`${styles.link}`}
           >
-            <BurgerIngredient ingredient={item} key={item._id} />
+            <BurgerIngredient ingredient={item} />
           </Link>
         ))}
       </div>
@@ -47,10 +46,3 @@ function IngredientsList({ type, data, innerRef, name }) {
 }
 
 export default IngredientsList;
-
-IngredientsList.propTypes = {
-  type: PropTypes.string,
-  data: PropTypes.arrayOf(ingredientPropType).isRequired,
-  name: PropTypes.string,
-  innerRef: PropTypes.func,
-};

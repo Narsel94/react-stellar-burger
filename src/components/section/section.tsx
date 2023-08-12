@@ -1,11 +1,10 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from "./section.module.css";
+import { TSectionProps } from "../../utils/types";
 import PropTypes from "prop-types";
 
-export default function Section(props) {
+const Section:FC<TSectionProps> = (props) => {
   return <section className={styles.section}>{props.children}</section>;
 }
 
-Section.propTypes = {
-  props: PropTypes.node,
-};
+export default Section

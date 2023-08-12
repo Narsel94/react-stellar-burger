@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { openOrderDetailsModal } from "./modal-slice";
 import { clearSelectedIngredients } from "./ingredients-slice";
 import { postOrder } from "../api/api";
+import { TConstructorState } from "../utils/types";
 
 export const createPostRequest = createAsyncThunk(
   "createPostOrder/postOrder",
-  async (order, { dispatch }) => {
+  async (order:string[], { dispatch }) => {
     dispatch(openOrderDetailsModal());
     const data = await postOrder(order);
     dispatch(clearSelectedIngredients());
@@ -13,14 +14,16 @@ export const createPostRequest = createAsyncThunk(
   }
 );
 
+const initialState: TConstructorState = {
+  order: [],
+  status: null,
+  error: null,
+};
+
 const constructorSlice = createSlice({
   name: "constructor",
 
-  initialState: {
-    order: [],
-    status: null,
-    error: null,
-  },
+  initialState,
   reducers: {
     setOrderDetails(state, action) {
       state.order = action.payload;
