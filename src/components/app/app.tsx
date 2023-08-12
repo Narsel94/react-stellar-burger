@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./app.module.css";
 import Preloader from "../loader/loader";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredientsData } from "../../store/ingredients-slice";
 import NotFound from "../../pages/not-found/not-found";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -17,10 +16,12 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal  from "../modal/modal";
 import ForgotePassword from "../../pages/forgot-password/forgote-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
+import { useAppSelector, useAppDispatch } from "../../utils/hooks";
+
 
 function App() {
-  const { status, error } = useSelector((state) => state.ingredients);
-  const dispatch = useDispatch();
+  const { status, error } = useAppSelector((state) => state.ingredients);
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
   const navigate = useNavigate();

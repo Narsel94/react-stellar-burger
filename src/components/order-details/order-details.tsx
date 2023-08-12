@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./order-details.module.css";
 import image from "../../images/graphics.svg";
 import Preloader from "../loader/loader";
 import { useAppSelector } from "../../utils/hooks";
+import { useLocation } from "react-router-dom";
 
 export default function OrderDetails() {
   const { order, status, error } = useAppSelector(

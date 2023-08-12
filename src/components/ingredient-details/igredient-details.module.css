@@ -16,6 +16,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .image {
@@ -24,6 +25,8 @@
   display: flex;
   justify-content: center;  
 }
+
+
 
 .details {
   display: flex;

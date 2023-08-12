@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import { RouteProps } from "react-router-dom";
-import { AsyncThunk } from "@reduxjs/toolkit";
 
 export type TIngredient = {
   readonly _id: string;
@@ -51,7 +49,6 @@ export type TOverlayProps = {
 
 export type TProtectedRouteProps = {
   onlyUnAuth: boolean;
-  //мб переделать
   component: JSX.Element;
 };
 

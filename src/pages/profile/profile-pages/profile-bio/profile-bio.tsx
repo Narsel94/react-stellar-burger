@@ -19,7 +19,7 @@ function ProfileBio() {
   const [formPassword, setFormPassword] = React.useState("");
 
   useEffect(()=>{
-        setFormName(user!.name);
+      setFormName(user!.name);
       setFormEmail(user!.email)
   },[])
 
@@ -98,6 +98,7 @@ function ProfileBio() {
       </section>
     );
   }
+  return null
 }
 
 export default ProfileBio;
