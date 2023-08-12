@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { RouteProps } from "react-router-dom";
+import { AsyncThunk } from "@reduxjs/toolkit";
 
 export type TIngredient = {
   readonly _id: string;
@@ -51,7 +52,11 @@ export type TOverlayProps = {
 export type TProtectedRouteProps = {
   onlyUnAuth: boolean;
   //мб переделать
-  component?: any;
+  component: JSX.Element;
+};
+
+export type TAuthProps = {
+  component: JSX.Element;
 };
 
 export type TIngredientState = {
@@ -74,13 +79,38 @@ export type TConstructorState = {
   error: string | null | undefined;
 };
 
+export type TUser = {
+  email: string;
+  name: string;
+};
+
 export type TUserState = {
-  user: { email: string; name: string } | null;
+  user: TUser | null;
   isAuthChecked: boolean;
 };
 
+// стейт модального окна
 export type TModalState = {
   isOrderModalOpen: boolean;
   isIngredientModalOpen: boolean;
   isModalOpen: boolean;
 };
+
+//ASync Types
+
+export type TLoginData = {
+  email: string;
+  password: string;
+};
+
+export type TRegistrData ={
+  email: string;
+  password: string;
+  name: string
+}
+
+export type TPatchUserData = {
+  email?: string;
+  password?: string;
+  name?: string
+}

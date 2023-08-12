@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState, ChangeEvent } from "react";
 import styles from "./forgote-password.module.css";
 import {
   Button,
@@ -11,11 +11,11 @@ function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
-  const onChange = (evt) => {
+  const onChange = (evt:ChangeEvent<HTMLInputElement>) => {
     setEmail(evt.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e:FormEvent) => {
     e.preventDefault();
     postEmailForResetPassword(email).then((res) => {
       if (res.success) {

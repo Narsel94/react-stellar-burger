@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import styles from "./login.module.css";
 import {
   PasswordInput,
@@ -6,24 +6,24 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { loginUser } from "../../store/user-slice";
+import { useAppDispatch } from "../../utils/hooks";
 
 function Login() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
 
-  function onChangeEmail(e) {
+  function onChangeEmail(e:ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   }
 
-  function onChangePassword(e) {
+  function onChangePassword(e:ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e:FormEvent) => {
     e.preventDefault();
     const loginData = {
       email: email,
@@ -40,7 +40,6 @@ function Login() {
         </h1>
 
         <EmailInput
-          type={"email"}
           placeholder={"Логин"}
           onChange={onChangeEmail}
           value={email}
@@ -52,7 +51,6 @@ function Login() {
           value={password}
           name={"password"}
           extraClass="mt-6"
-          error={false}
         />
         <Button
           type="primary"

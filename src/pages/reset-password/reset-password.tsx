@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./reset-password.module.css";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import {
@@ -12,15 +12,15 @@ function ResetPassword() {
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-  const onPassChange = (evt) => {
+  const onPassChange = (evt:ChangeEvent<HTMLInputElement>) => {
     setPassword(evt.target.value);
   };
 
-  const onCodeChange = (evt) => {
+  const onCodeChange = (evt:ChangeEvent<HTMLInputElement>) => {
     setCode(evt.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e:FormEvent) => {
     e.preventDefault();
     const data = {
       password: password,

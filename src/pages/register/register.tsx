@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import styles from "./register.module.css";
 import {
   EmailInput,
@@ -9,27 +9,28 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { registrateUser } from "../../store/user-slice";
+import { useAppDispatch } from "../../utils/hooks";
 
 function Register() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [name, setName] = React.useState("name");
   const [password, setPassword] = React.useState("password");
   const [email, setEmail] = React.useState("email");
 
-  const onChangeName = (e) => {
+  const onChangeName = (e:ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e:ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const onChangePassword = (e) => {
+  const onChangePassword = (e:ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
       email: email,

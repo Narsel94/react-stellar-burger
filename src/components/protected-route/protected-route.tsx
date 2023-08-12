@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import React, { useEffect, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
-import { TProtectedRouteProps } from "../../utils/types";
+import { TProtectedRouteProps, TAuthProps } from "../../utils/types";
 
 import { setAuthChecked } from "../../store/user-slice";
 import { checkUserAuth } from "../../store/user-slice";
@@ -36,9 +36,9 @@ const ProtectedRoute:FC<TProtectedRouteProps> = ({ onlyUnAuth = false, component
   return component;
 };
 
-export const OnlyAuth:FC = ({...props}) => (
-  <ProtectedRoute onlyUnAuth={false} {...props} />
+export const OnlyAuth:FC<TAuthProps> = ({component}) => (
+  <ProtectedRoute onlyUnAuth={false} component={component} />
 );
-export const OnlyUnAuth:FC = ({...props}) => (
-  <ProtectedRoute onlyUnAuth={true} {...props} />
+export const OnlyUnAuth:FC<TAuthProps> = ({component}) => (
+  <ProtectedRoute onlyUnAuth={true} component={component} />
 );

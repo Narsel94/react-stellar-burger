@@ -6,7 +6,7 @@ import {
   loqoutRequest,
   patchUser,
 } from "../api/api";
-import { TUserState } from "../utils/types";
+import { TUserState, TLoginData, TRegistrData, TPatchUserData } from "../utils/types";
 
 export const logoutUser = createAsyncThunk(
   "user/logout",
@@ -23,7 +23,7 @@ export const logoutUser = createAsyncThunk(
 
 export const patchUserData = createAsyncThunk(
   "user/patchUser",
-  async (userData, { dispatch }) => {
+  async (userData:{email:string, password:string, name:string}, { dispatch }) => {
     const newData = await patchUser(userData);
     if (newData.success) {
       dispatch(setUser(newData.user));
@@ -34,7 +34,7 @@ export const patchUserData = createAsyncThunk(
 
 export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
-  async (formData, { dispatch }) => {
+  async (formData:TRegistrData, { dispatch }) => {
     const data = await registrationRequest(formData);
     if (data.success) {
       dispatch(setUser(data.user));
@@ -48,7 +48,7 @@ export const registrateUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (loginData, { dispatch }) => {
+  async (loginData:TLoginData, { dispatch }) => {
     loginRequest(loginData)
       .then((res) => {
         if (res.success) {

@@ -2,15 +2,16 @@ import React from "react";
 import styles from "./profile.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
 import { logoutUser } from "../../store/user-slice";
+import { useAppDispatch } from "../../utils/hooks";
 
 function Profile() {
-  const setStyle = ({ isActive }) => {
-    return isActive ? styles.navLinkActive : styles.navLink;
+
+  const activeLinkColor = {
+    color: "#fff",
   };
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const logout = () => {
     dispatch(logoutUser());
@@ -19,13 +20,23 @@ function Profile() {
   return (
     <section className={styles.page}>
       <div className={styles.navigation}>
-        <NavLink to="/profile" className={setStyle} end>
-          <span className="text text_type_main-medium text_color_inactive">
+        <NavLink
+          to="/profile"
+          className={styles.navLink}
+          style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
+          end
+        >
+          <span className="text text_type_main-medium">
             Профиль
           </span>
         </NavLink>
-        <NavLink to="/profile/orders" className={setStyle} end>
-          <span className="text text_type_main-medium text_color_inactive">
+        <NavLink
+          to="/profile/orders"
+          className={styles.navLink}
+          style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
+          end
+        >
+          <span className="text text_type_main-medium">
             История заказов
           </span>
         </NavLink>

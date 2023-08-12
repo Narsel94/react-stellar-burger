@@ -17,6 +17,8 @@
   width: 320px;
   height: 64px;
   align-items: center;
+  color: var(--text-inactive-color);
+
 }
 
 .navLinkActive{
