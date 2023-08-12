@@ -6,7 +6,7 @@ import { TConstructorState } from "../utils/types";
 
 export const createPostRequest = createAsyncThunk(
   "createPostOrder/postOrder",
-  async (order:string[], { dispatch }) => {
+  async (order: string[], { dispatch }) => {
     dispatch(openOrderDetailsModal());
     const data = await postOrder(order);
     dispatch(clearSelectedIngredients());

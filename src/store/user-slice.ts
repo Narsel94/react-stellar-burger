@@ -1,11 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { registrationRequest, getUserRequest, loginRequest, loqoutRequest, patchUser } from "../api/api";
+import {
+  registrationRequest,
+  getUserRequest,
+  loginRequest,
+  loqoutRequest,
+  patchUser,
+} from "../api/api";
 import { TUserState } from "../utils/types";
 
-
 export const logoutUser = createAsyncThunk(
-  "user/logout", 
-  async(_, {dispatch}) => {
+  "user/logout",
+  async (_, { dispatch }) => {
     const logoutData = await loqoutRequest();
     if (logoutData.success) {
       dispatch(setUser(null));
@@ -14,19 +19,18 @@ export const logoutUser = createAsyncThunk(
       dispatch(setAuthChecked(false));
     }
   }
-) 
+);
 
 export const patchUserData = createAsyncThunk(
-  "user/patchUser", 
+  "user/patchUser",
   async (userData, { dispatch }) => {
     const newData = await patchUser(userData);
-      if (newData.success) {
-        dispatch(setUser(newData.user))
-      }
-      return newData
+    if (newData.success) {
+      dispatch(setUser(newData.user));
+    }
+    return newData;
   }
-)
-
+);
 
 export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
@@ -76,10 +80,10 @@ export const getUser = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch:any) => {
+  return (dispatch: any) => {
     if (localStorage.getItem("accesToken")) {
       dispatch(getUser())
-        .catch((error:Error) => {
+        .catch((error: Error) => {
           localStorage.removeItem("accesToken");
           localStorage.removeItem("refreshToken");
           dispatch(setUser(null));
@@ -92,10 +96,10 @@ export const checkUserAuth = () => {
   };
 };
 
-const initialState:TUserState = {
-    user: null,
-    isAuthChecked: false,
-}
+const initialState: TUserState = {
+  user: null,
+  isAuthChecked: false,
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -109,9 +113,6 @@ const userSlice = createSlice({
     },
   },
 });
-
-
-
 
 export const { setAuthChecked, setUser } = userSlice.actions;
 export default userSlice.reducer;

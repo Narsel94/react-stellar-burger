@@ -35,26 +35,24 @@ export type TConstructorCardProps = {
   moveIngredient: (dragIndex: number, hoverIndex: number) => void;
 };
 
-
 export type TSectionProps = {
   children: ReactNode;
 };
 
 export type TModalProps = {
-  children:ReactNode;
-  onClose:() => void; 
-}
+  children: ReactNode;
+  onClose: () => void;
+};
 
 export type TOverlayProps = {
   onClose: () => void;
-}
+};
 
 export type TProtectedRouteProps = {
   onlyUnAuth: boolean;
   //мб переделать
-  component?: any
-}
-
+  component?: any;
+};
 
 export type TIngredientState = {
   ingredients: TIngredient[];
@@ -76,9 +74,13 @@ export type TConstructorState = {
   error: string | null | undefined;
 };
 
+export type TUserState = {
+  user: { email: string; name: string } | null;
+  isAuthChecked: boolean;
+};
 
-export type TUserState ={
-  user: {email:string, name: string } | null,
-  isAuthChecked: boolean,
-
-}
+export type TModalState = {
+  isOrderModalOpen: boolean;
+  isIngredientModalOpen: boolean;
+  isModalOpen: boolean;
+};

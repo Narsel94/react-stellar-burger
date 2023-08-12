@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TModalState } from "../utils/types";
+
+const initialState: TModalState = {
+  isOrderModalOpen: false,
+  isIngredientModalOpen: false,
+  isModalOpen: false,
+};
 
 const modalSlice = createSlice({
-  name: 'modal', 
-  initialState: { 
-    isOrderModalOpen: false,
-    isIngredientModalOpen: false,
-    isModalOpen: false,
-  },
+  name: "modal",
+  initialState,
   reducers: {
     openIngredientDetailsModal(state) {
       state.isIngredientModalOpen = true;
@@ -17,9 +20,10 @@ const modalSlice = createSlice({
     closeModal(state) {
       state.isIngredientModalOpen = false;
       state.isOrderModalOpen = false;
-    }
-  }
+    },
+  },
 });
 
-export const {openIngredientDetailsModal, openOrderDetailsModal, closeModal} = modalSlice.actions;
+export const { openIngredientDetailsModal, openOrderDetailsModal, closeModal } =
+  modalSlice.actions;
 export default modalSlice.reducer;

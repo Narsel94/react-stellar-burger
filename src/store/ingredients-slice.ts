@@ -1,14 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { getIngredientsData } from "../api/api";
-import { TIngredient, TIngredientState, TIngredientWithUuidId } from "../utils/types";
+import {
+  TIngredient,
+  TIngredientState,
+  TIngredientWithUuidId,
+} from "../utils/types";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
   getIngredientsData
-  
 );
 
-const initialState:TIngredientState = {
+const initialState: TIngredientState = {
   ingredients: [],
   selectedIngredients: {
     bun: null,
@@ -16,9 +19,9 @@ const initialState:TIngredientState = {
   },
   draggedIngredient: null,
   currentIngredient: null,
-  status: '',
+  status: "",
   error: null,
-}
+};
 
 const ingredientsSlice = createSlice({
   name: "ingredients",
@@ -30,15 +33,23 @@ const ingredientsSlice = createSlice({
     clearIngredientDetails(state) {
       state.currentIngredient = null;
     },
-    selectIngredients(state, action:PayloadAction<TIngredientWithUuidId>) {
-      (action.payload.type === 'bun')? state.selectedIngredients.bun = action.payload :
-      (state.selectedIngredients.bun === null)?  state.selectedIngredients.filings = state.selectedIngredients.filings = state.selectedIngredients.filings  
-      : state.selectedIngredients.filings = state.selectedIngredients.filings.concat(action.payload);
+    selectIngredients(state, action: PayloadAction<TIngredientWithUuidId>) {
+      action.payload.type === "bun"
+        ? (state.selectedIngredients.bun = action.payload)
+        : state.selectedIngredients.bun === null
+        ? (state.selectedIngredients.filings =
+            state.selectedIngredients.filings =
+              state.selectedIngredients.filings)
+        : (state.selectedIngredients.filings =
+            state.selectedIngredients.filings.concat(action.payload));
     },
-    updateConstuctorElements(state, action:PayloadAction<Array<TIngredientWithUuidId>>) {
+    updateConstuctorElements(
+      state,
+      action: PayloadAction<Array<TIngredientWithUuidId>>
+    ) {
       state.selectedIngredients.filings = action.payload;
     },
-    deleteIngredient(state, action:PayloadAction<TIngredientWithUuidId>) {
+    deleteIngredient(state, action: PayloadAction<TIngredientWithUuidId>) {
       state.selectedIngredients.filings =
         state.selectedIngredients.filings.filter(
           (item) => item.uuidId !== action.payload.uuidId
