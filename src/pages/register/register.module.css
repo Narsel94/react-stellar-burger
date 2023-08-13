@@ -1,0 +1,19 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  margin: 15vh auto 0;
+  gap: 20px;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.button {
+  max-width: 50%;
+}

@@ -1,0 +1,25 @@
+.page {
+  /* display: flex;
+  flex-direction: column;
+  gap: 14px; */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.buttons {
+  /* display: none; */
+  display: flex;
+  gap: 4px;
+  flex-direction: row-reverse;
+}
+
+.invisible {
+  /* display: flex;
+  gap: 4px;
+  flex-direction: row-reverse; */
+  display: none;
+}

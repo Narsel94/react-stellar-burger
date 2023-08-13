@@ -1,12 +1,12 @@
 .popup {
   box-sizing: border-box;
-  min-width: 720px;
-  min-height: 540px;
-  background-color: #1c1c21;
+  max-width: 720px;
+  max-height: 540px;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
-  border-radius: 40px;
   align-items: center;
+  margin: 0 auto;
 }
 
 .header {
@@ -16,6 +16,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .image {
@@ -24,6 +25,8 @@
   display: flex;
   justify-content: center;  
 }
+
+
 
 .details {
   display: flex;
