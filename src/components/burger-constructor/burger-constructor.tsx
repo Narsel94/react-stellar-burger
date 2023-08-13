@@ -53,12 +53,16 @@ const BurgerConstructor: FC = () => {
     return 0;
   }, [constructorElements]);
 
+  const testData = ["aa", "aaa", "aaa"]
+
   const onClick = () => {
     const orderDetailsT = constructorElements?.map((item) => item._id);
     if (orderDetailsT) {
         dispatch(createPostRequest(orderDetailsT));
     }
   };
+
+
 
   const moveIngredient = useCallback(
     (dragIndex: number, hoverIndex: number) => {

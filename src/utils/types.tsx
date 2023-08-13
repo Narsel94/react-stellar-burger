@@ -64,9 +64,9 @@ export type TSelectedIngredients = {
 // стейт клнструктора
 
 export type TConstructorState = {
-  order: string[];
+  order: number | null;
   status: string | null;
-  error: string | null | undefined;
+  error: any;
 };
 
 // тип данных юзера
@@ -124,6 +124,8 @@ export type TGetIngredientsData = {
   data: TIngredient[];
 };
 
+// тип ответа сервера обновления токена  
+
 export type TRefreshTokenRes = {
   success: boolean;
   accessToken: string;
@@ -149,3 +151,28 @@ export type TRegistrResponse = TLoginResponse;
 
 export type TGetUserData = Omit<TLoginResponse, "accessToken" | "refreshToken">
 
+export type TOwnerResponse = {
+  createdAt: string;
+  email: string;
+  name: string;
+  updatedAt: string;
+  
+}
+
+export type TOrderResponse = {
+  createdAt: string;
+  ingredients: TIngredient[];
+  name: string;
+  number: number;
+  owner: TOwnerResponse;
+  price: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+export type TPostOrderResponse = {
+  success: boolean;
+  name: string;
+  order: TOrderResponse
+}
