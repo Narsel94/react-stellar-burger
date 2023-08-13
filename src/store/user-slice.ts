@@ -6,7 +6,17 @@ import {
   loqoutRequest,
   patchUser,
 } from "../api/api";
-import { TUserState, TLoginData, TRegistrData, TPatchUserData } from "../utils/types";
+import {
+  TUserState,
+  TLoginData,
+  TRegistrData,
+  TPatchUserData,
+  TLoginResponse,
+  TRegistrResponse,
+  TGetUserData,
+  TUser
+} from "../utils/types";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export const logoutUser = createAsyncThunk(
   "user/logout",
@@ -23,7 +33,7 @@ export const logoutUser = createAsyncThunk(
 
 export const patchUserData = createAsyncThunk(
   "user/patchUser",
-  async (userData:{email:string, password:string, name:string}, { dispatch }) => {
+  async (userData: TPatchUserData, { dispatch }) => {
     const newData = await patchUser(userData);
     if (newData.success) {
       dispatch(setUser(newData.user));
@@ -34,8 +44,8 @@ export const patchUserData = createAsyncThunk(
 
 export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
-  async (formData:TRegistrData, { dispatch }) => {
-    const data = await registrationRequest(formData);
+  async (formData: TRegistrData, { dispatch }) => {
+    const data: TRegistrResponse = await registrationRequest(formData);
     if (data.success) {
       dispatch(setUser(data.user));
       localStorage.setItem("accesToken", data.accessToken);
@@ -48,9 +58,9 @@ export const registrateUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (loginData:TLoginData, { dispatch }) => {
+  async (loginData: TLoginData, { dispatch }) => {
     loginRequest(loginData)
-      .then((res) => {
+      .then((res: TLoginResponse) => {
         if (res.success) {
           localStorage.setItem("accesToken", res.accessToken);
           localStorage.setItem("refreshToken", res.refreshToken);
@@ -59,7 +69,7 @@ export const loginUser = createAsyncThunk(
           return Promise.reject(`Ошибка дынных с сервера`);
         }
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.log(err);
       })
       .finally(() => {
@@ -71,7 +81,7 @@ export const loginUser = createAsyncThunk(
 export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { dispatch }) => {
-    const userData = await getUserRequest();
+    const userData:TGetUserData = await getUserRequest();
     if (userData.success) {
       dispatch(setUser(userData.user));
     }
@@ -105,10 +115,10 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, actions) {
+    setUser(state, actions:PayloadAction<TUser | null>) {
       state.user = actions.payload;
     },
-    setAuthChecked(state, actions) {
+    setAuthChecked(state, actions:PayloadAction<boolean>) {
       state.isAuthChecked = actions.payload;
     },
   },

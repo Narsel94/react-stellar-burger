@@ -56,19 +56,12 @@ export type TAuthProps = {
   component: JSX.Element;
 };
 
-export type TIngredientState = {
-  ingredients: TIngredient[];
-  selectedIngredients: TSelectedIngredients;
-  draggedIngredient: TIngredientWithUuidId | null;
-  currentIngredient: TIngredient | null | unknown;
-  status: string;
-  error: string | undefined | null;
-};
-
 export type TSelectedIngredients = {
   bun: TIngredientWithUuidId | null;
   filings: Array<TIngredientWithUuidId>;
 };
+
+// стейт клнструктора
 
 export type TConstructorState = {
   order: string[];
@@ -76,14 +69,26 @@ export type TConstructorState = {
   error: string | null | undefined;
 };
 
+// тип данных юзера
 export type TUser = {
   email: string;
   name: string;
 };
 
+// стейт юзера
 export type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
+};
+
+//стейт ингредиетов
+export type TIngredientState = {
+  ingredients: TIngredient[];
+  selectedIngredients: TSelectedIngredients;
+  draggedIngredient: TIngredientWithUuidId | null;
+  currentIngredient: TIngredient | null | unknown;
+  status: string;
+  error: string | undefined | null;
 };
 
 // стейт модального окна
@@ -100,14 +105,47 @@ export type TLoginData = {
   password: string;
 };
 
-export type TRegistrData ={
+export type TRegistrData = {
   email: string;
   password: string;
-  name: string
-}
+  name: string;
+};
 
 export type TPatchUserData = {
   email?: string;
   password?: string;
-  name?: string
-}
+  name?: string;
+};
+
+// тип ответа на запрос ингредиентов
+
+export type TGetIngredientsData = {
+  success: boolean;
+  data: TIngredient[];
+};
+
+export type TRefreshTokenRes = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type TChangePasswordRequest = {
+  password: string;
+  token: string;
+};
+
+export type TLoginResponse = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email: string;
+    name: string;
+  };
+};
+
+export type TRegistrResponse = TLoginResponse;
+
+export type TGetUserData = Omit<TLoginResponse, "accessToken" | "refreshToken">
+

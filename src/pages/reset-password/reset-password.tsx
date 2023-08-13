@@ -7,6 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { passwordChangeRquest } from "../../api/api";
+import { TChangePasswordRequest } from "../../utils/types";
 
 function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -22,11 +23,12 @@ function ResetPassword() {
 
   const onSubmitHandler = (e:FormEvent) => {
     e.preventDefault();
-    const data = {
+    const data:TChangePasswordRequest = {
       password: password,
       token: code,
     };
-    passwordChangeRquest(data).then((res) => {
+    passwordChangeRquest(data)
+    .then((res) => {
       if (res.success) {
         navigate("/login", { replace: true });
       }

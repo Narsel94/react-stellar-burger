@@ -1,21 +1,30 @@
+import {
+  TGetIngredientsData,
+  TLoginData,
+  TRegistrData,
+  TRefreshTokenRes,
+  TPatchUserData,
+  TChangePasswordRequest,
+} from "../utils/types";
+
 export const config = {
   baseUrl: "https://norma.nomoreparties.space/api",
   headers: { "Content-Type": "application/json" },
 };
 
-const responseStatus = (res) => {
+const responseStatus = (res: any) => {
   if (res.ok) {
     return res.json();
   }
-  return res.json().then((err) => Promise.reject(err));
+  return res.json().then((err: Error) => Promise.reject(err));
 };
 
-function request(url, options) {
+function request(url: string, options: any) {
   return fetch(url, options).then(responseStatus);
 }
 
 //запрос для отправки заказа
-export function postOrder(order) {
+export function postOrder(order: string[]) {
   return fetchWithRefresh(`${config.baseUrl}/orders`, {
     method: "POST",
     headers: {
@@ -28,11 +37,13 @@ export function postOrder(order) {
 
 // запрос для получения ингредиентов
 export function getIngredientsData() {
-  return request(`${config.baseUrl}/ingredients`).then((result) => result.data);
+  return request(`${config.baseUrl}/ingredients`, config.headers).then(
+    (result: TGetIngredientsData) => result.data
+  );
 }
 
 //запрос для авторизации
-export function loginRequest(loginData) {
+export function loginRequest(loginData: TLoginData) {
   return request(`${config.baseUrl}/auth/login`, {
     method: "POST",
     headers: {
@@ -47,7 +58,7 @@ export function loginRequest(loginData) {
 }
 
 // запрос для регистрации
-export const registrationRequest = (formData) => {
+export const registrationRequest = (formData: TRegistrData) => {
   return request(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: {
@@ -62,13 +73,14 @@ export const registrationRequest = (formData) => {
   });
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: any) => {
   try {
     const res = await fetch(url, options);
     return await responseStatus(res);
   } catch (error) {
+    // @ts-ignore
     if (error.message === "jwt expired") {
-      const refreshData = await refreshTokenRequest();
+      const refreshData: TRefreshTokenRes = await refreshTokenRequest();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
@@ -82,8 +94,6 @@ export const fetchWithRefresh = async (url, options) => {
     }
   }
 };
-
-
 
 //запрос для получения данных пользователя с обновлением токена
 export const getUserRequest = () => {
@@ -102,29 +112,28 @@ export const refreshTokenRequest = () => {
   return request(`${config.baseUrl}/auth//token`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "token": localStorage.getItem("refreshToken")
-    })
-  })
+      token: localStorage.getItem("refreshToken"),
+    }),
+  });
 };
-
 
 export const loqoutRequest = () => {
   return request(`${config.baseUrl}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-    }, 
+    },
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
-    }) 
-  })
-}
+    }),
+  });
+};
 
-//запрос на обновление данных пользователя 
-export const patchUser = (user) => {
+//запрос на обновление данных пользователя
+export const patchUser = (user: TPatchUserData) => {
   return fetchWithRefresh(`${config.baseUrl}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -132,41 +141,37 @@ export const patchUser = (user) => {
       authorization: localStorage.getItem("accesToken"),
     },
     body: JSON.stringify({
-      email: user.email, 
-      password: user.password, 
-      name: user.name 
-    })
-  })
-}
+      email: user.email,
+      password: user.password,
+      name: user.name,
+    }),
+  });
+};
 
-//запрос на смену пароля 
+//запрос на смену пароля
 
-export const postEmailForResetPassword = (email) => {
+export const postEmailForResetPassword = (email: string) => {
   return request(`${config.baseUrl}/password-reset`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: email
-    })
-  })
-}
+      email: email,
+    }),
+  });
+};
 
-//смена пароля 
-export const passwordChangeRquest = (data) => {
-  return request(`${config.baseUrl}/password-reset/reset`,{
+//смена пароля
+export const passwordChangeRquest = (data: TChangePasswordRequest) => {
+  return request(`${config.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       password: data.password,
-      token: data.token
-    })
-
-  }) 
-}
-
-
-
+      token: data.token,
+    }),
+  });
+};
