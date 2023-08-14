@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
 export type TIngredient = {
   readonly _id: string;
@@ -38,10 +38,12 @@ export type TSectionProps = {
   children: ReactNode;
 };
 
-export type TModalProps = {
-  children: ReactNode;
+export type TModalPropsT = {
+  // children: ReactNode;
   onClose: () => void;
 };
+
+export type TModalProps = PropsWithChildren<TModalPropsT>
 
 export type TOverlayProps = {
   onClose: () => void;
@@ -105,7 +107,7 @@ export type TLoginData = {
   password: string;
 };
 
-export type TRegistrData = {
+export type TRegisterData = {
   email: string;
   password: string;
   name: string;

@@ -4,7 +4,6 @@ import { clearSelectedIngredients } from "./ingredients-slice";
 import { postOrder } from "../api/api";
 import { TConstructorState } from "../utils/types";
 import { TPostOrderResponse } from "../utils/types";
-import { AsyncThunk } from "@reduxjs/toolkit";
 
 
 export const createPostRequest = createAsyncThunk(

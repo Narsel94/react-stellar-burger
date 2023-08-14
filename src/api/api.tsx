@@ -1,7 +1,7 @@
 import {
   TGetIngredientsData,
   TLoginData,
-  TRegistrData,
+  TRegisterData,
   TRefreshTokenRes,
   TPatchUserData,
   TChangePasswordRequest,
@@ -58,7 +58,7 @@ export function loginRequest(loginData: TLoginData) {
 }
 
 // запрос для регистрации
-export const registrationRequest = (formData: TRegistrData) => {
+export const registrationRequest = (formData: TRegisterData) => {
   return request(`${config.baseUrl}/auth/register`, {
     method: "POST",
     headers: {

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AnyAction, ThunkDispatch, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   registrationRequest,
   getUserRequest,
@@ -9,13 +9,14 @@ import {
 import {
   TUserState,
   TLoginData,
-  TRegistrData,
+  TRegisterData,
   TPatchUserData,
   TLoginResponse,
   TRegistrResponse,
   TGetUserData,
   TUser
 } from "../utils/types";
+import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export const logoutUser = createAsyncThunk(
@@ -44,7 +45,7 @@ export const patchUserData = createAsyncThunk(
 
 export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
-  async (formData: TRegistrData, { dispatch }) => {
+  async (formData: TRegisterData, { dispatch }) => {
     const data: TRegistrResponse = await registrationRequest(formData);
     if (data.success) {
       dispatch(setUser(data.user));
@@ -90,7 +91,7 @@ export const getUser = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch: any) => {
+  return (dispatch:ThunkDispatch<RootState, unknown, AnyAction>) => {
     if (localStorage.getItem("accesToken")) {
       dispatch(getUser())
         .catch((error: Error) => {

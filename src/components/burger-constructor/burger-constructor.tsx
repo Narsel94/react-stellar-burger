@@ -53,16 +53,12 @@ const BurgerConstructor: FC = () => {
     return 0;
   }, [constructorElements]);
 
-  const testData = ["aa", "aaa", "aaa"]
-
   const onClick = () => {
     const orderDetailsT = constructorElements?.map((item) => item._id);
     if (orderDetailsT) {
-        dispatch(createPostRequest(orderDetailsT));
+      dispatch(createPostRequest(orderDetailsT));
     }
   };
-
-
 
   const moveIngredient = useCallback(
     (dragIndex: number, hoverIndex: number) => {
@@ -73,7 +69,7 @@ const BurgerConstructor: FC = () => {
       newFilings[hoverIndex] = dragItem;
       dispatch(updateConstuctorElements(newFilings));
     },
-    [filings]
+    [filings, dispatch]
   );
 
   const isHovered = isHover ? styles.onHover : styles.constructorBlock;
