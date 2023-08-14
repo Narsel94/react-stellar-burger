@@ -14,7 +14,9 @@ import {
   TLoginResponse,
   TRegistrResponse,
   TGetUserData,
-  TUser
+  TUser,
+  TLogoutResponse,
+  TPatchUserResponse
 } from "../utils/types";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -22,7 +24,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 export const logoutUser = createAsyncThunk(
   "user/logout",
   async (_, { dispatch }) => {
-    const logoutData = await loqoutRequest();
+    const logoutData:TLogoutResponse = await loqoutRequest();
     if (logoutData.success) {
       dispatch(setUser(null));
       localStorage.removeItem("accesToken");
@@ -35,7 +37,7 @@ export const logoutUser = createAsyncThunk(
 export const patchUserData = createAsyncThunk(
   "user/patchUser",
   async (userData: TPatchUserData, { dispatch }) => {
-    const newData = await patchUser(userData);
+    const newData:TPatchUserResponse = await patchUser(userData);
     if (newData.success) {
       dispatch(setUser(newData.user));
     }

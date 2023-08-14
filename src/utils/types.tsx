@@ -178,3 +178,13 @@ export type TPostOrderResponse = {
   name: string;
   order: TOrderResponse
 }
+
+export type TLogoutResponse = {
+  success: boolean;
+  message: string
+}
+
+export type TPatchUserResponse = {
+  success: boolean,
+  user: TUser
+}
