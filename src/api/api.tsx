@@ -75,10 +75,9 @@ export const registrationRequest = (formData: TRegisterData) => {
 
 export const fetchWithRefresh = async (url: string, options: any) => {
   try {
-    const res = await fetch(url, options);
+    const res: Response = await fetch(url, options);
     return await responseStatus(res);
   } catch (error) {
-    // @ts-ignore
     if (error.message === "jwt expired") {
       const refreshData: TRefreshTokenRes = await refreshTokenRequest();
       if (!refreshData.success) {

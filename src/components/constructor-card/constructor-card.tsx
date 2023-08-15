@@ -1,13 +1,11 @@
 import React, { useRef, FC } from "react";
-import { XYCoord, useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import {  useDrag, useDrop } from "react-dnd";
 import { deleteIngredient } from "../../store/ingredients-slice";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-card.module.css";
-import PropTypes from "prop-types";
 import { TConstructorCardProps, TIngredientWithUuidId } from "../../utils/types";
 import { useAppDispatch } from "../../utils/hooks";
 
@@ -83,9 +81,3 @@ export const ConstructorCard: FC<TConstructorCardProps> = ({
     </div>
   );
 };
-
-// ConstructorCard.propTypes = {
-//   item: ingredientPropType,
-//   index: PropTypes.number,
-//   moveIngredient: PropTypes.func,
-// };
