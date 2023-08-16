@@ -1,0 +1,60 @@
+.card {
+  background-color: rgba(28, 28, 33, 1);
+  padding: 20px;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.orderData {
+  margin: 0;
+  padding: 0;
+
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.priceBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.ellipsis {
+  display: flex;
+    align-items: flex-end;
+  color: #801AB2;  
+
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: fit-content;
+}
+
+
+
+.ingredientsList li:first-child {
+  margin-left:0;
+}
+
+

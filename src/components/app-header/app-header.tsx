@@ -31,7 +31,7 @@ const AppHeader: FC = () => {
               <span className="text text_type_main-default">Конструктор</span>
             </NavLink>
             <NavLink
-              to="/feed"
+              to="/feeds"
               className={styles.link}
               style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
             >

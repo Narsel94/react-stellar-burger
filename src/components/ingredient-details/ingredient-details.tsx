@@ -17,7 +17,6 @@ const IngredientDetails = () => {
   let { id } = useParams();
   if (ingredients.length === 0) return null;
 
-  //
   const info = ingredients.find((item) => item._id === id) as TIngredient;
 
   return (
