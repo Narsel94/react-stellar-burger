@@ -23,6 +23,7 @@ const IngredientsList:FC<TIngredientsListProps> = ({ type, data, innerRef, name 
     }
   };
 
+
   return (
     <div className={styles.section} id={name}>
       <h2 className="text text_type_main-medium mb-6 mt-4">{getTitle()}</h2>
@@ -44,5 +45,7 @@ const IngredientsList:FC<TIngredientsListProps> = ({ type, data, innerRef, name 
     </div>
   );
 }
+
+
 
 export default IngredientsList;

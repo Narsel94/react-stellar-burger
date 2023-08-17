@@ -4,7 +4,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 40;
   width: max-content;
   height: max-content;
   background-color: #1c1c21;
@@ -12,7 +12,7 @@
 
 }
 
-.modal svg {
+.modal .icon {
   position: fixed;
   top: 40px;
   right: 40px;

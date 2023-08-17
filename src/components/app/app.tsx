@@ -9,7 +9,7 @@ import Login from "../../pages/login/login";
 import Layout from "../layout/layout";
 import Profile from "../../pages/profile/profile";
 import Register from "../../pages/register/register";
-import ProfileOrders from "../../pages/profile/profile-pages/profile-orders";
+import ProfileOrders from "../../pages/profile/profile-pages/profile-orders/profile-orders";
 import ProfileBio from "../../pages/profile/profile-pages/profile-bio/profile-bio";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -18,6 +18,7 @@ import ForgotePassword from "../../pages/forgot-password/forgote-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import { useAppSelector, useAppDispatch } from "../../utils/hooks";
 import Feeds from "../../pages/feeds/feeds";
+import FeedDetails from "../feed-details/feed-details";
 
 function App() {
   const { status, error } = useAppSelector((state) => state.ingredients);
@@ -25,9 +26,10 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const orderback = location.state && location.state.orderback;
+  const profileOrder = location.state && location.state.profileOrder
   const navigate = useNavigate();
 
-  useEffect(() => {
+   useEffect(() => {
     dispatch(fetchIngredientsData());
   }, []);
 
@@ -55,12 +57,17 @@ function App() {
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
           <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
             <Route path="/profile" element={<ProfileBio />} />
-            <Route path="/profile/orders" element={<ProfileOrders />} />
-            <Route path="/profile/orders/:id" element={<ProfileOrders />} />
+            <Route path="/profile/orders" element={<ProfileOrders />}>
+              <Route path="/profile/orders/:id" element={<FeedDetails />} />
+            </Route>
+            
           </Route>
+          
           <Route path="ingredients/:id" element={<IngredientDetails />} />
-          <Route path="/feeds" element={<Feeds />} />
-          <Route path="/feeds/:id" element={<Feeds />} />
+          <Route path="/feeds" element={<Feeds />} > 
+          <Route path="/feeds/:id" element={<FeedDetails />} />
+          </Route>
+          
 
           <Route
             path="/register"
@@ -91,12 +98,24 @@ function App() {
           <Route
             path="/feeds/:id"
             element={
-              <Modal onClose={() => navigate("/")}>
-                <IngredientDetails />
+              <Modal onClose={() => navigate("/feeds")}>
+                <FeedDetails />
               </Modal>
             }
           ></Route>
         </Routes>
+      )}
+      {profileOrder &&(
+        <Routes>
+        <Route
+          path="/profile/orders/:id"
+          element={
+            <Modal onClose={() => navigate("/profile/orders")}>
+              <FeedDetails />
+            </Modal>
+          }
+        ></Route>
+      </Routes>
       )}
     </div>
   );

@@ -1,30 +1,29 @@
-import React, {useMemo, useCallback, useEffect} from "react";
+import React, { useMemo, FC} from "react";
 import styles from "./feed-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedIngredient from "./feed-ingredient/feed-ingredient";
 import { useAppSelector } from "../../utils/hooks";
 import { v4 as uuidv4 } from "uuid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { element } from "prop-types";
+import { TFeedCard } from "../../utils/types";
 
-function FeedCard({ order }) {
+const FeedCard:FC<TFeedCard> = ({ order }) => {
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
 
-  const allIngreients = order.ingredients.map((id)=> {
-    return ingredients.find((item) => item._id === id)
-  })
+  const allIngreients = order.ingredients.map((id) => {
+    return ingredients.find((item) => item._id === id);
+  });
 
   const totalPrice = useMemo(() => {
     if (allIngreients) {
-      return allIngreients.reduce((sum, element) => 
-        sum + element.price * (element.type === "bun" ? 2 : 1), 0
+      return allIngreients.reduce(
+        (sum, element) =>
+          sum + element!.price * (element!.type === "bun" ? 2 : 1),
+        0
       );
     }
     return 0;
-  }, [allIngreients])
-
-  console.log(allIngreients);
-
+  }, [allIngreients]);
 
   const date = new Date(order.createdAt);
 

@@ -78,8 +78,8 @@ export const fetchWithRefresh = async (url: string, options: any) => {
     const res = await fetch(url, options);
     return await responseStatus(res);
   } catch (error) {
-    // @ts-ignore
-    if (error.message === "jwt expired") {
+     let e = error as Error;
+    if (e.message === "jwt expired") {
       const refreshData: TRefreshTokenRes = await refreshTokenRequest();
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -175,3 +175,8 @@ export const passwordChangeRquest = (data: TChangePasswordRequest) => {
     }),
   });
 };
+
+
+export const getOrder = (nubmer: number) => {
+ return request(`${config.baseUrl}/orders/${nubmer}`, config.headers)
+}

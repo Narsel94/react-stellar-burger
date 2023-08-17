@@ -2,8 +2,12 @@ import React from "react";
 import styles from "./feeds.module.css";
 import { InitialData } from "../../utils/constants";
 import FeedCard from "../../components/feed-card/feed-card";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 const Feeds = () => {
   const data = InitialData;
+  const location = useLocation();
 
   return (
     <main className={styles.main}>
@@ -12,7 +16,14 @@ const Feeds = () => {
         <article className={styles.section}>
           {data &&
             data.orders.map((order) => (
-              <FeedCard key={order._id} order={order} />
+              <Link
+                to={`/feeds/${order._id}`}
+                key={order._id}
+                state={{ orderback: location, orderData: order.number  }}
+                className={styles.link}
+              >
+                <FeedCard key={order._id} order={order} />
+              </Link>
             ))}
         </article>
         <article className={styles.info}>

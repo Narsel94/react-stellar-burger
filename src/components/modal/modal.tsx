@@ -27,7 +27,10 @@ import { TModalProps } from "../../utils/types";
     <>
       <div className={styles.modal}>
         {children}
-        <CloseIcon type="primary" onClick={onClose} />
+        <span className={styles.icon}>
+          <CloseIcon type="primary" onClick={onClose} />
+        </span>
+        
       </div>
       <Overlay onClose={onClose} />
     </>,

@@ -39,7 +39,6 @@ export type TSectionProps = {
 };
 
 export type TModalPropsT = {
-  // children: ReactNode;
   onClose: () => void;
 };
 
@@ -177,4 +176,29 @@ export type TPostOrderResponse = {
   success: boolean;
   name: string;
   order: TOrderResponse
+}
+
+export type TOrder = { 
+  _id: string;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt:string;
+  number: number;
+}
+
+export type TFeedCard = {
+  order: TOrder
+}
+
+export type TFeedIngredientsDetails = {
+  id: string;
+  count: number
+}
+
+export type TFeedIngredient = {
+  id: string;
+  index: number;
+  length: number
 }

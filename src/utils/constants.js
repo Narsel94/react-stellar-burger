@@ -1,3 +1,89 @@
+
+export const profileData = {
+  "success": true,
+  "orders": [
+      {
+          "_id": "64b7c14a82e277001bf90dc9",
+          "ingredients": [
+              "643d69a5c3f7b9001cfa093d",
+              "643d69a5c3f7b9001cfa0943",
+              "643d69a5c3f7b9001cfa093d"
+          ],
+          "status": "done",
+          "name": "Space флюоресцентный бургер",
+          "createdAt": "2023-07-19T10:56:10.515Z",
+          "updatedAt": "2023-07-19T10:56:10.643Z",
+          "number": 13242
+      },
+      {
+          "_id": "64bb1fcb82e277001bf92772",
+          "ingredients": [
+              "643d69a5c3f7b9001cfa093d",
+              "643d69a5c3f7b9001cfa0943",
+              "643d69a5c3f7b9001cfa093d"
+          ],
+          "status": "done",
+          "name": "Space флюоресцентный бургер",
+          "createdAt": "2023-07-22T00:16:11.436Z",
+          "updatedAt": "2023-07-22T00:16:11.561Z",
+          "number": 13841
+      },
+      {
+          "_id": "64bb229582e277001bf92774",
+          "ingredients": [
+              "643d69a5c3f7b9001cfa093d",
+              "643d69a5c3f7b9001cfa0943",
+              "643d69a5c3f7b9001cfa093d"
+          ],
+          "status": "done",
+          "name": "Space флюоресцентный бургер",
+          "createdAt": "2023-07-22T00:28:05.793Z",
+          "updatedAt": "2023-07-22T00:28:05.922Z",
+          "number": 13842
+      },
+      {
+          "_id": "64dbcfa282e277001bfa9373",
+          "ingredients": [
+              "643d69a5c3f7b9001cfa093c",
+              "643d69a5c3f7b9001cfa0949",
+              "643d69a5c3f7b9001cfa093e",
+              "643d69a5c3f7b9001cfa0942",
+              "643d69a5c3f7b9001cfa0943",
+              "643d69a5c3f7b9001cfa093c"
+          ],
+          "status": "done",
+          "name": "Space spicy экзо-плантаго люминесцентный краторный бургер",
+          "createdAt": "2023-08-15T19:18:58.105Z",
+          "updatedAt": "2023-08-15T19:18:58.308Z",
+          "number": 16790
+      },
+      {
+          "_id": "64dc1c7582e277001bfa93fe",
+          "ingredients": [
+              "643d69a5c3f7b9001cfa093c",
+              "643d69a5c3f7b9001cfa0949",
+              "643d69a5c3f7b9001cfa094a",
+              "643d69a5c3f7b9001cfa0948",
+              "643d69a5c3f7b9001cfa0941",
+              "643d69a5c3f7b9001cfa093e",
+              "643d69a5c3f7b9001cfa0942",
+              "643d69a5c3f7b9001cfa0943",
+              "643d69a5c3f7b9001cfa093c"
+          ],
+          "status": "done",
+          "name": "Space астероидный spicy экзо-плантаго био-марсианский люминесцентный альфа-сахаридный краторный бургер",
+          "createdAt": "2023-08-16T00:46:45.499Z",
+          "updatedAt": "2023-08-16T00:46:45.696Z",
+          "number": 16796
+      }
+  ],
+  "total": 16425,
+  "totalToday": 31
+}
+
+
+
+
 export const InitialData = {
   "success": true,
   "orders": [
@@ -495,7 +581,7 @@ export const InitialData = {
               "643d69a5c3f7b9001cfa0941",
               "643d69a5c3f7b9001cfa093c"
           ],
-          "status": "done",
+          "status": "created",
           "name": "Био-марсианский антарианский краторный spicy бургер",
           "createdAt": "2023-08-15T09:51:42.147Z",
           "updatedAt": "2023-08-15T09:51:42.359Z",
