@@ -6,13 +6,16 @@ import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { wsConnectionStart, wsConectionClose } from "../../store/websocket-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
+
 const Feeds = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.websocket);
   const location = useLocation();
 
+  const Test = useAppSelector((state) => state.websocket.orders)
+
   useEffect(() => {
-    dispatch(wsConnectionStart(WSS_FOR_ORDERS));
+    console.log(data)
   }, []);
 
    if (data.orders) {
@@ -21,8 +24,24 @@ const Feeds = () => {
       <h1 className={`${styles.title} text text_type_main-large mt-4 mb-4`}>Лента заказов</h1>
       <section className={styles.page}>
         <article className={styles.section}>
-          {data &&
-            data.orders.map((order) => (
+        {/* <FeedCard key={Test[4]._id} order={Test[4]} />
+        <FeedCard key={Test[2]._id} order={Test[2]} /> */}
+
+        {Test.map((order) => (
+          <Link
+                to={`/feeds/${order._id}`}
+                key={order._id}
+                state={{ orderback: location, orderData: order.number  }}
+                className={styles.link}
+              >
+                <FeedCard key={order._id} order={order} />
+              </Link>
+
+        ))
+
+        }
+          {/* {
+            Test.map((order) => (
               <Link
                 to={`/feeds/${order._id}`}
                 key={order._id}
@@ -31,7 +50,7 @@ const Feeds = () => {
               >
                 <FeedCard key={order._id} order={order} />
               </Link>
-            ))}
+            ))} */}
         </article>
         <article className={styles.info}>
           <div className={styles.orders}>

@@ -1,29 +1,31 @@
-import React, { useMemo, FC} from "react";
+import React, { useMemo, FC, useCallback, useState } from "react";
 import styles from "./feed-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedIngredient from "./feed-ingredient/feed-ingredient";
 import { useAppSelector } from "../../utils/hooks";
 import { v4 as uuidv4 } from "uuid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TFeedCard } from "../../utils/types";
+import { TFeedCard, TIngredient } from "../../utils/types";
 
-const FeedCard:FC<TFeedCard> = ({ order }) => {
+const FeedCard: FC<TFeedCard> = ({ order }) => {
+
+   const [total, setTotal] = useState(0) 
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
 
-  const allIngreients = order.ingredients.map((id) => {
-    return ingredients.find((item) => item._id === id);
-  });
+  // const ingredientArr = order.ingredients.map((id) => {
+  //   return ingredients.find((item) => item._id === id);
+  // });
 
-  const totalPrice = useMemo(() => {
-    if (allIngreients) {
-      return allIngreients.reduce(
-        (sum, element) =>
-          sum + element!.price,
-        0
-      );
+  useMemo(() => {
+    if (ingredients.length !== 0) {
+      const testArr = order.ingredients.map((id) => {
+        return ingredients.find((item) => item._id === id);
+      });
+      const totalPrice = testArr?.reduce((previous, current) => previous + current?.price!, 0);
+      setTotal(totalPrice)
     }
-    return 0;
-  }, [allIngreients]);
+  }, [total]);
+
 
   const date = new Date(order.createdAt);
 
@@ -64,11 +66,11 @@ const FeedCard:FC<TFeedCard> = ({ order }) => {
         </ul>
         <div className={styles.priceBlock}>
           <CurrencyIcon type="primary" />
-          <p className="text text_type_digits-default">{totalPrice}</p>
+          <p className="text text_type_digits-default">{total}</p>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default FeedCard;

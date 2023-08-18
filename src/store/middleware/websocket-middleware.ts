@@ -28,6 +28,8 @@ export const socketMiddlewara = (
         };
         ws.onerror = () => {
           dispatch({ type: onError });
+        console.log('ошибка')
+
         };
         ws.onmessage = (event: MessageEvent<string>) => {
         
