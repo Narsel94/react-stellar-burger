@@ -18,18 +18,16 @@ function ProfileBio() {
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = React.useState("");
 
-  useEffect(()=>{
-      setFormName(user!.name);
-      setFormEmail(user!.email)
-  },[])
-
+  useEffect(() => {
+    setFormName(user!.name);
+    setFormEmail(user!.email);
+  }, []);
 
   if (user) {
     const name = user.name;
     const email = user.email;
     const password = "";
 
-     
     function onNameChange(e: ChangeEvent<HTMLInputElement>) {
       setFormName(e.target.value);
     }
@@ -85,6 +83,7 @@ function ProfileBio() {
             value={formPassword}
             name={"password"}
             extraClass="mb-2"
+            autoComplete="off"
           />
           <div className={`${styles.buttons} ${isVisible}`}>
             <Button htmlType="submit" type="primary">
@@ -98,7 +97,7 @@ function ProfileBio() {
       </section>
     );
   }
-  return null
+  return null;
 }
 
 export default ProfileBio;

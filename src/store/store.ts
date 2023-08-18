@@ -4,7 +4,6 @@ import  modalReducer  from "./modal-slice";
 import consctructorReducer from "./consctructor-slice";
 import userReducer from "./user-slice";
 import websockerReducer from "./websocket-slice";
-import logger from "redux-logger";
 import { socketMiddlewara } from "./middleware/websocket-middleware";
 import { wsActions } from "./websocket-slice";
 

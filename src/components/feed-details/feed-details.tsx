@@ -21,7 +21,7 @@ const FeedDetails = () => {
     ingredients:[],
     status: '',
     name: 'Заказ не найден',
-    createdAt: '',
+    createdAt: new Date().toDateString(),
     updatedAt:'',
     number: 404,
   }
@@ -44,7 +44,7 @@ const FeedDetails = () => {
         const allIngreients = order.ingredients.map((id) => {
           return ingredients.find((item) => item._id === id);
         });
-        const totalPrice = allIngreients?.reduce((previous, current) => previous + current?.price!, 0);
+        const totalPrice = allIngreients?.reduce((previous, current) => previous + (current ? current.price : 0 ), 0);
         setTotal(totalPrice)
       }
     }

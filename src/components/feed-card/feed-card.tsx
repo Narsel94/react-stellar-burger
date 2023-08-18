@@ -1,33 +1,45 @@
-import React, { useMemo, FC, useCallback, useState } from "react";
+import React, { useMemo, FC, useCallback, useState, useEffect } from "react";
 import styles from "./feed-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedIngredient from "./feed-ingredient/feed-ingredient";
 import { useAppSelector } from "../../utils/hooks";
 import { v4 as uuidv4 } from "uuid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TFeedCard, TIngredient } from "../../utils/types";
+import { TFeedCard, TOrder } from "../../utils/types";
+// import {HDetailed}
 
 const FeedCard: FC<TFeedCard> = ({ order }) => {
-
-   const [total, setTotal] = useState(0) 
+  const initialOrderData:TOrder = {
+    _id: '',
+    ingredients:[],
+    status: '',
+    name: 'Заказ не найден',
+    createdAt: new Date().toDateString(),
+    updatedAt:'',
+    number: 404,
+  }
+  const [orderData, setOrderData] = useState(initialOrderData)
+  const [total, setTotal] = useState(0) 
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
+  
+  useEffect(()=> {
+    setOrderData(order)
+    // return (setOrderData(initialOrderData))
+  }, [order])
 
-  // const ingredientArr = order.ingredients.map((id) => {
-  //   return ingredients.find((item) => item._id === id);
-  // });
+
 
   useMemo(() => {
-    if (ingredients.length !== 0) {
-      const testArr = order.ingredients.map((id) => {
+    if (ingredients.length !== 0 && order) {
+      const ingrArr = order.ingredients.map((id) => {
         return ingredients.find((item) => item._id === id);
       });
-      const totalPrice = testArr?.reduce((previous, current) => previous + current?.price!, 0);
+      const totalPrice = ingrArr?.reduce((previous, current) => previous + (current ? current.price : 0 ), 0);
       setTotal(totalPrice)
     }
-  }, [total]);
+  }, [order]);
 
 
-  const date = new Date(order.createdAt);
 
   return (
     <div className={styles.card}>
@@ -35,11 +47,8 @@ const FeedCard: FC<TFeedCard> = ({ order }) => {
         <p className={`${styles.orderData} text text_type_main-default`}>
           # {order.number}
         </p>
-        <p
-          className={`${styles.orderData} text text_type_main-default text_color_inactive`}
-        >
-          <FormattedDate date={date} />
-        </p>
+        <FormattedDate date={new Date(orderData.createdAt)} className={`${styles.orderData} text text_type_main-default text_color_inactive`}/>
+
       </div>
 
       <h3 className={`${styles.title} text text_type_main-medium`}>

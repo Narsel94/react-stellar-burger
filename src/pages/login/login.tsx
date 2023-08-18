@@ -45,12 +45,15 @@ function Login() {
           value={email}
           name={"email"}
           extraClass="mt-6"
+          autoComplete="on"
         />
         <PasswordInput
           onChange={onChangePassword}
           value={password}
           name={"password"}
           extraClass="mt-6"
+          autoComplete="off"
+
         />
         <Button
           type="primary"

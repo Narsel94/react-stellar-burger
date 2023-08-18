@@ -3,7 +3,6 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { WebSocketOrdersState, WebSocketActions } from "../../utils/types";
 import { AppDispatch, RootState } from "../store";
 import { getUser } from "../user-slice";
-import { wsActions } from "../websocket-slice";
 
 export const socketMiddlewara = (
   // wsUrl: string,
