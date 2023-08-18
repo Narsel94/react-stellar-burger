@@ -1,4 +1,8 @@
 
+export const WSS_FOR_ORDERS = 'wss://norma.nomoreparties.space/orders/all';
+export const WSS_FOR_USER_ORDERS = 'wss://norma.nomoreparties.space/orders?token=';
+
+
 export const profileData = {
   "success": true,
   "orders": [

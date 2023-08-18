@@ -4,11 +4,10 @@ import styles from "./burger-ingredient.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
-import { useAppSelector, useAppDispatch } from "../../utils/hooks";
+import { useAppSelector } from "../../utils/hooks";
 import { TBurgerIngredientProps } from "../../utils/types";
 
 const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
-  const dispatch = useAppDispatch();
   const [{ isDrag }, dragRef] = useDrag({
     type: "constructor",
     item: { ...ingredient, uuidId: uuidv4() },
@@ -35,7 +34,7 @@ const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
     return constructorElements.filter(
       (element) => element._id === ingredient._id
     ).length;
-  }, [constructorElements]);
+  }, [constructorElements, ingredient._id]);
 
   //заполняем данными картинки
   const image = <img src={ingredient.image} alt={ingredient.name} />;

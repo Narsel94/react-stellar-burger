@@ -19,6 +19,11 @@ import ResetPassword from "../../pages/reset-password/reset-password";
 import { useAppSelector, useAppDispatch } from "../../utils/hooks";
 import Feeds from "../../pages/feeds/feeds";
 import FeedDetails from "../feed-details/feed-details";
+import {
+  wsConnectionStart,
+  wsConectionClose,
+} from "../../store/websocket-slice";
+import { WSS_FOR_ORDERS } from "../../utils/constants";
 
 function App() {
   const { status, error } = useAppSelector((state) => state.ingredients);
@@ -26,12 +31,16 @@ function App() {
   const location = useLocation();
   const background = location.state && location.state.background;
   const orderback = location.state && location.state.orderback;
-  const profileOrder = location.state && location.state.profileOrder
+  const profileOrder = location.state && location.state.profileOrder;
   const navigate = useNavigate();
 
-   useEffect(() => {
+  useEffect(() => {
     dispatch(fetchIngredientsData());
-  }, []);
+    dispatch(wsConnectionStart(WSS_FOR_ORDERS));
+    return () => {
+      dispatch(wsConectionClose());
+    };
+  }, [dispatch]);
 
   if (status === "loading") {
     return (
@@ -57,18 +66,12 @@ function App() {
           <Route path="/login" element={<OnlyUnAuth component={<Login />} />} />
           <Route path="/profile" element={<OnlyAuth component={<Profile />} />}>
             <Route path="/profile" element={<ProfileBio />} />
-            <Route path="/profile/orders" element={<ProfileOrders />}>
-              <Route path="/profile/orders/:id" element={<FeedDetails />} />
-            </Route>
-            
+            <Route path="/profile/orders/*" element={<ProfileOrders />} />
           </Route>
-          
+          {!profileOrder && <Route path="/profile/orders/:id" element={<OnlyAuth component={<FeedDetails />} />} />}
           <Route path="ingredients/:id" element={<IngredientDetails />} />
-          <Route path="/feeds" element={<Feeds />} > 
-          <Route path="/feeds/:id" element={<FeedDetails />} />
-          </Route>
-          
-
+          <Route path="/feeds/*" element={<Feeds />}></Route>
+          {!orderback && <Route path="feeds/:id/" element={<FeedDetails />} />}
           <Route
             path="/register"
             element={<OnlyUnAuth component={<Register />} />}
@@ -96,7 +99,7 @@ function App() {
       {orderback && (
         <Routes>
           <Route
-            path="/feeds/:id"
+            path="/feeds/:id/"
             element={
               <Modal onClose={() => navigate("/feeds")}>
                 <FeedDetails />
@@ -105,17 +108,17 @@ function App() {
           ></Route>
         </Routes>
       )}
-      {profileOrder &&(
+      {profileOrder && (
         <Routes>
-        <Route
-          path="/profile/orders/:id"
-          element={
-            <Modal onClose={() => navigate("/profile/orders")}>
-              <FeedDetails />
-            </Modal>
-          }
-        ></Route>
-      </Routes>
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={() => navigate("/profile/orders")}>
+                 <FeedDetails />
+              </Modal>
+            }
+          ></Route>
+        </Routes>
       )}
     </div>
   );

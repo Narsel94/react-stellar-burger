@@ -1,17 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styles from "./feeds.module.css";
-import { InitialData } from "../../utils/constants";
 import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { wsConnectionStart, wsConectionClose } from "../../store/websocket-slice";
+import { WSS_FOR_ORDERS } from "../../utils/constants";
 const Feeds = () => {
-  const data = InitialData;
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.websocket);
   const location = useLocation();
 
-  return (
+  useEffect(() => {
+    dispatch(wsConnectionStart(WSS_FOR_ORDERS));
+  }, []);
+
+   if (data.orders) {
+    return (
     <main className={styles.main}>
-      <h1 className="text text_type_main-large mt-4 mb-4">Лента заказов</h1>
+      <h1 className={`${styles.title} text text_type_main-large mt-4 mb-4`}>Лента заказов</h1>
       <section className={styles.page}>
         <article className={styles.section}>
           {data &&
@@ -31,7 +38,7 @@ const Feeds = () => {
             <div className={styles.ordersRedyInfo}>
               <h3 className="text text_type_main-medium">Готовы:</h3>
               <div className={styles.ordersList}>
-                {data.orders.slice(-18).map((item) => {
+                {data.orders.slice(0, 10).map((item) => {
                   if (item.status === "done") {
                     return (
                       <p
@@ -85,6 +92,17 @@ const Feeds = () => {
       </section>
     </main>
   );
+   }
+  return null
 };
 
 export default Feeds;
+
+
+
+// useEffect(() => {
+//   dispatch(wsConnectionStart(`${WSS_FOR_ALL_ORDERS}`));
+//   return () => {
+//     dispatch(wsConnectionClosed());
+//   };
+// }, [dispatch]);

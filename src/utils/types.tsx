@@ -178,15 +178,6 @@ export type TPostOrderResponse = {
   order: TOrderResponse
 }
 
-export type TOrder = { 
-  _id: string;
-  ingredients: string[];
-  status: string;
-  name: string;
-  createdAt: string;
-  updatedAt:string;
-  number: number;
-}
 
 export type TFeedCard = {
   order: TOrder
@@ -202,3 +193,34 @@ export type TFeedIngredient = {
   index: number;
   length: number
 }
+
+
+export type WebSocketOrdersState = {
+  orders: TOrder[];
+  userOrders?:  TOrder[] | undefined;
+  total: number | undefined;
+  totalToday: number | undefined;
+  isConected:boolean;
+}  
+
+export type WebSocketActions = {
+  onClose: string;
+  onError: string;
+  onMessage: string;
+  onOpen: string;
+  wsInit: string;
+}
+
+
+
+export type TOrder = { 
+  _id: string;
+  ingredients: string[];
+  status: string | "pending" | "done";
+  name: string;
+  createdAt: string;
+  updatedAt:string;
+  number: number;
+}
+
+

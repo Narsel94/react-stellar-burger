@@ -18,7 +18,7 @@ const FeedCard:FC<TFeedCard> = ({ order }) => {
     if (allIngreients) {
       return allIngreients.reduce(
         (sum, element) =>
-          sum + element!.price * (element!.type === "bun" ? 2 : 1),
+          sum + element!.price,
         0
       );
     }
