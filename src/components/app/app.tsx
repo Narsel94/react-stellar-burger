@@ -68,7 +68,12 @@ function App() {
             <Route path="/profile" element={<ProfileBio />} />
             <Route path="/profile/orders/*" element={<ProfileOrders />} />
           </Route>
-          {!profileOrder && <Route path="/profile/orders/:id" element={<OnlyAuth component={<FeedDetails />} />} />}
+          {!profileOrder && (
+            <Route
+              path="/profile/orders/:id"
+              element={<OnlyAuth component={<FeedDetails />} />}
+            />
+          )}
           <Route path="ingredients/:id" element={<IngredientDetails />} />
           <Route path="/feeds/*" element={<Feeds />}></Route>
           {!orderback && <Route path="feeds/:id/" element={<FeedDetails />} />}
@@ -114,7 +119,7 @@ function App() {
             path="/profile/orders/:id"
             element={
               <Modal onClose={() => navigate("/profile/orders")}>
-                 <FeedDetails />
+                <FeedDetails />
               </Modal>
             }
           ></Route>

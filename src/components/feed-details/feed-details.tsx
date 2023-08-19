@@ -13,18 +13,20 @@ import FeedIngredientDetails from "./feed-ingredients-details/feed-ingredients-d
 
 const FeedDetails = () => {
   const orders = useAppSelector((state) => state.websocket.orders);
+  const useOrders = useAppSelector((state) => state.websocket.userOrders);
+  const allArders = orders.concat(useOrders);
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const location = useLocation();
 
-  const initialOrder:TOrder = {
-    _id: '',
-    ingredients:[],
-    status: '',
-    name: 'Заказ не найден',
+  const initialOrder: TOrder = {
+    _id: "",
+    ingredients: [],
+    status: "",
+    name: "Заказ не найден",
     createdAt: new Date().toDateString(),
-    updatedAt:'',
+    updatedAt: "",
     number: 404,
-  }
+  };
 
   const [total, setTotal] = useState(0);
   const [order, setOrder] = useState(initialOrder);
@@ -37,19 +39,21 @@ const FeedDetails = () => {
   let { id } = useParams();
 
   useMemo(() => {
-    if (orders.length !== 0 && ingredients.length !== 0) {
-      const order = orders.find((item) => item._id === id);
+    if (allArders.length !== 0 && ingredients.length !== 0) {
+      const order = allArders.find((item) => item._id === id);
       if (order) {
-        setOrder(order)
+        setOrder(order);
         const allIngreients = order.ingredients.map((id) => {
           return ingredients.find((item) => item._id === id);
         });
-        const totalPrice = allIngreients?.reduce((previous, current) => previous + (current ? current.price : 0 ), 0);
-        setTotal(totalPrice)
+        const totalPrice = allIngreients?.reduce(
+          (previous, current) => previous + (current ? current.price : 0),
+          0
+        );
+        setTotal(totalPrice);
       }
     }
   }, [id, orders, ingredients]);
-
 
   const date = new Date(order.createdAt);
   const igredientsObjOfIdCount = getCountOfdublicates(order.ingredients);

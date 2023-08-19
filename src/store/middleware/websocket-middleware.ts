@@ -3,6 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { WebSocketOrdersState, WebSocketActions } from "../../utils/types";
 import { AppDispatch, RootState } from "../store";
 import { getUser } from "../user-slice";
+import { WSS_FOR_ORDERS } from "../../utils/constants";
 
 export const socketMiddlewara = (
   // wsUrl: string,
@@ -14,12 +15,11 @@ export const socketMiddlewara = (
     return (next) => (action: PayloadAction<string>) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-
-      const { onClose, onError, onMessage, onOpen, wsInit } = wsActions;
-
+      const { onClose, onError, onMessage, onOpen, wsInit, onUserMessage } =
+        wsActions;
+      
       if (type === wsInit) {
         ws = new WebSocket(payload);
-        console.log('старт')
       }
       if (ws) {
         ws.onopen = () => {
@@ -27,11 +27,9 @@ export const socketMiddlewara = (
         };
         ws.onerror = () => {
           dispatch({ type: onError });
-        console.log('ошибка')
-
+          console.log("ошибка");
         };
         ws.onmessage = (event: MessageEvent<string>) => {
-        
           const { data } = event;
           const parsedData = JSON.parse(data) as WebSocketOrdersState & {
             message: string;
@@ -47,16 +45,25 @@ export const socketMiddlewara = (
                 new Date(a.createdAt).getTime()
             );
           }
-
-          dispatch({
-            payload: restParsedData,
-            type: onMessage,
-          });
+          // в случае если пришли заказы пользователя
+          if (event.currentTarget && ws?.url !== WSS_FOR_ORDERS) {
+            // console.log("user");
+            dispatch({
+              payload: restParsedData,
+              type: onUserMessage,
+            });
+          }
+          // в случае если пришли все заказы
+          if (event.currentTarget && ws?.url === WSS_FOR_ORDERS) {
+            // console.log("all");
+            dispatch({
+              payload: restParsedData,
+              type: onMessage,
+            });
+          }
         };
 
         ws.onclose = () => {
-        console.log("сокет закрыт");
-
           dispatch({ type: onClose });
         };
       }

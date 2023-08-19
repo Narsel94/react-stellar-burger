@@ -6,40 +6,53 @@ import { useAppSelector } from "../../utils/hooks";
 import { v4 as uuidv4 } from "uuid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TFeedCard, TOrder } from "../../utils/types";
-// import {HDetailed}
+import { useLocation } from "react-router-dom";
 
 const FeedCard: FC<TFeedCard> = ({ order }) => {
-  const initialOrderData:TOrder = {
-    _id: '',
-    ingredients:[],
-    status: '',
-    name: 'Заказ не найден',
+  const initialOrderData: TOrder = {
+    _id: "",
+    ingredients: [],
+    status: "",
+    name: "Заказ не найден",
     createdAt: new Date().toDateString(),
-    updatedAt:'',
+    updatedAt: "",
     number: 404,
-  }
-  const [orderData, setOrderData] = useState(initialOrderData)
-  const [total, setTotal] = useState(0) 
+  };
+  const [orderData, setOrderData] = useState(initialOrderData);
+  const [total, setTotal] = useState(0);
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
-  
-  useEffect(()=> {
-    setOrderData(order)
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setOrderData(order);
+    console.log(location.pathname)
     // return (setOrderData(initialOrderData))
-  }, [order])
+  }, [order]);
 
-
+  function checkStatusForProfile(pathname : string , orderData: TOrder  ) {
+    if (pathname === '/profile/orders') {
+      if (orderData.status === "created") {
+        return ( <p className={`text text_type_main-default`}>Готовиться</p>)
+      }
+      if (orderData.status === "done") {return ( <p className={`${styles.compleateStatus} text text_type_main-default`}>Выполнен</p>)}
+      return ( <p className={`${styles.rejectStatus} text text_type_main-default`}>Отменен</p>)
+    }
+    return null
+  }
 
   useMemo(() => {
     if (ingredients.length !== 0 && order) {
       const ingrArr = order.ingredients.map((id) => {
         return ingredients.find((item) => item._id === id);
       });
-      const totalPrice = ingrArr?.reduce((previous, current) => previous + (current ? current.price : 0 ), 0);
-      setTotal(totalPrice)
+      const totalPrice = ingrArr?.reduce(
+        (previous, current) => previous + (current ? current.price : 0),
+        0
+      );
+      setTotal(totalPrice);
     }
   }, [order]);
-
-
 
   return (
     <div className={styles.card}>
@@ -47,10 +60,13 @@ const FeedCard: FC<TFeedCard> = ({ order }) => {
         <p className={`${styles.orderData} text text_type_main-default`}>
           # {order.number}
         </p>
-        <FormattedDate date={new Date(orderData.createdAt)} className={`${styles.orderData} text text_type_main-default text_color_inactive`}/>
-
+       
+        <FormattedDate
+          date={new Date(orderData.createdAt)}
+          className={`${styles.orderData} text text_type_main-default text_color_inactive`}
+        />
       </div>
-
+        {checkStatusForProfile(location.pathname, orderData)}
       <h3 className={`${styles.title} text text_type_main-medium`}>
         {order.name}
       </h3>

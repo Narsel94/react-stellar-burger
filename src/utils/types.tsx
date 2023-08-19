@@ -42,7 +42,7 @@ export type TModalPropsT = {
   onClose: () => void;
 };
 
-export type TModalProps = PropsWithChildren<TModalPropsT>
+export type TModalProps = PropsWithChildren<TModalPropsT>;
 
 export type TOverlayProps = {
   onClose: () => void;
@@ -125,7 +125,7 @@ export type TGetIngredientsData = {
   data: TIngredient[];
 };
 
-// тип ответа сервера обновления токена  
+// тип ответа сервера обновления токена
 
 export type TRefreshTokenRes = {
   success: boolean;
@@ -150,15 +150,14 @@ export type TLoginResponse = {
 
 export type TRegistrResponse = TLoginResponse;
 
-export type TGetUserData = Omit<TLoginResponse, "accessToken" | "refreshToken">
+export type TGetUserData = Omit<TLoginResponse, "accessToken" | "refreshToken">;
 
 export type TOwnerResponse = {
   createdAt: string;
   email: string;
   name: string;
   updatedAt: string;
-  
-}
+};
 
 export type TOrderResponse = {
   createdAt: string;
@@ -170,38 +169,36 @@ export type TOrderResponse = {
   status: string;
   updatedAt: string;
   _id: string;
-}
+};
 
 export type TPostOrderResponse = {
   success: boolean;
   name: string;
-  order: TOrderResponse
-}
-
+  order: TOrderResponse;
+};
 
 export type TFeedCard = {
-  order: TOrder
-}
+  order: TOrder;
+};
 
 export type TFeedIngredientsDetails = {
   id: string;
-  count: number
-}
+  count: number;
+};
 
 export type TFeedIngredient = {
   id: string;
   index: number;
-  length: number
-}
-
+  length: number;
+};
 
 export type WebSocketOrdersState = {
   orders: TOrder[];
-  userOrders?:  TOrder[] | undefined;
+  userOrders: TOrder[];
   total: number | undefined;
   totalToday: number | undefined;
-  isConected:boolean;
-}  
+  isConected: boolean;
+};
 
 export type WebSocketActions = {
   onClose: string;
@@ -209,18 +206,15 @@ export type WebSocketActions = {
   onMessage: string;
   onOpen: string;
   wsInit: string;
-}
+  onUserMessage: string;
+};
 
-
-
-export type TOrder = { 
+export type TOrder = {
   _id: string;
   ingredients: string[];
   status: string | "pending" | "done";
   name: string;
   createdAt: string;
-  updatedAt:string;
+  updatedAt: string;
   number: number;
-}
-
-
+};

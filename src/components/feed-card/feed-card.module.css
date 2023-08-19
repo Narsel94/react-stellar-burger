@@ -58,3 +58,10 @@
 }
 
 
+.rejectStatus {
+  color: rgb(180, 45, 45);
+}
+
+.compleateStatus {
+  color: aqua;
+}

@@ -4,7 +4,7 @@ import { TOrder, WebSocketOrdersState } from "../utils/types";
 
 const initialState:WebSocketOrdersState = {
   orders: [],
-  // userOrders: undefined,
+  userOrders: [],
   total: undefined,
   totalToday: undefined,
   isConected: false,
@@ -35,7 +35,18 @@ const webSocketSlice = createSlice({
       state.orders = orders;
       state.total = total;
       state.totalToday = totalToday;
+    },
+    //
+    wsGetUserOrders(state, action:PayloadAction<{
+      orders:TOrder[],
+      total: number,
+      totalToday: number
+    }>) {
+      const { orders } = action.payload;
+      state.userOrders = orders;
     }
+
+    //
   }
 })
 
@@ -44,7 +55,10 @@ export const {
   wsConectionError,
   wsConnectionStart,
   wsConectionSuccess,
-  wsGetOrders
+  wsGetOrders,
+  //
+  wsGetUserOrders  
+  //
 } = webSocketSlice.actions;
 
 export const wsActions = {
@@ -53,6 +67,9 @@ export const wsActions = {
   onMessage: wsGetOrders.type,
   onOpen: wsConectionSuccess.type,
   wsInit: wsConnectionStart.type,
+  //
+  onUserMessage:wsGetUserOrders.type
+  //
 };
 
 export default webSocketSlice.reducer;
