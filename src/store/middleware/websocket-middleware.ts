@@ -6,7 +6,6 @@ import { getUser } from "../user-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
 
 export const socketMiddlewara = (
-  // wsUrl: string,
   wsActions: WebSocketActions
 ): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {

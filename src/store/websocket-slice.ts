@@ -36,7 +36,7 @@ const webSocketSlice = createSlice({
       state.total = total;
       state.totalToday = totalToday;
     },
-    //
+    // для добавления и отдельного хранения заказов пользователя
     wsGetUserOrders(state, action:PayloadAction<{
       orders:TOrder[],
       total: number,

@@ -200,14 +200,22 @@ export type WebSocketOrdersState = {
   isConected: boolean;
 };
 
+//типы экшенов 
+import { wsActions } from "../store/websocket-slice";
+
+const {onClose, onError, onMessage, onOpen, wsInit, onUserMessage} = wsActions
+
+//типы для мидлвары
 export type WebSocketActions = {
-  onClose: string;
-  onError: string;
-  onMessage: string;
-  onOpen: string;
-  wsInit: string;
-  onUserMessage: string;
+  onClose: typeof onClose
+  onError: typeof onError;
+  onMessage: typeof onMessage;
+  onOpen: typeof onOpen;
+  wsInit: typeof wsInit;
+  onUserMessage: typeof onUserMessage;
 };
+
+// заказа
 
 export type TOrder = {
   _id: string;

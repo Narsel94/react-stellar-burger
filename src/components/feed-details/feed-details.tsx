@@ -7,7 +7,7 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient, TOrder } from "../../utils/types";
+import { TOrder } from "../../utils/types";
 import { getCountOfdublicates } from "../../utils/functions";
 import FeedIngredientDetails from "./feed-ingredients-details/feed-ingredients-details";
 
@@ -18,6 +18,7 @@ const FeedDetails = () => {
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const location = useLocation();
 
+  //данные для того если заказ не был найден (неправильный ID)
   const initialOrder: TOrder = {
     _id: "",
     ingredients: [],

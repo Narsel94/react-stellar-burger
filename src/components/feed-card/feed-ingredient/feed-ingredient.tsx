@@ -1,8 +1,7 @@
-import React, { FC, JSXElementConstructor } from "react";
+import React, { FC } from "react";
 import { useAppSelector } from "../../../utils/hooks";
 import styles from "./feed-ingredient.module.css";
 import { TFeedIngredient } from "../../../utils/types";
-//
 const FeedIngredient: FC<TFeedIngredient> = ({ id, index, length }) => {
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const info = ingredients.find((item) => item._id === id);
@@ -29,7 +28,7 @@ const FeedIngredient: FC<TFeedIngredient> = ({ id, index, length }) => {
       )
     );
   }
-  return null
+  return null;
 };
 
 export default FeedIngredient;

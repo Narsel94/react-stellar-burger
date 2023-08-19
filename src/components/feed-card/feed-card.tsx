@@ -26,8 +26,6 @@ const FeedCard: FC<TFeedCard> = ({ order }) => {
 
   useEffect(() => {
     setOrderData(order);
-    console.log(location.pathname)
-    // return (setOrderData(initialOrderData))
   }, [order]);
 
   function checkStatusForProfile(pathname : string , orderData: TOrder  ) {
@@ -72,18 +70,18 @@ const FeedCard: FC<TFeedCard> = ({ order }) => {
       </h3>
       <div className={styles.infoBlock}>
         <ul className={styles.ingredientsList}>
-          {order.ingredients
+          {orderData.ingredients
             .slice(-7)
             .map((id, index) => (
               <FeedIngredient
                 id={id}
                 index={index}
-                length={order.ingredients.length}
+                length={orderData.ingredients.length}
                 key={uuidv4()}
               />
             ))
             .reverse()}
-          {order.ingredients.length > 7 && (
+          {orderData.ingredients.length > 7 && (
             <p className={`${styles.ellipsis} text text_type_main-medium`}>
               ...
             </p>
