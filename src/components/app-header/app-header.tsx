@@ -7,6 +7,7 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink, useMatch } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AppHeader: FC = () => {
   const activeLinkColor = {
@@ -16,6 +17,7 @@ const AppHeader: FC = () => {
   const matchHome = useMatch("/");
   const matchFeed = useMatch("/feed");
   const matchProfile = useMatch("/profile");
+  const navigate = useNavigate();
 
   return (
     <header className={`${styles.header} pt-4 pb-4`}>
@@ -40,7 +42,7 @@ const AppHeader: FC = () => {
             </NavLink>
           </nav>
         </li>
-        <li className={styles.listItemLogo}>
+        <li className={styles.listItemLogo} onClick={()=> navigate('/')}>
           <Logo />
         </li>
         <li>

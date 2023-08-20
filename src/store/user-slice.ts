@@ -1,4 +1,9 @@
-import { AnyAction, ThunkDispatch, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  ThunkDispatch,
+  createAsyncThunk,
+  createSlice,
+} from "@reduxjs/toolkit";
 import {
   registrationRequest,
   getUserRequest,
@@ -14,7 +19,7 @@ import {
   TLoginResponse,
   TRegistrResponse,
   TGetUserData,
-  TUser
+  TUser,
 } from "../utils/types";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -59,30 +64,40 @@ export const registrateUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (loginData: TLoginData, { dispatch }) => {
-    loginRequest(loginData)
-      .then((res: TLoginResponse) => {
-        if (res.success) {
-          localStorage.setItem("accesToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-          dispatch(setUser(res.user));
-        } else {
-          return Promise.reject(`Ошибка дынных с сервера`);
-        }
-      })
-      .catch((err: Error) => {
-        console.log(err);
-      })
-      .finally(() => {
-        dispatch(setAuthChecked(true));
-      });
+  async (loginData: TLoginData) => {
+    const response = await loginRequest(loginData)
+    return (response as TLoginResponse)
   }
-);
+
+)
+
+// export const loginUser = createAsyncThunk(
+//   "user/loginUser",
+//   async (loginData: TLoginData, { dispatch, rejectWithValue }) => {
+//     loginRequest(loginData)
+//       .then((res: TLoginResponse) => {
+//         if (res.success) {
+//           localStorage.setItem("accesToken", res.accessToken);
+//           localStorage.setItem("refreshToken", res.refreshToken);
+//           dispatch(setUser(res.user));
+//         } else {
+//           rejectWithValue("Пользователь не найден");
+//           return Promise.reject(`Ошибка дынных с сервера`);
+//         }
+//       })
+//       .catch((err: Error) => {
+//         console.log(err);
+//       })
+//       .finally(() => {
+//         dispatch(setAuthChecked(true));
+//       });
+//   }
+// );
 
 export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { dispatch }) => {
-    const userData:TGetUserData = await getUserRequest();
+    const userData: TGetUserData = await getUserRequest();
     if (userData.success) {
       dispatch(setUser(userData.user));
     }
@@ -91,7 +106,7 @@ export const getUser = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch:ThunkDispatch<RootState, unknown, AnyAction>) => {
+  return (dispatch: ThunkDispatch<RootState, unknown, AnyAction>) => {
     if (localStorage.getItem("accesToken")) {
       dispatch(getUser())
         .catch((error: Error) => {
@@ -110,18 +125,33 @@ export const checkUserAuth = () => {
 const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
+  error: true,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, actions:PayloadAction<TUser | null>) {
+    setUser(state, actions: PayloadAction<TUser | null>) {
       state.user = actions.payload;
     },
-    setAuthChecked(state, actions:PayloadAction<boolean>) {
+    setAuthChecked(state, actions: PayloadAction<boolean>) {
       state.isAuthChecked = actions.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.fulfilled, (state, action) => {
+        localStorage.setItem("accesToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
+        state.error = false;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.error = true
+        console.log(action.error.message)
+      });
   },
 });
 

@@ -80,6 +80,7 @@ export type TUser = {
 export type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
+  error: boolean;
 };
 
 //стейт ингредиетов

@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useMemo } from "react";
+import React, { CSSProperties, useState, useMemo, useEffect } from "react";
 import styles from "./feed-details.module.css";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../utils/hooks";
@@ -10,6 +10,12 @@ import {
 import { TOrder } from "../../utils/types";
 import { getCountOfdublicates } from "../../utils/functions";
 import FeedIngredientDetails from "./feed-ingredients-details/feed-ingredients-details";
+import {
+  wsConectionClose,
+  wsConnectionStart,
+} from "../../store/websocket-slice";
+import { WSS_FOR_USER_ORDERS } from "../../utils/constants";
+import { useAppDispatch } from "../../utils/hooks";
 
 const FeedDetails = () => {
   const orders = useAppSelector((state) => state.websocket.orders);
@@ -17,6 +23,9 @@ const FeedDetails = () => {
   const allArders = orders.concat(useOrders);
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  let { id } = useParams();
+
 
   //данные для того если заказ не был найден (неправильный ID)
   const initialOrder: TOrder = {
@@ -37,13 +46,16 @@ const FeedDetails = () => {
     textAlign: "center",
   };
 
-  let { id } = useParams();
+  
 
   useMemo(() => {
+    
     if (allArders.length !== 0 && ingredients.length !== 0) {
       const order = allArders.find((item) => item._id === id);
+      
       if (order) {
         setOrder(order);
+        
         const allIngreients = order.ingredients.map((id) => {
           return ingredients.find((item) => item._id === id);
         });
@@ -54,7 +66,7 @@ const FeedDetails = () => {
         setTotal(totalPrice);
       }
     }
-  }, [id, orders, ingredients]);
+  }, [id, orders, useOrders ,ingredients]);
 
   const date = new Date(order.createdAt);
   const igredientsObjOfIdCount = getCountOfdublicates(order.ingredients);

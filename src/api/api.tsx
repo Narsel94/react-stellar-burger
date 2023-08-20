@@ -12,7 +12,7 @@ export const config = {
   headers: { "Content-Type": "application/json" },
 };
 
-const responseStatus = (res: any) => {
+const responseStatus = (res: Response) => {
   if (res.ok) {
     return res.json();
   }

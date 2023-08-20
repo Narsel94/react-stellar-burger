@@ -4,7 +4,7 @@ import  modalReducer  from "./modal-slice";
 import consctructorReducer from "./consctructor-slice";
 import userReducer from "./user-slice";
 import websockerReducer from "./websocket-slice";
-import { socketMiddlewara } from "./middleware/websocket-middleware";
+import { socketMiddleware } from "./middleware/websocket-middleware";
 import { wsActions } from "./websocket-slice";
 
 const store = configureStore({
@@ -15,7 +15,7 @@ const store = configureStore({
     user: userReducer,
     websocket: websockerReducer
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddlewara(wsActions)),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(socketMiddleware(wsActions)),
 });
 export default store;
 export type RootState = ReturnType<typeof store.getState>;

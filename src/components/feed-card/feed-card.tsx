@@ -3,7 +3,6 @@ import styles from "./feed-card.module.css";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import FeedIngredient from "./feed-ingredient/feed-ingredient";
 import { useAppSelector } from "../../utils/hooks";
-import { v4 as uuidv4 } from "uuid";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TFeedCard, TOrder } from "../../utils/types";
 import { useLocation } from "react-router-dom";
@@ -77,7 +76,7 @@ const FeedCard: FC<TFeedCard> = ({ order }) => {
                 id={id}
                 index={index}
                 length={orderData.ingredients.length}
-                key={uuidv4()}
+                key={`${id}${index}`}
               />
             ))
             .reverse()}

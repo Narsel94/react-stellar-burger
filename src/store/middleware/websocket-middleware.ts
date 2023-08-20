@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "../store";
 import { getUser } from "../user-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
 
-export const socketMiddlewara = (
+export const socketMiddleware = (
   wsActions: WebSocketActions
 ): Middleware => {
   return (store: MiddlewareAPI<AppDispatch, RootState>) => {
