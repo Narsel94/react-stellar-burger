@@ -4,7 +4,10 @@ import FeedCard from "../../components/feed-card/feed-card";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
-import { wsConnectionStart, wsConectionClose } from "../../store/websocket-slice";
+import {
+  wsConnectionStart,
+  wsConectionClose,
+} from "../../store/websocket-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
 
 const Feeds = () => {

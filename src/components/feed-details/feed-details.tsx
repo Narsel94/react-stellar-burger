@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState, useMemo, useEffect } from "react";
 import styles from "./feed-details.module.css";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { useLocation } from "react-router-dom";
 import {
   CurrencyIcon,
@@ -10,12 +10,11 @@ import {
 import { TOrder } from "../../utils/types";
 import { getCountOfdublicates } from "../../utils/functions";
 import FeedIngredientDetails from "./feed-ingredients-details/feed-ingredients-details";
-import {
-  wsConectionClose,
-  wsConnectionStart,
-} from "../../store/websocket-slice";
 import { WSS_FOR_USER_ORDERS } from "../../utils/constants";
-import { useAppDispatch } from "../../utils/hooks";
+import {
+  wsConnectionStart,
+  wsConectionClose,
+} from "../../store/websocket-slice";
 
 const FeedDetails = () => {
   const orders = useAppSelector((state) => state.websocket.orders);
@@ -23,9 +22,8 @@ const FeedDetails = () => {
   const allArders = orders.concat(useOrders);
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
   const location = useLocation();
-  const dispatch = useAppDispatch();
   let { id } = useParams();
-
+  const dispatch = useAppDispatch();
 
   //данные для того если заказ не был найден (неправильный ID)
   const initialOrder: TOrder = {
@@ -46,16 +44,25 @@ const FeedDetails = () => {
     textAlign: "center",
   };
 
-  
+  useEffect(() => {
+    if (location.pathname === `/profile/orders/${id}`) {
+      const token = localStorage.getItem("accesToken")?.replace("Bearer ", "");
+      if (token) {
+        dispatch(wsConnectionStart(`${WSS_FOR_USER_ORDERS}${token}`));
+        return () => {
+          dispatch(wsConectionClose());
+        };
+      }
+    }
+  }, []);
 
   useMemo(() => {
-    
     if (allArders.length !== 0 && ingredients.length !== 0) {
       const order = allArders.find((item) => item._id === id);
-      
+
       if (order) {
         setOrder(order);
-        
+
         const allIngreients = order.ingredients.map((id) => {
           return ingredients.find((item) => item._id === id);
         });
@@ -66,7 +73,7 @@ const FeedDetails = () => {
         setTotal(totalPrice);
       }
     }
-  }, [id, orders, useOrders ,ingredients]);
+  }, [id, orders, useOrders, ingredients]);
 
   const date = new Date(order.createdAt);
   const igredientsObjOfIdCount = getCountOfdublicates(order.ingredients);

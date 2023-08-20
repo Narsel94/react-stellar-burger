@@ -6,9 +6,10 @@ import { TProtectedRouteProps, TAuthProps } from "../../utils/types";
 import { setAuthChecked } from "../../store/user-slice";
 import { checkUserAuth } from "../../store/user-slice";
 
-const ProtectedRoute:FC<TProtectedRouteProps> = ({ onlyUnAuth = false, component }) => {
-
-  
+const ProtectedRoute: FC<TProtectedRouteProps> = ({
+  onlyUnAuth = false,
+  component,
+}) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -36,9 +37,9 @@ const ProtectedRoute:FC<TProtectedRouteProps> = ({ onlyUnAuth = false, component
   return component;
 };
 
-export const OnlyAuth:FC<TAuthProps> = ({component}) => (
+export const OnlyAuth: FC<TAuthProps> = ({ component }) => (
   <ProtectedRoute onlyUnAuth={false} component={component} />
 );
-export const OnlyUnAuth:FC<TAuthProps> = ({component}) => (
+export const OnlyUnAuth: FC<TAuthProps> = ({ component }) => (
   <ProtectedRoute onlyUnAuth={true} component={component} />
 );

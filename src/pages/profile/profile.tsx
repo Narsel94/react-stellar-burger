@@ -6,7 +6,6 @@ import { logoutUser } from "../../store/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Profile() {
-
   const activeLinkColor = {
     color: "#fff",
   };
@@ -26,9 +25,7 @@ function Profile() {
           style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
           end
         >
-          <span className="text text_type_main-medium">
-            Профиль
-          </span>
+          <span className="text text_type_main-medium">Профиль</span>
         </NavLink>
         <NavLink
           to="/profile/orders"
@@ -36,9 +33,7 @@ function Profile() {
           style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
           end
         >
-          <span className="text text_type_main-medium">
-            История заказов
-          </span>
+          <span className="text text_type_main-medium">История заказов</span>
         </NavLink>
         <Button
           htmlType="button"

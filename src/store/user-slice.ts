@@ -20,6 +20,7 @@ import {
   TRegistrResponse,
   TGetUserData,
   TUser,
+  TPatchUserDataResponse,
 } from "../utils/types";
 import { RootState } from "./store";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -34,16 +35,14 @@ export const logoutUser = createAsyncThunk(
       localStorage.removeItem("refreshToken");
       dispatch(setAuthChecked(false));
     }
+    return logoutData;
   }
 );
 
 export const patchUserData = createAsyncThunk(
   "user/patchUser",
   async (userData: TPatchUserData, { dispatch }) => {
-    const newData = await patchUser(userData);
-    if (newData.success) {
-      dispatch(setUser(newData.user));
-    }
+    const newData: TPatchUserDataResponse = await patchUser(userData);
     return newData;
   }
 );
@@ -52,12 +51,12 @@ export const registrateUser = createAsyncThunk(
   "user/redistrateUser",
   async (formData: TRegisterData, { dispatch }) => {
     const data: TRegistrResponse = await registrationRequest(formData);
-    if (data.success) {
-      dispatch(setUser(data.user));
-      localStorage.setItem("accesToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      dispatch(setAuthChecked(true));
-    }
+    // if (data.success) {
+    //   dispatch(setUser(data.user));
+    //   localStorage.setItem("accesToken", data.accessToken);
+    //   localStorage.setItem("refreshToken", data.refreshToken);
+    //   dispatch(setAuthChecked(true));
+    // }
     return data;
   }
 );
@@ -65,11 +64,10 @@ export const registrateUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (loginData: TLoginData) => {
-    const response = await loginRequest(loginData)
-    return (response as TLoginResponse)
+    const response: TLoginResponse = await loginRequest(loginData);
+    return response;
   }
-
-)
+);
 
 // export const loginUser = createAsyncThunk(
 //   "user/loginUser",
@@ -98,9 +96,9 @@ export const getUser = createAsyncThunk(
   "user/getUser",
   async (_, { dispatch }) => {
     const userData: TGetUserData = await getUserRequest();
-    if (userData.success) {
-      dispatch(setUser(userData.user));
-    }
+    // if (userData.success) {
+    //   dispatch(setUser(userData.user));
+    // }
     return userData;
   }
 );
@@ -134,6 +132,7 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, actions: PayloadAction<TUser | null>) {
       state.user = actions.payload;
+      state.error = false;
     },
     setAuthChecked(state, actions: PayloadAction<boolean>) {
       state.isAuthChecked = actions.payload;
@@ -149,8 +148,34 @@ const userSlice = createSlice({
         state.error = false;
       })
       .addCase(loginUser.rejected, (state, action) => {
-        state.error = true
+        state.error = true;
+        console.log(action.error.message);
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user
+        state.error = false
+        
+      })
+      .addCase(getUser.rejected, (state, action) => {
+        state.error = true;
         console.log(action.error.message)
+        
+
+      })
+      .addCase(patchUserData.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.error = false;
+      })
+      .addCase(registrateUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
+        state.error = false;
+        localStorage.setItem("accesToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
+      })
+      .addCase(registrateUser.rejected, (state, action) => {
+        state.error = true;
+        console.log(action.error.message);
       });
   },
 });

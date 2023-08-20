@@ -149,6 +149,8 @@ export type TLoginResponse = {
   };
 };
 
+export type TPatchUserDataResponse = TGetUserData
+
 export type TRegistrResponse = TLoginResponse;
 
 export type TGetUserData = Omit<TLoginResponse, "accessToken" | "refreshToken">;
