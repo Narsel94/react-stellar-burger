@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
 import styles from "./reset-password.module.css";
 import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import {
@@ -10,6 +10,11 @@ import { passwordChangeRquest } from "../../api/api";
 import { TChangePasswordRequest } from "../../utils/types";
 
 function ResetPassword() {
+
+  useEffect(() => {
+    document.title = "Сброс пароля"
+  }, []);
+
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import styles from "./login.module.css";
 import {
   PasswordInput,
@@ -14,6 +14,10 @@ function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Логин"
+  },[])
 
   function onChangeEmail(e:ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);

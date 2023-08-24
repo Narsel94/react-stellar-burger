@@ -6,6 +6,7 @@ import { logoutUser } from "../../store/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Profile() {
+
   const activeLinkColor = {
     color: "#fff",
   };

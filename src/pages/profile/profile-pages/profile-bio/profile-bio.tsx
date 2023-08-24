@@ -8,17 +8,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { patchUserData } from "../../../../store/user-slice";
 import { useAppSelector, useAppDispatch } from "../../../../utils/hooks";
+import { userSelector } from "../../../../store/selectors/selectors";
 
 function ProfileBio() {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector(userSelector);
 
   const [formName, setFormName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formPassword, setFormPassword] = React.useState("");
 
   useEffect(() => {
+    document.title = "Профиль"
     setFormName(user!.name);
     setFormEmail(user!.email);
   }, []);
@@ -42,7 +44,6 @@ function ProfileBio() {
 
     const patchNewUserData = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      console.log(e);
       const newUserData = {
         email: formEmail,
         password: formPassword,

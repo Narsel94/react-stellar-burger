@@ -1,7 +1,7 @@
-import { configureStore, applyMiddleware, getDefaultMiddleware } from "@reduxjs/toolkit";
-import ingredientsReducer from "./ingredients-slice";
+import { configureStore } from "@reduxjs/toolkit";
+import ingredientsReducer from "./ingredients-slice/ingredients-slice";
 import  modalReducer  from "./modal-slice";
-import consctructorReducer from "./consctructor-slice";
+import consctructorReducer from "./constructor-slice/consctructor-slice";
 import userReducer from "./user-slice";
 import websockerReducer from "./websocket-slice";
 import { socketMiddleware } from "./middleware/websocket-middleware";

@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, ChangeEvent } from "react";
+import React, { FormEvent, useState, ChangeEvent, useEffect } from "react";
 import styles from "./forgote-password.module.css";
 import {
   Button,
@@ -10,6 +10,11 @@ import { postEmailForResetPassword } from "../../api/api";
 function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    document.title = "Забыли пароль?"
+  }, [])
+
 
   const onChange = (evt:ChangeEvent<HTMLInputElement>) => {
     setEmail(evt.target.value);

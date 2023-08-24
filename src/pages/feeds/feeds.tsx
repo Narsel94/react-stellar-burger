@@ -9,15 +9,18 @@ import {
   wsConectionClose,
 } from "../../store/websocket-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
+import { allWsStateSelector, allWsOrders } from "../../store/selectors/selectors";
 
 const Feeds = () => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.websocket);
+  const data = useAppSelector(allWsStateSelector);
+  const orders = useAppSelector(allWsOrders);
+
   const location = useLocation();
 
-  const orders = useAppSelector((state) => state.websocket.orders);
 
   useEffect(() => {
+    document.title = "Лента заказов"
     dispatch(wsConnectionStart(WSS_FOR_ORDERS));
     return () => {
       dispatch(wsConectionClose());

@@ -5,6 +5,7 @@ import {
   TRefreshTokenRes,
   TPatchUserData,
   TChangePasswordRequest,
+  TPostOrderResponse,
 } from "../utils/types";
 
 export const config = {
@@ -32,7 +33,7 @@ export function postOrder(order: string[]) {
       authorization: localStorage.getItem("accesToken"),
     },
     body: JSON.stringify({ ingredients: order }),
-  });
+  }).then((result:TPostOrderResponse) => result.order.number);
 }
 
 // запрос для получения ингредиентов

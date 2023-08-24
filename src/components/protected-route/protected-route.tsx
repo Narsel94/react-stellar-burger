@@ -6,6 +6,8 @@ import { TProtectedRouteProps, TAuthProps } from "../../utils/types";
 import { setAuthChecked } from "../../store/user-slice";
 import { checkUserAuth } from "../../store/user-slice";
 
+import { userSelector } from "../../store/selectors/selectors";
+
 const ProtectedRoute: FC<TProtectedRouteProps> = ({
   onlyUnAuth = false,
   component,
@@ -18,7 +20,7 @@ const ProtectedRoute: FC<TProtectedRouteProps> = ({
   }, [dispatch]);
 
   const isAuthChecked = useAppSelector((store) => store.user.isAuthChecked);
-  const user = useAppSelector((store) => store.user.user);
+  const user = useAppSelector(userSelector);
   const location = useLocation();
 
   if (!isAuthChecked) {

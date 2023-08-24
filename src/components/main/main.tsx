@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Section from "../section/section";
 import styles from "./main.module.css";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 export default function Main() {
+  useEffect(() => {
+    document.title = "Stellar Burger"
+  }, [])
+
   return (
     <main className={styles.main}>
       <Section>

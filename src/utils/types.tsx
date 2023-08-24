@@ -87,8 +87,6 @@ export type TUserState = {
 export type TIngredientState = {
   ingredients: TIngredient[];
   selectedIngredients: TSelectedIngredients;
-  draggedIngredient: TIngredientWithUuidId | null;
-  currentIngredient: TIngredient | null | unknown;
   status: string;
   error: string | undefined | null;
 };

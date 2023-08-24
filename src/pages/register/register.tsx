@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import styles from "./register.module.css";
 import {
   EmailInput,
@@ -17,6 +17,10 @@ function Register() {
   const [name, setName] = React.useState("name");
   const [password, setPassword] = React.useState("password");
   const [email, setEmail] = React.useState("email");
+
+  useEffect(()=>{
+    document.title = "Регистрация"
+  },[])
 
   const onChangeName = (e:ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

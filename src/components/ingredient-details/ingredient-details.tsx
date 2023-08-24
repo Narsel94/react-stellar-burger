@@ -1,12 +1,13 @@
-import React, { FC, useEffect } from "react";
+import React  from "react";
 import styles from "./igredient-details.module.css";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../utils/hooks";
 import { TIngredient } from "../../utils/types";
 import { useLocation } from "react-router-dom";
+import { allIngredientsSelector } from "../../store/selectors/selectors"; 
 
 const IngredientDetails = () => {
-  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
+  const ingredients = useAppSelector(allIngredientsSelector);
 
   const location = useLocation();
 
@@ -15,6 +16,7 @@ const IngredientDetails = () => {
   };
 
   let { id } = useParams();
+
   if (ingredients.length === 0) return null;
 
   const info = ingredients.find((item) => item._id === id) as TIngredient;

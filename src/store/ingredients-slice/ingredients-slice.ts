@@ -1,14 +1,17 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { getIngredientsData } from "../api/api";
-import {
-  TIngredient,
-  TIngredientState,
-  TIngredientWithUuidId,
-} from "../utils/types";
+import { getIngredientsData } from "../../api/api";
+import { TIngredientState, TIngredientWithUuidId } from "../../utils/types";
 
 export const fetchIngredientsData = createAsyncThunk(
   "ingredients/fetchIngredientsData",
   getIngredientsData
+);
+
+
+export const testAsynk = createAsyncThunk(
+  "ingredients/testAsynk",
+  getIngredientsData
+ 
 );
 
 const initialState: TIngredientState = {
@@ -17,8 +20,6 @@ const initialState: TIngredientState = {
     bun: null,
     filings: [],
   },
-  draggedIngredient: null,
-  currentIngredient: null,
   status: "",
   error: null,
 };
@@ -27,12 +28,6 @@ const ingredientsSlice = createSlice({
   name: "ingredients",
   initialState,
   reducers: {
-    setIngredientDetails(state, action: PayloadAction<TIngredient | unknown>) {
-      state.currentIngredient = action.payload;
-    },
-    clearIngredientDetails(state) {
-      state.currentIngredient = null;
-    },
     selectIngredients(state, action: PayloadAction<TIngredientWithUuidId>) {
       action.payload.type === "bun"
         ? (state.selectedIngredients.bun = action.payload)
@@ -49,10 +44,10 @@ const ingredientsSlice = createSlice({
     ) {
       state.selectedIngredients.filings = action.payload;
     },
-    deleteIngredient(state, action: PayloadAction<TIngredientWithUuidId>) {
+    deleteIngredient(state, action: PayloadAction<string>) {
       state.selectedIngredients.filings =
         state.selectedIngredients.filings.filter(
-          (item) => item.uuidId !== action.payload.uuidId
+          (item) => item.uuidId !== action.payload
         );
     },
     clearSelectedIngredients(state) {
@@ -71,14 +66,12 @@ const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredientsData.rejected, (state, action) => {
         state.status = "rejected";
-        state.error = action.error.message;
+        state.error = action.error.stack;
       });
   },
 });
 
 export const {
-  setIngredientDetails,
-  clearIngredientDetails,
   selectIngredients,
   deleteIngredient,
   updateConstuctorElements,

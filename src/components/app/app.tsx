@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./app.module.css";
 import Preloader from "../loader/loader";
-import { fetchIngredientsData } from "../../store/ingredients-slice";
+import { fetchIngredientsData } from "../../store/ingredients-slice/ingredients-slice";
 import NotFound from "../../pages/not-found/not-found";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Home from "../../pages/home";

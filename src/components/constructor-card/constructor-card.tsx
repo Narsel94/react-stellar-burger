@@ -1,7 +1,7 @@
 import React, { useRef, FC } from "react";
 import { XYCoord, useDrag, useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { deleteIngredient } from "../../store/ingredients-slice";
+import { deleteIngredient } from "../../store/ingredients-slice/ingredients-slice";
 import {
   ConstructorElement,
   DragIcon,
@@ -60,8 +60,8 @@ export const ConstructorCard: FC<TConstructorCardProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   dragRef(dropRef(ref));
 
-  function deleteConstructorIngredient(item: TIngredientWithUuidId) {
-    dispatch(deleteIngredient(item));
+  function deleteConstructorIngredient(uuidId:string) {
+    dispatch(deleteIngredient(uuidId));
   }
 
   const dragged = isDragging ? styles.dragged : "";
@@ -76,7 +76,7 @@ export const ConstructorCard: FC<TConstructorCardProps> = ({
         price={item.price}
         thumbnail={item.image_mobile}
         handleClose={() => {
-          deleteConstructorIngredient(item);
+          deleteConstructorIngredient(item.uuidId);
         }}
         extraClass={hovered}
       />

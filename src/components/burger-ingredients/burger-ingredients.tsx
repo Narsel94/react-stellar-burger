@@ -4,9 +4,10 @@ import IngredientsList from "../burger-ingredients-list/burger-ingredients-list"
 import { useInView } from "react-intersection-observer";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppSelector } from "../../utils/hooks";
+import { allIngredientsSelector } from "../../store/selectors/selectors";
 
 export default function BurgerIngredients() {
-  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
+  const ingredients = useAppSelector(allIngredientsSelector);
 
   const [current, setCurrent] = React.useState("buns");
 

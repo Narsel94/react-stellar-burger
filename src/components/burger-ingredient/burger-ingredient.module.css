@@ -35,3 +35,8 @@
   flex-direction: row;
   
 }
+
+.link {
+  text-decoration: none;
+  color: white;
+}

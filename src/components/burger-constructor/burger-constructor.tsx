@@ -6,8 +6,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   selectIngredients,
   updateConstuctorElements,
-} from "../../store/ingredients-slice";
-import { createPostRequest } from "../../store/consctructor-slice";
+} from "../../store/ingredients-slice/ingredients-slice";
+import { createPostRequest } from "../../store/constructor-slice/consctructor-slice";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { useNavigate } from "react-router-dom";

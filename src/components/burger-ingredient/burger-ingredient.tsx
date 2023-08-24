@@ -6,8 +6,11 @@ import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "../../utils/hooks";
 import { TBurgerIngredientProps } from "../../utils/types";
+import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
+  const location = useLocation();
+
   const [{ isDrag }, dragRef] = useDrag({
     type: "constructor",
     item: { ...ingredient, uuidId: uuidv4() },
@@ -42,28 +45,35 @@ const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
   const dragged = isDrag ? styles.dragged : "";
 
   return (
-    <div
-      className={`${styles.card} ${dragged} text text_type_main-default pl-4 pr-4 `}
+    <Link
       key={ingredient._id}
-      ref={dragRef}
+      to={`/ingredients/${ingredient._id}`}
+      state={{ background: location }}
+      className={`${styles.link}`}
     >
-      {currentCount > 0 && (
-        <Counter
-          count={currentCount}
-          size="default"
-          extraClass={`${styles.counter} m-1`}
-        />
-      )}
+      <div
+        className={`${styles.card} ${dragged} text text_type_main-default pl-4 pr-4 `}
+        key={ingredient._id}
+        ref={dragRef}
+      >
+        {currentCount > 0 && (
+          <Counter
+            count={currentCount}
+            size="default"
+            extraClass={`${styles.counter} m-1`}
+          />
+        )}
 
-      <div className={styles.image}>{image}</div>
-      <div className={`${styles.priceBlock} mt-1 mb-1`}>
-        <p className="text text_type_digits-default">{ingredient.price}</p>
-        <CurrencyIcon type="primary" />
+        <div className={styles.image}>{image}</div>
+        <div className={`${styles.priceBlock} mt-1 mb-1`}>
+          <p className="text text_type_digits-default">{ingredient.price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p className={`${styles.text} text text_type_main-small`}>
+          {ingredient.name}
+        </p>
       </div>
-      <p className={`${styles.text} text text_type_main-small`}>
-        {ingredient.name}
-      </p>
-    </div>
+    </Link>
   );
 };
 
