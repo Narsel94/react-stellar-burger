@@ -12,6 +12,6 @@
 
 ## Tech Stack
 
-![React](https://media.tproger.ru/uploads/2016/10/reactmini.png)&nbsp;
+![React](https://img.icons8.com/?size=1x&id=bzf0DqjXFHIW&format=png) REACT JS &nbsp;
 ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)&nbsp;
 ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)&nbsp;
