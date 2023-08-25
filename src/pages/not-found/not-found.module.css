@@ -1,0 +1,18 @@
+.page {
+  max-width: 1280px;
+  min-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5vh;
+  gap: 20px;
+}
+
+.shadow {
+  text-shadow:0 0 18px rgba(51,51,255,.25), 0 -4px 20px rgba(51,51,255,.25), 0 8px 32px rgba(51,51,255,.5);
+} 
+
+.link {
+  text-decoration: none;
+}

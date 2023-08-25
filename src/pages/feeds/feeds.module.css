@@ -1,0 +1,147 @@
+main {
+  width: 1280px;
+  min-height: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.section,
+.info {
+  width: 50%;
+  height: 90%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 680px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 8px;
+}
+
+
+.section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.section::-webkit-scrollbar-thumb {
+  background-color: rgba(133, 133, 173, 1);
+  width: 6px;
+  border-radius: 2px;
+  height: 20px;
+}
+
+.section::-webkit-scrollbar-track {
+  background-color: rgba(47, 47, 55, 1);
+}
+
+
+.orders {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.ordersRedyInfo {
+  width: 50%;
+  max-height: 206px;
+}
+
+.ordersList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: flex-start;
+  max-height: 220px;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.ordersList::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ordersList::-webkit-scrollbar-thumb {
+  background-color: rgba(133, 133, 173, 1);
+  height: 6px;
+  border-radius: 3px;
+}
+
+.ordersList::-webkit-scrollbar-track {
+  background-color: rgba(47, 47, 55, 1);
+}
+
+.orderNumber {
+  color: aqua;
+  max-width: fit-content;
+}
+
+.orderNumberCreated {
+  max-width: fit-content;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.totalInfo {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.span {
+  text-shadow: 0 0 18px rgba(51, 51, 255, 0.25),
+    0 -4px 20px rgba(51, 51, 255, 0.25), 0 8px 32px rgba(51, 51, 255, 0.5);
+}
+
+
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+
+@media screen and (max-width: 1279px) {
+  .main {
+    padding: 10px;
+    margin-top: 10px;
+    max-width: min-content;
+    min-height: min-content;
+  }
+
+  .ordersRedyInfo {
+    min-width: 100%;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .page {
+    flex-direction: column;
+    gap: 60px;
+    margin: 0 auto;
+  }
+  
+  .section {
+    min-height: 560px;
+    width: 100%;
+  }
+}

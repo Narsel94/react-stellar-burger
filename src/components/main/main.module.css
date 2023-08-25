@@ -10,6 +10,8 @@
 
 @media screen and (max-width: 1279px) {
   .main {
+    max-width: min-content;
+
     flex-direction: column;
     gap: 30px;
     height: auto;
