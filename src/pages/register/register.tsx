@@ -8,7 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registrateUser } from "../../store/user-slice";
+import { registrateUser } from "../../store/user-slice/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Register() {

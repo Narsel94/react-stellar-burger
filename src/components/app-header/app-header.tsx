@@ -20,7 +20,7 @@ const AppHeader: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <header className={`${styles.header} pt-4 pb-4`}>
+    <header data-testid='headerTest' className={`${styles.header} pt-4 pb-4`}>
       <ul className={styles.headerList}>
         <li>
           <nav className={styles.linkGroup}>

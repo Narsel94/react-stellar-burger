@@ -10,7 +10,7 @@ export default function Main() {
   }, [])
 
   return (
-    <main className={styles.main}>
+    <main data-testid='mainPage' className={styles.main}>
       <Section>
         <h1 className="text text_type_main-large mt-10 mb-5">
           Соберите бургер

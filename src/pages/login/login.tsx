@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../store/user-slice";
+import { loginUser } from "../../store/user-slice/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Login() {
@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Логин"
+    document.title = "Вход"
   },[])
 
   function onChangeEmail(e:ChangeEvent<HTMLInputElement>) {
@@ -38,7 +38,7 @@ function Login() {
 
   return (
     <section className={styles.page}>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form data-testid='loginForm' className={styles.form} onSubmit={onSubmitHandler}>
         <h1 className={`${styles.tilte} text text_type_main-medium mt-4`}>
           Вход
         </h1>

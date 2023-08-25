@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import {
   wsConnectionStart,
   wsConectionClose,
-} from "../../store/websocket-slice";
+} from "../../store/websocket-slice/websocket-slice";
 import { WSS_FOR_ORDERS } from "../../utils/constants";
 import { allWsStateSelector, allWsOrders } from "../../store/selectors/selectors";
 

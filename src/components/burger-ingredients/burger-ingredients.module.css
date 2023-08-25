@@ -38,5 +38,10 @@
 @media screen and (max-width: 1279px) {
   .section {
     max-height: 350px;
+    max-width: 100%;
   }
+  .wrapper {
+    overflow-x: hidden;
+  }
+
 }

@@ -1,54 +1,65 @@
 import { createSlice, PayloadAction, createAction } from "@reduxjs/toolkit";
-import { TOrder, WebSocketOrdersState } from "../utils/types";
+import { TOrder, WebSocketOrdersState } from "../../utils/types";
 
-
-const initialState:WebSocketOrdersState = {
+const initialState: WebSocketOrdersState = {
   orders: [],
   userOrders: [],
   total: undefined,
   totalToday: undefined,
   isConected: false,
-}
+};
 
 const webSocketSlice = createSlice({
   name: "webSocket",
   initialState,
   reducers: {
     wsConectionClose(state) {
-      state = initialState;
+      state.orders = [];
+      state.userOrders = [];
+      state.total = undefined;
+      state.totalToday = undefined;
+      state.isConected = false;
     },
     wsConectionError(state) {
-      state.isConected = false
+      state.isConected = false;
     },
-    wsConnectionStart(state, _action: PayloadAction<string>) {
-      return undefined
+    wsConnectionStart(state, action: PayloadAction<string>) {
+      // console.log(action)
+      // console.log(state)
+      return undefined;
     },
     wsConectionSuccess(state) {
-      state.isConected = true
+      state.isConected = true;
     },
-    wsGetOrders(state, action:PayloadAction<{
-      orders:TOrder[],
-      total: number,
-      totalToday: number
-    }>) {
+    wsGetOrders(
+      state,
+      action: PayloadAction<{
+        orders: TOrder[];
+        total: number;
+        totalToday: number;
+      }>
+    ) {
       const { orders, total, totalToday } = action.payload;
       state.orders = orders;
       state.total = total;
       state.totalToday = totalToday;
     },
     // для добавления и отдельного хранения заказов пользователя
-    wsGetUserOrders(state, action:PayloadAction<{
-      orders:TOrder[],
-      total: number,
-      totalToday: number
-    }>) {
+    wsGetUserOrders(
+      state,
+      action: PayloadAction<{
+        orders: TOrder[];
+        total: number;
+        totalToday: number;
+      }>
+    ) {
       const { orders } = action.payload;
       state.userOrders = orders;
-    }
+    },
 
     //
-  }
-})
+  },
+});
 
 export const {
   wsConectionClose,
@@ -57,7 +68,7 @@ export const {
   wsConectionSuccess,
   wsGetOrders,
   //
-  wsGetUserOrders  
+  wsGetUserOrders,
   //
 } = webSocketSlice.actions;
 
@@ -68,7 +79,7 @@ export const wsActions = {
   onOpen: wsConectionSuccess.type,
   wsInit: wsConnectionStart.type,
   //
-  onUserMessage:wsGetUserOrders.type
+  onUserMessage: wsGetUserOrders.type,
   //
 };
 

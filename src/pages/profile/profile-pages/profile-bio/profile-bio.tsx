@@ -6,7 +6,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { patchUserData } from "../../../../store/user-slice";
+import { patchUserData } from "../../../../store/user-slice/user-slice";
 import { useAppSelector, useAppDispatch } from "../../../../utils/hooks";
 import { userSelector } from "../../../../store/selectors/selectors";
 

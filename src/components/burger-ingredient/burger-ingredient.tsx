@@ -8,9 +8,8 @@ import { useAppSelector } from "../../utils/hooks";
 import { TBurgerIngredientProps } from "../../utils/types";
 import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
+const BurgerIngredient: FC<TBurgerIngredientProps> = ({ ingredient }) => {
   const location = useLocation();
-
   const [{ isDrag }, dragRef] = useDrag({
     type: "constructor",
     item: { ...ingredient, uuidId: uuidv4() },
@@ -77,4 +76,4 @@ const BurgerIngredientT: FC<TBurgerIngredientProps> = ({ ingredient }) => {
   );
 };
 
-export default BurgerIngredientT;
+export default React.memo(BurgerIngredient);

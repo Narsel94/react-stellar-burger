@@ -1,10 +1,9 @@
-import { allIngredientsSelector, allWsStateSelector } from "./selectors";
+import { allIngredientsSelector, allWsStateSelector, allWsOrders, allUserOrders, userSelector } from "./selectors";
 
-describe("redux ingredients selector", () => {
-  it("shoud select ingredients from state object", () => {
-    const ingredients = {
-        ingredients: [
-          {
+
+const initialState = {
+  ingredients: {
+    ingredients: [{
             _id: "643d69a5c3f7b9001cfa093c",
             name: "Краторная булка N-200i",
             type: "bun",
@@ -19,29 +18,47 @@ describe("redux ingredients selector", () => {
             image_large:
               "https://code.s3.yandex.net/react/code/bun-02-large.png",
             __v: 0,
-          },
-        ],
-      }
+          }]
+  },
+  websocket: {
+    orders: [],
+    userOrders: []
+  },
+  user: {
+    user: {
+      email: '',
+      name: ''
+    }
+  }
+}
 
-  const result = allIngredientsSelector({ingredients});
-    expect(result).toEqual(ingredients.ingredients);
+describe("redux ingredients selector", () => {
+  it("shoud select ingredients from state object", () => {
+
+
+  const result = allIngredientsSelector(initialState);
+    expect(result).toEqual(initialState.ingredients.ingredients);
   });
+
+  it('shoud select wsData from state object', () => {
+    const result = allWsStateSelector(initialState)
+    expect(result).toEqual(initialState.websocket)
+  });
+
+  it('should select lateste orders from state object', ()=> {
+    const result = allWsOrders(initialState)
+    expect(result).toEqual(initialState.websocket.orders)
+  });
+
+  it('should select user orders from state object', ()=> {
+    const result = allUserOrders(initialState)
+    expect(result).toEqual(initialState.websocket.userOrders)
+  });
+  //если точно указать ожидаемое значение 
+  it('should select user data from state object', ()=> {
+    const result = userSelector(initialState)
+    expect(result).toEqual({email: '', name: ''})
+  });
+
 });
-
-// describe("websocket slice selector", () => {
-//   it("should select websoket state from state object", () => {
-
-//       const state = {
-//         websocket: {}
-//       }
- 
-//   })
-
-//   const result = allWsStateSelector({websocket});
-
-//   expect(result).toEqual(state)
-
-// })
-
-
 

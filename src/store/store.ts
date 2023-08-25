@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ingredientsReducer from "./ingredients-slice/ingredients-slice";
-import  modalReducer  from "./modal-slice";
+import  modalReducer  from "./modal-slice/modal-slice";
 import consctructorReducer from "./constructor-slice/consctructor-slice";
-import userReducer from "./user-slice";
-import websockerReducer from "./websocket-slice";
+import userReducer from "./user-slice/user-slice";
+import websockerReducer from "./websocket-slice/websocket-slice";
 import { socketMiddleware } from "./middleware/websocket-middleware";
-import { wsActions } from "./websocket-slice";
+import { wsActions } from "./websocket-slice/websocket-slice";
 
 const store = configureStore({
   reducer: {

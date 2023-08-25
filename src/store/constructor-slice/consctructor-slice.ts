@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { openOrderDetailsModal } from "../modal-slice";
+import { openOrderDetailsModal } from "../modal-slice/modal-slice";
 import { clearSelectedIngredients } from "../ingredients-slice/ingredients-slice";
 import { postOrder } from "../../api/api";
 import { TConstructorState } from "../../utils/types";

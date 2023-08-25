@@ -1,7 +1,7 @@
 import consctructorReducer, { createPostRequest } from "./consctructor-slice";
 import { postOrder } from "../../api/api";
 import { clearSelectedIngredients } from "../ingredients-slice/ingredients-slice";
-import { openOrderDetailsModal } from "../modal-slice";
+import { openOrderDetailsModal } from "../modal-slice/modal-slice";
 
 jest.mock("../../api/api");
 
@@ -54,7 +54,7 @@ describe("ConstructorSlice", () => {
     });
   });
 
-  describe("createPostRequest", () => {
+  describe("createPostRequest thunk", () => {
     it("should createPostRequest with resolve response", async () => {
       postOrder.mockResolvedValue(123);
       const dispatch = jest.fn();
@@ -76,7 +76,6 @@ describe("ConstructorSlice", () => {
       const thunk = createPostRequest();
       await thunk(dispatch, () => ({}));
       const { calls } = dispatch.mock;
-      console.log(calls);
       expect(calls).toHaveLength(3);
       const [start, openModal, end] = calls;
       expect(start[0].type).toBe(createPostRequest.pending().type);

@@ -76,7 +76,7 @@ const BurgerConstructor: FC = () => {
 
   if (!bun) {
     return (
-      <div className={`${isHovered}`} ref={dropTarget}>
+      <div data-testid='constructor' className={`${isHovered}`} ref={dropTarget}>
         <div className={styles.mainElement}>
           <h2 className="text text_type_main-medium mt-5 ml-2">
             Пожалуйста, прежде всего добавьте булку...
@@ -98,7 +98,7 @@ const BurgerConstructor: FC = () => {
     );
   } else {
     return (
-      <div className={isHovered} ref={dropTarget}>
+      <div data-testid='constructor' className={isHovered} ref={dropTarget}>
         <div className={`${styles.topLock} pr-6`}>
           <ConstructorElement
             text={`${bun.name} (верх)`}

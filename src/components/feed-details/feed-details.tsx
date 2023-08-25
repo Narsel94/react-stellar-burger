@@ -14,7 +14,7 @@ import { WSS_FOR_USER_ORDERS } from "../../utils/constants";
 import {
   wsConnectionStart,
   wsConectionClose,
-} from "../../store/websocket-slice";
+} from "../../store/websocket-slice/websocket-slice";
 
 const FeedDetails = () => {
   const orders = useAppSelector((state) => state.websocket.orders);
@@ -44,17 +44,17 @@ const FeedDetails = () => {
     textAlign: "center",
   };
 
-  useEffect(() => {
-    if (location.pathname === `/profile/orders/${id}`) {
-      const token = localStorage.getItem("accesToken")?.replace("Bearer ", "");
-      if (token) {
-        dispatch(wsConnectionStart(`${WSS_FOR_USER_ORDERS}${token}`));
-        return () => {
-          dispatch(wsConectionClose());
-        };
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (location.pathname === `/profile/orders/${id}`) {
+  //     const token = localStorage.getItem("accesToken")?.replace("Bearer ", "");
+  //     if (token) {
+  //       dispatch(wsConnectionStart(`${WSS_FOR_USER_ORDERS}${token}`));
+  //       return () => {
+  //         dispatch(wsConectionClose());
+  //       };
+  //     }
+  //   }
+  // }, []);
 
   useMemo(() => {
     if (allArders.length !== 0 && ingredients.length !== 0) {

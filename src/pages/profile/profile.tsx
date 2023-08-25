@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./profile.module.css";
 import { NavLink, Outlet } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { logoutUser } from "../../store/user-slice";
+import { logoutUser } from "../../store/user-slice/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Profile() {

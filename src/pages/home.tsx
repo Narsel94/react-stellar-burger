@@ -3,7 +3,7 @@ import Modal from "../components/modal/modal";
 import { useAppSelector, useAppDispatch } from "../utils/hooks";
 
 
-import { closeModal } from "../store/modal-slice";
+import { closeModal } from "../store/modal-slice/modal-slice";
 import OrderDetails from "../components/order-details/order-details";
 
 export default function Home() {

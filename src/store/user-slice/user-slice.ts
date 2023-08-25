@@ -10,7 +10,7 @@ import {
   loginRequest,
   loqoutRequest,
   patchUser,
-} from "../api/api";
+} from "../../api/api";
 import {
   TUserState,
   TLoginData,
@@ -21,8 +21,8 @@ import {
   TGetUserData,
   TUser,
   TPatchUserDataResponse,
-} from "../utils/types";
-import { RootState } from "./store";
+} from "../../utils/types";
+import { RootState } from "../store";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 export const logoutUser = createAsyncThunk(
@@ -123,7 +123,7 @@ export const checkUserAuth = () => {
 const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
-  error: true,
+  error: false,
 };
 
 const userSlice = createSlice({
@@ -158,9 +158,8 @@ const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.error = true;
-        console.log(action.error.message)
         
-
+        console.log(action.error.message)
       })
       .addCase(patchUserData.fulfilled, (state, action) => {
         state.user = action.payload.user;

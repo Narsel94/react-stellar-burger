@@ -3,8 +3,8 @@ import React, { useEffect, FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { TProtectedRouteProps, TAuthProps } from "../../utils/types";
 
-import { setAuthChecked } from "../../store/user-slice";
-import { checkUserAuth } from "../../store/user-slice";
+import { setAuthChecked } from "../../store/user-slice/user-slice";
+import { checkUserAuth } from "../../store/user-slice/user-slice";
 
 import { userSelector } from "../../store/selectors/selectors";
 

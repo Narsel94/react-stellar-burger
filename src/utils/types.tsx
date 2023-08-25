@@ -94,8 +94,6 @@ export type TIngredientState = {
 // стейт модального окна
 export type TModalState = {
   isOrderModalOpen: boolean;
-  isIngredientModalOpen: boolean;
-  isModalOpen: boolean;
 };
 
 //ASync Types
@@ -202,7 +200,7 @@ export type WebSocketOrdersState = {
 };
 
 //типы экшенов 
-import { wsActions } from "../store/websocket-slice";
+import { wsActions } from "../store/websocket-slice/websocket-slice";
 
 const {onClose, onError, onMessage, onOpen, wsInit, onUserMessage} = wsActions
 

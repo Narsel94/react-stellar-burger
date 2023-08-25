@@ -32,7 +32,7 @@ export default function BurgerIngredients() {
   }, [bunsInView, saucesInView, mainInView]);
 
   return (
-    <div className={styles.section}>
+    <div data-testid='ingredients' className={styles.section}>
       <div className={styles.tab}>
         <Tab
           value="buns"
