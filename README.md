@@ -1,7 +1,7 @@
 # Учебный проект Stellar Burger 
 
 ## Описание 
-- Проект представляет собой приложение для формирования и заказа бургера.
+- Проект представляет собой приложение для формирования и заказа бургеров.
 - Сбор бургера осуществляется посредством Drag&Drop.
 - Реализованы функциональные страницы Конструкотора бургера, Ленты заказов и Личного кабинета, регистрации, авторизации, смены пароля. 
 - Реализован роутинг между страницами.
@@ -10,8 +10,16 @@
 - Реализована возможность просмотра детальной информации об ингредиентах и заказах в всплывающих модальных окнах.
 
 
+
+
 ## Tech Stack
 
-![React](https://img.icons8.com/?size=1x&id=bzf0DqjXFHIW&format=png) REACT JS &nbsp;
-![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)&nbsp;
-![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)&nbsp;
+![React](https://img.shields.io/badge/React-23272f?style=for-the-badge&logo=react)&nbsp;
+![Redux](https://img.shields.io/badge/Redux-23272f?style=for-the-badge&logo=redux&logoColor=764abc)&nbsp;
+![React Router](https://img.shields.io/badge/React%20Router-23272f?style=for-the-badge&logo=reactrouter)
+
+![ts](https://badgen.net/badge/Built%20With/TypeScript/blue)
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg?logo=jest)](https://github.com/jestjs/jest)
+
+
+

@@ -76,4 +76,4 @@ const BurgerIngredient: FC<TBurgerIngredientProps> = ({ ingredient }) => {
   );
 };
 
-export default React.memo(BurgerIngredient);
+export default BurgerIngredient;
