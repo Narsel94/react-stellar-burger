@@ -22,7 +22,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.4.2",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "homepage": "https://narsel94.github.io/react-stellar-burger/"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -44,7 +45,8 @@
     "test:cy": "cypress open",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+
   },
   "eslintConfig": {
     "extends": [
