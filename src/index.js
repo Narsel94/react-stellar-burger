@@ -7,18 +7,18 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 
-
+//поменял BrowserRouter на HashRouter
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
         <DndProvider backend={HTML5Backend}>
           <App />
         </DndProvider>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
