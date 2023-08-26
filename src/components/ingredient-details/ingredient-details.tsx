@@ -10,7 +10,6 @@ const IngredientDetails = () => {
   const ingredients = useAppSelector(allIngredientsSelector);
 
   const location = useLocation();
-
   const titleStyle = {
     margin: "0 auto",
   };

@@ -1,14 +1,12 @@
 import React, { useRef, FC } from "react";
-import { XYCoord, useDrag, useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDrag, useDrop } from "react-dnd";
 import { deleteIngredient } from "../../store/ingredients-slice/ingredients-slice";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-card.module.css";
-import PropTypes from "prop-types";
-import { TConstructorCardProps, TIngredientWithUuidId } from "../../utils/types";
+import { TConstructorCardProps } from "../../utils/types";
 import { useAppDispatch } from "../../utils/hooks";
 
 type DraggingItem = {
@@ -60,7 +58,7 @@ export const ConstructorCard: FC<TConstructorCardProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   dragRef(dropRef(ref));
 
-  function deleteConstructorIngredient(uuidId:string) {
+  function deleteConstructorIngredient(uuidId: string) {
     dispatch(deleteIngredient(uuidId));
   }
 
