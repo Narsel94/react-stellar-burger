@@ -16,18 +16,18 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.title = "Вход"
-  },[])
+    document.title = "Вход";
+  }, []);
 
-  function onChangeEmail(e:ChangeEvent<HTMLInputElement>) {
+  function onChangeEmail(e: ChangeEvent<HTMLInputElement>) {
     setEmail(e.target.value);
   }
 
-  function onChangePassword(e:ChangeEvent<HTMLInputElement>) {
+  function onChangePassword(e: ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  const onSubmitHandler = (e:FormEvent) => {
+  const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
     const loginData = {
       email: email,
@@ -38,7 +38,11 @@ function Login() {
 
   return (
     <section className={styles.page}>
-      <form data-testid='loginForm' className={styles.form} onSubmit={onSubmitHandler}>
+      <form
+        data-testid="loginForm"
+        className={styles.form}
+        onSubmit={onSubmitHandler}
+      >
         <h1 className={`${styles.tilte} text text_type_main-medium mt-4`}>
           Вход
         </h1>
@@ -57,7 +61,6 @@ function Login() {
           name={"password"}
           extraClass="mt-6"
           autoComplete="off"
-
         />
         <Button
           type="primary"

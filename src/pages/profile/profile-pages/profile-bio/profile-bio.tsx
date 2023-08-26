@@ -20,7 +20,7 @@ function ProfileBio() {
   const [formPassword, setFormPassword] = React.useState("");
 
   useEffect(() => {
-    document.title = "Профиль"
+    document.title = "Профиль";
     setFormName(user!.name);
     setFormEmail(user!.email);
   }, []);

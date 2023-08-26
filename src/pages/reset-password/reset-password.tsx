@@ -10,36 +10,36 @@ import { passwordChangeRquest } from "../../api/api";
 import { TChangePasswordRequest } from "../../utils/types";
 
 function ResetPassword() {
-
   useEffect(() => {
-    document.title = "Сброс пароля"
+    document.title = "Сброс пароля";
   }, []);
 
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
 
-  const onPassChange = (evt:ChangeEvent<HTMLInputElement>) => {
+  const onPassChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setPassword(evt.target.value);
   };
 
-  const onCodeChange = (evt:ChangeEvent<HTMLInputElement>) => {
+  const onCodeChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setCode(evt.target.value);
   };
 
-  const onSubmitHandler = (e:FormEvent) => {
+  const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
-    const data:TChangePasswordRequest = {
+    const data: TChangePasswordRequest = {
       password: password,
       token: code,
     };
     passwordChangeRquest(data)
-    .then((res) => {
-      if (res.success) {
-        navigate("/login", { replace: true });
-      }
-    }).catch((err)=>{
-      console.log(err)
-    });
+      .then((res) => {
+        if (res.success) {
+          navigate("/login", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const location = useLocation();
