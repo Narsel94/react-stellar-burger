@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
@@ -7,10 +6,13 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { BrowserRouter, HashRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 
-//поменял BrowserRouter на HashRouter
-ReactDOM.render(
+const container = document.getElementById("root") ;
+const root = createRoot(container as HTMLElement);
+
+root.render(
   <React.StrictMode>
     <HashRouter>
       <Provider store={store}>
@@ -19,8 +21,7 @@ ReactDOM.render(
         </DndProvider>
       </Provider>
     </HashRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

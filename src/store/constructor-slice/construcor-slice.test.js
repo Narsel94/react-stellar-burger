@@ -5,12 +5,6 @@ import { openOrderDetailsModal } from "../modal-slice/modal-slice";
 
 jest.mock("../../api/api");
 
-const initialState = {
-  order: null,
-  status: null,
-  error: null,
-};
-
 const testError = {
   name: "error",
   message: "for test",

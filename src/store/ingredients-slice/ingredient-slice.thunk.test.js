@@ -1,6 +1,8 @@
 import { fetchIngredientsData, testAsynk } from "./ingredients-slice";
 import { getIngredientsData } from "../../api/api";
 
+jest.mock("../../api/api");
+
 const testIngredient = {
   _id: "643d69a5c3f7b9001cfa0943",
   name: "Соус фирменный Space Sauce",
@@ -15,8 +17,6 @@ const testIngredient = {
   image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
   __v: 0,
 };
-
-jest.mock("../../api/api");
 
 describe("fetchIngredientsData", () => {
   it("should fetchIngredientsData with resolve response", async () => {

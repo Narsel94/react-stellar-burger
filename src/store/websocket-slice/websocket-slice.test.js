@@ -4,7 +4,6 @@ import websocketReducer, {
   wsConectionSuccess,
   wsGetOrders,
   wsGetUserOrders,
-  wsConnectionStart
 } from "./websocket-slice";
 
 const testOrder = {
@@ -20,14 +19,6 @@ const testOrder = {
   createdAt: "2023-08-24T15:20:03.148Z",
   updatedAt: "2023-08-24T15:20:03.348Z",
   number: 17617,
-};
-
-const initialState = {
-  orders: [],
-  userOrders: [],
-  total: undefined,
-  totalToday: undefined,
-  isConected: false,
 };
 
 describe("WebSocketSlice", () => {
@@ -108,7 +99,6 @@ describe("WebSocketSlice", () => {
     };
 
     const result = websocketReducer(state, action);
-    console.log(result);
     expect(result.userOrders).toEqual([testOrder, testOrder, testOrder]);
   });
 });

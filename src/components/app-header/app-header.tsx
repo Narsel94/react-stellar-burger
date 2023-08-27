@@ -15,7 +15,7 @@ const AppHeader: FC = () => {
   };
 
   const matchHome = useMatch("/");
-  const matchFeed = useMatch("/feed");
+  const matchFeed = useMatch("/feeds");
   const matchProfile = useMatch("/profile");
   const navigate = useNavigate();
 

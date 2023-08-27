@@ -31,7 +31,6 @@ function Profile() {
           to="/profile/orders"
           className={styles.navLink}
           style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
-          end
         >
           <span className="text text_type_main-medium">История заказов</span>
         </NavLink>

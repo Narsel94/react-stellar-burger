@@ -6,22 +6,6 @@ import ingredientsReducer, {
   fetchIngredientsData,
 } from "./ingredients-slice";
 
-const testAddBun = {
-  _id: "643d69a5c3f7b9001cfa093d",
-  name: "Флюоресцентная булка R2-D3",
-  type: "bun",
-  proteins: 44,
-  fat: 26,
-  carbohydrates: 85,
-  calories: 643,
-  price: 988,
-  image: "https://code.s3.yandex.net/react/code/bun-01.png",
-  image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
-  image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-  __v: 0,
-  uuidId: "f429ed59-7675-4162-bed8-907eea02f4e9",
-};
-
 const testIngredient = {
   _id: "643d69a5c3f7b9001cfa093d",
   name: "Флюоресцентная булка R2-D3",
@@ -37,20 +21,18 @@ const testIngredient = {
   __v: 0,
 };
 
+const testAddBun = {
+  ...testIngredient,
+  uuidId: "f429ed59-7675-4162-bed8-907eea02f4e9",
+};
+
 const secondBun = {
-  _id: "asdasdasd",
-  name: "Флюоресцентная asda",
-  type: "bun",
-  proteins: 424,
-  fat: 226,
+  ...testAddBun,
+  _id: "qweqweqw",
+  name: "Флюоресцентная",
   carbohydrates: 8225,
   calories: 62243,
   price: 98228,
-  image: "https://code.s3.yandex.net/react/code/bun-0122.png",
-  image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png123123",
-  image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png123123",
-  __v: 0,
-  uuidId: "f429ed59-7675-4162-bed8-907eea02f4e912312313",
 };
 
 const testAddFilings = {
@@ -69,33 +51,13 @@ const testAddFilings = {
   uuidId: "6e9c61f8-e404-4d68-806b-7490a97c3135",
 };
 
-const testDeletFiling = {
-  _id: "643d69a5c3f7b9001cfa0943",
-  name: "Соус фирменный Space Sauce",
-  type: "sauce",
-  proteins: 50,
-  fat: 22,
-  carbohydrates: 11,
-  calories: 14,
-  price: 80,
-  image: "https://code.s3.yandex.net/react/code/sauce-04.png",
-  image_mobile: "https://code.s3.yandex.net/react/code/sauce-04-mobile.png",
-  image_large: "https://code.s3.yandex.net/react/code/sauce-04-large.png",
-  __v: 0,
-  uuidId: "123asd",
-};
+const testDeletFiling = { ...testAddFilings, uuidId: "123asd" };
 
 describe("ingredientsSlice", () => {
   it('should add bun ingredient /state - undefinded/ with "selectIngredients" action', () => {
     const action = {
       type: selectIngredients.type,
       payload: testAddBun,
-    };
-    const testState = {
-      selectedIngredients: {
-        bun: null,
-        filings: [],
-      },
     };
     const result = ingredientsReducer(undefined, action);
     expect(result.selectedIngredients.bun).toBe(action.payload);
@@ -136,13 +98,7 @@ describe("ingredientsSlice", () => {
       type: selectIngredients.type,
       payload: testAddFilings,
     };
-    const testStateWithoutBun = {
-      selectedIngredients: {
-        bun: null,
-        filings: [],
-      },
-    };
-    const result = ingredientsReducer(testStateWithoutBun, action);
+    const result = ingredientsReducer(undefined, action);
     expect(result.selectedIngredients.filings.length).toBe(0);
   });
 
@@ -249,7 +205,6 @@ describe("ingredientsSlece/extraReducers", () => {
       undefined,
       fetchIngredientsData.fulfilled([testIngredient, testIngredient])
     );
-
     expect(state).toEqual({
       ingredients: [testIngredient, testIngredient],
       selectedIngredients: {
@@ -266,19 +221,18 @@ describe("ingredientsSlece/extraReducers", () => {
       error: null,
     };
     const testError = {
-      name: 'error',
-      message: 'for test',
-      stack: 'error for test'
-    }
-    
+      name: "error",
+      message: "for test",
+      stack: "error for test",
+    };
+
     const state = ingredientsReducer(
       initialState,
       fetchIngredientsData.rejected(testError)
     );
     expect(state).toEqual({
       status: "rejected",
-      error: 'error for test',
+      error: "error for test",
     });
   });
-
 });
