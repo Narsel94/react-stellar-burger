@@ -10,12 +10,11 @@ export default function BurgerIngredients() {
   const ingredients = useAppSelector(allIngredientsSelector);
 
   const [current, setCurrent] = React.useState("buns");
-
   const [bunsRef, bunsInView] = useInView({ threshold: 0.01 });
   const [mainRef, mainInView] = useInView({ threshold: 0 });
   const [saucesRef, saucesInView] = useInView({ threshold: 0.01 });
 
-  function handleClickTab(tab:string) {
+  function handleClickTab(tab: string) {
     setCurrent(tab);
     const ingredientList = document.getElementById(tab);
     if (ingredientList) ingredientList.scrollIntoView({ behavior: "smooth" });
@@ -32,7 +31,7 @@ export default function BurgerIngredients() {
   }, [bunsInView, saucesInView, mainInView]);
 
   return (
-    <div data-testid='ingredients' className={styles.section}>
+    <div data-testid="ingredients" className={styles.section}>
       <div className={styles.tab}>
         <Tab
           value="buns"

@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { FC } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import  Overlay  from "../overlay/overlay";

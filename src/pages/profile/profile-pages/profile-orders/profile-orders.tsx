@@ -3,7 +3,10 @@ import { useLocation, Link } from "react-router-dom";
 import FeedCard from "../../../../components/feed-card/feed-card";
 import styles from "./profile-orders.module.css";
 import { useAppSelector, useAppDispatch } from "../../../../utils/hooks";
-import { wsConnectionStart, wsConectionClose } from "../../../../store/websocket-slice/websocket-slice";
+import {
+  wsConnectionStart,
+  wsConectionClose,
+} from "../../../../store/websocket-slice/websocket-slice";
 import { WSS_FOR_USER_ORDERS } from "../../../../utils/constants";
 import { allUserOrders } from "../../../../store/selectors/selectors";
 
@@ -12,14 +15,14 @@ const ProfileOrders = () => {
 
   const location = useLocation();
   const dispatch = useAppDispatch();
- 
-  useEffect(() => { 
-    document.title = "История заказов"
+
+  useEffect(() => {
+    document.title = "История заказов";
     const token = localStorage.getItem("accesToken")?.replace("Bearer ", "");
     dispatch(wsConnectionStart(`${WSS_FOR_USER_ORDERS}${token}`));
     return () => {
-          dispatch(wsConectionClose());
-         };
+      dispatch(wsConectionClose());
+    };
   }, [dispatch]);
 
   return (

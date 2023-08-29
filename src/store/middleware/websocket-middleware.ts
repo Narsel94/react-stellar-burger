@@ -62,9 +62,7 @@ export const socketMiddleware = (
 
         ws.onclose = () => {
           dispatch({ type: onClose });
-          console.log(ws)
           ws = null;
-          
         };
       }
       next(action);

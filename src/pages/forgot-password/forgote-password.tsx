@@ -12,15 +12,14 @@ function ForgotPassword() {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    document.title = "Забыли пароль?"
-  }, [])
+    document.title = "Забыли пароль?";
+  }, []);
 
-
-  const onChange = (evt:ChangeEvent<HTMLInputElement>) => {
+  const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setEmail(evt.target.value);
   };
 
-  const onSubmitHandler = (e:FormEvent) => {
+  const onSubmitHandler = (e: FormEvent) => {
     e.preventDefault();
     postEmailForResetPassword(email).then((res) => {
       if (res.success) {
@@ -39,11 +38,7 @@ function ForgotPassword() {
           value={email}
           onChange={onChange}
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="medium"
-        >
+        <Button htmlType="submit" type="primary" size="medium">
           Восстановить
         </Button>
       </form>

@@ -6,7 +6,6 @@ import { logoutUser } from "../../store/user-slice/user-slice";
 import { useAppDispatch } from "../../utils/hooks";
 
 function Profile() {
-
   const activeLinkColor = {
     color: "#fff",
   };
@@ -32,7 +31,6 @@ function Profile() {
           to="/profile/orders"
           className={styles.navLink}
           style={({ isActive }) => (isActive ? activeLinkColor : undefined)}
-          end
         >
           <span className="text text_type_main-medium">История заказов</span>
         </NavLink>
